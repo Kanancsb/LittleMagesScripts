@@ -8,8 +8,11 @@ public class BasicSpell : MonoBehaviour
 
     public GameObject projectile;
 
+    public float CastCD = 3.0f;
+    private float lastCast;
+
     void Update(){
-        if(Input.GetMouseButtonDown(0)){
+        if(Input.GetMouseButtonDown(0) && Time.time - lastCast >= CastCD){
 
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = (mousePosition - SpellPosition.position).normalized;
@@ -17,6 +20,8 @@ public class BasicSpell : MonoBehaviour
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
             GameObject newProjectile = Instantiate(projectile, SpellPosition.position, Quaternion.AngleAxis(angle, Vector3.forward));
+
+            lastCast = Time.time;
         }
     }
 }
