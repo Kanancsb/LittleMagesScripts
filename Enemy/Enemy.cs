@@ -5,9 +5,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     
-    public int health = 100;
+    public float health = 100;
 
-    public void TakeDamage (int damage){
+    public void TakeDamage (float damage){
         health -= damage;
         if(health <= 0){
             Die();
