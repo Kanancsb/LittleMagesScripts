@@ -14,6 +14,8 @@ public class SummonEnemys : MonoBehaviour
     [SerializeField]
     public float EnemyTimer = 3.0f;
 
+    public List<GameObject> summonedEnemies = new List<GameObject>();
+
     int i = 0;
 
     void Start(){
@@ -26,6 +28,7 @@ public class SummonEnemys : MonoBehaviour
         yield return new WaitForSeconds(timer);
             GameObject newEnemy = Instantiate(enemy[i], GetRandomPositionNearSummoner(summonerPosition), Quaternion.identity);
             StartCoroutine(spawnEnemy(EnemyTimer, enemySummon, summonerPosition));
+            summonedEnemies.Add(newEnemy);
     }
 
     private Vector3 GetRandomPositionNearSummoner(Vector3 summonerPosition){

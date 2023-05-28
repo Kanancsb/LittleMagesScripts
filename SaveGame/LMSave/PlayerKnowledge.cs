@@ -11,10 +11,12 @@ public class PlayerKnowledge : MonoBehaviour
         LoadPlayer();
     }
 
+    // Save the player's data
     public void SavePlayer(){
         SaveSystem.SavePlayer(this);
     }
 
+    // Load the player's data
     public void LoadPlayer(){
         PlayerData data = SaveSystem.LoadPlayer();
 

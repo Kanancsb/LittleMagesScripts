@@ -10,8 +10,6 @@ public class Wave01 : MonoBehaviour
     [SerializeField]
     public float EnemyTimer = 3.0f; // Delay between enemy spawns
 
-    public GameObject Wave; // Reference to the wave object
-
     public GameObject UpgradeSkill; // Reference to the upgrade skill object
 
     int i = 0; // Index for tracking spawned enemies

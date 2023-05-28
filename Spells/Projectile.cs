@@ -16,6 +16,8 @@ public class Projectile : MonoBehaviour
         
         // Set the velocity of the projectile using the BasicSpell's projectileSpeed value
         rigidbody.velocity = transform.right * basicSpell.projectileSpeed;
+
+        StartCoroutine(ProjectileFade());
     }
 
     void OnTriggerEnter2D(Collider2D collision){
@@ -27,6 +29,11 @@ public class Projectile : MonoBehaviour
         }
         
         // Destroy the projectile object
+        Destroy(gameObject);
+    }
+
+    IEnumerator ProjectileFade(){
+        yield return new WaitForSeconds(5f);
         Destroy(gameObject);
     }
 }
