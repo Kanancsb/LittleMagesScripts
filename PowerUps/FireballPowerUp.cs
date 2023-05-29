@@ -21,6 +21,7 @@ public class FireballPowerUp : MonoBehaviour
     public Behaviour Movement;
     public Behaviour Spell;
 
+
     void FixedUpdate(){
         if(PowerUpHUD.activeInHierarchy){
             // Set the cursor visibility and lock state
@@ -89,6 +90,17 @@ public class FireballPowerUp : MonoBehaviour
         WavePBS.SetActive(true);
         
         // Enable the Movement and Spell behaviors
+        Movement.enabled = true;
+        Spell.enabled = true;
+    }
+
+    public void playerLifesteal(){
+
+        basicSpell.LifeSteal = basicSpell.LifeSteal + 0.1f;
+
+        PowerUpHUD.SetActive(false);
+        WavePBS.SetActive(true);
+        
         Movement.enabled = true;
         Spell.enabled = true;
     }

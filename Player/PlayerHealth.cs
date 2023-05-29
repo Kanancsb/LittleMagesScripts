@@ -19,9 +19,12 @@ public class PlayerHealth : MonoBehaviour
         healthBar.SetHealth(currentHealth);
     }
 
-    void Update(){
+    void FixedUpdate(){
         if(currentHealth <= 0){
             Destroy(gameObject);
+        }else if(currentHealth > 100){
+            currentHealth = maxHealth;
         }
+        healthBar.SetHealth(currentHealth);
     }
 }

@@ -7,9 +7,12 @@ public class EnemySpell : MonoBehaviour
     public GameObject player;
     private Rigidbody2D rigidbody;
 
+    public GameObject impacEffect;
+
     public int damage;
 
     public float Speed;
+
 
     void Start()
     {
@@ -37,12 +40,23 @@ public class EnemySpell : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the enemy spell collides with the player
-        if (other.gameObject.CompareTag("Player"))
-        {
+        if (other.gameObject.CompareTag("Player")){
             // Deal damage to the player
             other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
-
-            // Destroy the enemy spell
+            
+            GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
+            
+            Animator animator = impactInstance.GetComponent<Animator>();
+            if (animator != null){
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                float animationDuration = stateInfo.length;
+                
+                Destroy(impactInstance, animationDuration);
+            }
+            else{
+                Destroy(impactInstance);
+            }
+            
             Destroy(gameObject);
         }
     }

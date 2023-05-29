@@ -22,6 +22,8 @@ public class BasicSpell : MonoBehaviour
     // Time of the last spell cast
     private float lastCast;
 
+    public float LifeSteal;
+
     void Update(){
         // Check if the left mouse button is pressed and enough time has passed since the last cast
         if (Input.GetMouseButtonDown(0) && Time.time - lastCast >= CastCD){
