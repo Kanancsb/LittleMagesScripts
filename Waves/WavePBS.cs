@@ -18,12 +18,15 @@ public class WavePBS : MonoBehaviour
     private float spawnTimer;
 
     public GameObject UpgradeSkill;
+    public GameObject UpgradeWeapon;
+    public GameObject Wave01;
 
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     void Start()
     {
         UpgradeSkill.SetActive(false);
+        UpgradeWeapon.SetActive(false);
         GenerateWave();
     }
 
@@ -31,6 +34,8 @@ public class WavePBS : MonoBehaviour
     {
 
         if(UpgradeSkill.activeSelf){
+            return;
+        }else if(UpgradeWeapon.activeSelf){
             return;
         }
         if (spawnTimer <= 0)
@@ -65,9 +70,17 @@ public class WavePBS : MonoBehaviour
 
         if (waveTimer <= 0 && spawnedEnemies.Count <= 0)
         {
-            currWave++;
-            GenerateWave();
-            UpgradeSkill.SetActive(true);    
+            if(currWave == 4){
+                UpgradeWeapon.SetActive(true);
+                currWave++;
+                GenerateWave();
+            }else if(currWave == 9){
+                UpgradeWeapon.SetActive(true);
+            }else{
+                currWave++;
+                GenerateWave();
+                UpgradeSkill.SetActive(true);
+            }
         }
     }
 

@@ -24,7 +24,7 @@ public class FireWheelSpell : MonoBehaviour
 
     public float LifeSteal;
 
-    void Update(){
+    void FixedUpdate(){
         // Check if the left mouse button is pressed and enough time has passed since the last cast
         if (Input.GetMouseButtonDown(1) && Time.time - lastCast >= CastCD){
             // Calculate the direction from the spell position to the mouse position

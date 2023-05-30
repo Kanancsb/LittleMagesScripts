@@ -25,21 +25,23 @@ public class Projectile : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collision){
-        // Check if the collided object is an Enemy
-        Enemy enemy = collision.GetComponent<Enemy>();
-        if(enemy != null){
-            // Apply damage to the enemy using the BasicSpell's damage value
-            if(basicSpell.LifeSteal != 0){
-                float lifeStealAmout = basicSpell.damage * basicSpell.LifeSteal;
-                enemy.TakeDamage(basicSpell.damage);
-                CurrentHealth.currentHealth += lifeStealAmout;
-            }else{
-                enemy.TakeDamage(basicSpell.damage);
+
+        if (collision.CompareTag("EnemySpell") || collision.CompareTag("Enemy")){
+            Enemy enemy = collision.GetComponent<Enemy>();
+            if (enemy != null){
+                if (basicSpell.LifeSteal != 0){
+                    float lifeStealAmount = basicSpell.damage * basicSpell.LifeSteal;
+                    enemy.TakeDamage(basicSpell.damage);
+                    CurrentHealth.currentHealth += lifeStealAmount;
+                }else{
+                    enemy.TakeDamage(basicSpell.damage);
+                }
             }
+
+            Destroy(gameObject);
+        }else if(collision.gameObject.layer == LayerMask.NameToLayer("Bricks")){
+            Destroy(gameObject);
         }
-        
-        // Destroy the projectile object
-        Destroy(gameObject);
     }
 
     IEnumerator ProjectileFade(){
