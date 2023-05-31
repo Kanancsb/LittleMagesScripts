@@ -12,6 +12,8 @@ public class Projectile : MonoBehaviour
 
     public PlayerHealth CurrentHealth;
 
+    public GameObject impacEffect;
+
     void Start(){
         // Find the BasicSpell component in the scene
         basicSpell = FindObjectOfType<BasicSpell>();
@@ -33,8 +35,32 @@ public class Projectile : MonoBehaviour
                     float lifeStealAmount = basicSpell.damage * basicSpell.LifeSteal;
                     enemy.TakeDamage(basicSpell.damage);
                     CurrentHealth.currentHealth += lifeStealAmount;
+                    GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
+            
+                    Animator animator = impactInstance.GetComponent<Animator>();
+                    if (animator != null){
+                        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                        float animationDuration = stateInfo.length;
+                        
+                        Destroy(impactInstance, animationDuration);
+                    }
+                    else{
+                        Destroy(impactInstance);
+                    }
                 }else{
                     enemy.TakeDamage(basicSpell.damage);
+                    GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
+            
+                    Animator animator = impactInstance.GetComponent<Animator>();
+                    if (animator != null){
+                        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                        float animationDuration = stateInfo.length;
+                        
+                        Destroy(impactInstance, animationDuration);
+                    }
+                    else{
+                        Destroy(impactInstance);
+                    }
                 }
             }
 

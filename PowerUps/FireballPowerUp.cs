@@ -6,8 +6,8 @@ public class FireballPowerUp : MonoBehaviour
 {
     // Reference to the BasicSpell script
     public BasicSpell basicSpell;
-
     public FireWheelSpell fireWheelSpell;
+    public FireMissile fireMissile;
     
     // Reference to the PlayerMovement script
     public PlayerMovement playerMovement;
@@ -51,6 +51,8 @@ public class FireballPowerUp : MonoBehaviour
 
         basicSpell.LifeSteal = basicSpell.LifeSteal + 0.1f;
         fireWheelSpell.LifeSteal = fireWheelSpell.LifeSteal + 0.1f;
+        fireMissile.LifeSteal = fireMissile.LifeSteal + 0.1f;
+
 
         PowerUpHUD.SetActive(false);
     }
@@ -59,6 +61,14 @@ public class FireballPowerUp : MonoBehaviour
 
         fireWheelSpell.damage = fireWheelSpell.damage * 1.2f;
 
+        PowerUpHUD.SetActive(false);
+    }
+
+    public void FireWheelPowerUpCD(){
+        // Decrease the cast cooldown of the basic spell by 10%
+        fireWheelSpell.CastCD = fireWheelSpell.CastCD * 0.9f;
+        
+        // Deactivate the PowerUpHUD and Active WavePBS
         PowerUpHUD.SetActive(false);
     }
 }

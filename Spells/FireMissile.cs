@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireWheelSpell : MonoBehaviour
+public class FireMissile : MonoBehaviour
 {
     // Reference to the position where the spell will be cast from
     public Transform SpellPosition;
@@ -36,9 +36,8 @@ public class FireWheelSpell : MonoBehaviour
             Button = "E";
         }
     }
-    
 
-    void FixedUpdate(){
+    void Update(){
         // Check if the left mouse button is pressed and enough time has passed since the last cast
         if (Input.GetButtonDown(Button) && Time.time - lastCast >= CastCD){
             // Calculate the direction from the spell position to the mouse position
