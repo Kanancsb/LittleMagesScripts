@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
 
         if(Wavepbs01.currWave > 9){
             cont++;
+            WavePBS[0].SetActive(false);
         }
 
         if(PowerUpHUD.activeInHierarchy || WeaponPowerUpHUD.activeInHierarchy){

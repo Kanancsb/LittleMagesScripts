@@ -71,4 +71,19 @@ public class FireballPowerUp : MonoBehaviour
         // Deactivate the PowerUpHUD and Active WavePBS
         PowerUpHUD.SetActive(false);
     }
+
+    public void FireMissilePowerUpDamage(){
+
+        fireMissile.damage = fireMissile.damage * 1.2f;
+
+        PowerUpHUD.SetActive(false);
+    }
+
+    public void FireMissilePowerUpCD(){
+        // Decrease the cast cooldown of the basic spell by 10%
+        fireMissile.CastCD = fireMissile.CastCD * 0.9f;
+        
+        // Deactivate the PowerUpHUD and Active WavePBS
+        PowerUpHUD.SetActive(false);
+    }
 }

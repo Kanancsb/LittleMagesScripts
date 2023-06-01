@@ -2,16 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShufflePowers : MonoBehaviour
+public class ShuffleWeaponPowerUp : MonoBehaviour
 {
     // Array of power-up game objects
     public GameObject[] PowerUps;
-
-    public FireWheelSpell FireWheelChosen;
-    public GameObject[] FireWheelPowerUps;
-
-    public FireMissile FireMissileChosen;
-    public GameObject[] FireMissilePowerUps;
 
     // List to keep track of active power-ups
     private List<GameObject> activePowerUps = new List<GameObject>();
@@ -25,13 +19,6 @@ public class ShufflePowers : MonoBehaviour
     // Deactivate and activate random power-ups on re-enabling the script
     void OnEnable()
     {
-        if(FireWheelChosen.FWChosen){
-            PowerUps = ExtendArray(PowerUps, FireWheelPowerUps);
-            FireWheelChosen.FWChosen = false;
-        }else if(FireMissileChosen.FMChosen){
-            PowerUps = ExtendArray(PowerUps, FireMissilePowerUps);
-            FireMissileChosen.FMChosen = false;
-        }
         DeactivatePowerUps();
         ActivateRandomPowerUps(3);
     }
@@ -72,11 +59,4 @@ public class ShufflePowers : MonoBehaviour
             powerUpsCopy.RemoveAt(randomIndex);
         }
     }
-
-        T[] ExtendArray<T>(T[] array, T[] newElements){
-            T[] newArray = new T[array.Length + newElements.Length];
-            array.CopyTo(newArray, 0);
-            newElements.CopyTo(newArray, array.Length);
-            return newArray;
-        }
 }

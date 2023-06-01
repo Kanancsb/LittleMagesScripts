@@ -26,14 +26,20 @@ public class FireMissile : MonoBehaviour
 
     string Button;
     public WeaponPowerUp button;
+    public bool FMChosen = false;
 
     void Start(){
+
         if(button.SpellButton == 1){
             Button = "Fire2";
         }else if(button.SpellButton == 2){
             Button = "Q";
         }else if(button.SpellButton == 3){
             Button = "E";
+        }
+
+        if(button.SpellButton > 0){
+            FMChosen = true;
         }
     }
 

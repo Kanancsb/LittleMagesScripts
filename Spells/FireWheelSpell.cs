@@ -26,6 +26,7 @@ public class FireWheelSpell : MonoBehaviour
 
     string Button;
     public WeaponPowerUp button;
+    public bool FWChosen = false;
 
     void Start(){
         if(button.SpellButton == 1){
@@ -34,6 +35,10 @@ public class FireWheelSpell : MonoBehaviour
             Button = "Q";
         }else if(button.SpellButton == 3){
             Button = "E";
+        }
+
+        if(button.SpellButton > 0){
+            FWChosen = true;
         }
     }
     

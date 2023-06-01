@@ -74,8 +74,6 @@ public class WavePBS : MonoBehaviour
                 UpgradeWeapon.SetActive(true);
                 currWave++;
                 GenerateWave();
-            }else if(currWave == 9){
-                UpgradeWeapon.SetActive(true);
             }else{
                 currWave++;
                 GenerateWave();
