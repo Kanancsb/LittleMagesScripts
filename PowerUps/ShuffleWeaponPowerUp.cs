@@ -11,38 +11,32 @@ public class ShuffleWeaponPowerUp : MonoBehaviour
     private List<GameObject> activePowerUps = new List<GameObject>();
 
     // Activate random power-ups on Awake
-    void Awake()
-    {
+    void Awake(){
         ActivateRandomPowerUps(3);
     }
 
     // Deactivate and activate random power-ups on re-enabling the script
-    void OnEnable()
-    {
+    void OnEnable(){
         DeactivatePowerUps();
         ActivateRandomPowerUps(3);
     }
 
     // Deactivate all active power-ups
-    void DeactivatePowerUps()
-    {
-        foreach (GameObject powerUp in activePowerUps)
-        {
+    void DeactivatePowerUps(){
+        foreach (GameObject powerUp in activePowerUps){
             powerUp.SetActive(false);
         }
         activePowerUps.Clear();
     }
 
     // Activate a specified number of random power-ups
-    void ActivateRandomPowerUps(int count)
-    {
+    void ActivateRandomPowerUps(int count){
         int powerUpCount = Mathf.Min(count, PowerUps.Length);
 
         // Create a copy of the power-ups array
         List<GameObject> powerUpsCopy = new List<GameObject>(PowerUps);
 
-        for (int i = 0; i < powerUpCount; i++)
-        {
+        for (int i = 0; i < powerUpCount; i++){
             // Get a random index within the remaining power-ups
             int randomIndex = Random.Range(0, powerUpsCopy.Count);
 

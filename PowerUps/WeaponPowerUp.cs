@@ -33,4 +33,11 @@ public class WeaponPowerUp : MonoBehaviour
         HUD = true;
         Destroy(PowerUpButton[1]);
     }
+
+    public void MegaFireball(){
+        SpellButton++;
+        Spell[2].SetActive(true); 
+        HUD = true;
+        Destroy(PowerUpButton[2]);
+    }
 }

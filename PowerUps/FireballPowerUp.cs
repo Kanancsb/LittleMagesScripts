@@ -8,6 +8,7 @@ public class FireballPowerUp : MonoBehaviour
     public BasicSpell basicSpell;
     public FireWheelSpell fireWheelSpell;
     public FireMissile fireMissile;
+    public MegaFireball megaFireball;
     
     // Reference to the PlayerMovement script
     public PlayerMovement playerMovement;
@@ -82,6 +83,30 @@ public class FireballPowerUp : MonoBehaviour
     public void FireMissilePowerUpCD(){
         // Decrease the cast cooldown of the basic spell by 10%
         fireMissile.CastCD = fireMissile.CastCD * 0.9f;
+        
+        // Deactivate the PowerUpHUD and Active WavePBS
+        PowerUpHUD.SetActive(false);
+    }
+
+    public void MegaFireballPowerUpDamage(){
+        // Increase the damage of the basic spell by 20%
+        megaFireball.damage = megaFireball.damage * 1.2f;
+        
+        // Deactivate the PowerUpHUD and Active WavePBS
+        PowerUpHUD.SetActive(false);
+    }
+
+    public void MegaFireballPowerUpCD(){
+        // Decrease the cast cooldown of the basic spell by 10%
+        megaFireball.CastCD = megaFireball.CastCD * 0.9f;
+        
+        // Deactivate the PowerUpHUD and Active WavePBS
+        PowerUpHUD.SetActive(false);
+    }
+
+    public void MegaFireballPowerUpSpeed(){
+        // Increase the projectile speed of the basic spell by 10%
+        megaFireball.projectileSpeed = megaFireball.projectileSpeed * 1.1f;
         
         // Deactivate the PowerUpHUD and Active WavePBS
         PowerUpHUD.SetActive(false);
