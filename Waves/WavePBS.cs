@@ -9,8 +9,10 @@ public class WavePBS : MonoBehaviour
     private int waveValue;
     public List<GameObject> enemiesToSpawn = new List<GameObject>();
 
-    public Transform[] spawnLocation;
-    public int spawnIndex;
+    public Transform[] spawnLocationUp;
+    public Transform[] spawnLocationDown;
+    public int spawnIndexUp;
+    public int spawnIndexDown;
 
     public int waveDuration;
     private float waveTimer;
@@ -43,19 +45,10 @@ public class WavePBS : MonoBehaviour
             
             if (enemiesToSpawn.Count > 0)
             {
-                GameObject enemy = Instantiate(enemiesToSpawn[0], spawnLocation[spawnIndex].position, Quaternion.identity);
+                GameObject enemy = Instantiate(enemiesToSpawn[0], GetSpawnPosition(), Quaternion.identity);
                 enemiesToSpawn.RemoveAt(0);
                 spawnedEnemies.Add(enemy);
                 spawnTimer = spawnInterval;
-
-                if (spawnIndex + 1 <= spawnLocation.Length - 1)
-                {
-                    spawnIndex++;
-                }
-                else
-                {
-                    spawnIndex = 0;
-                }
             }
             else
             {
@@ -83,13 +76,13 @@ public class WavePBS : MonoBehaviour
     }
 
     public void GenerateWave()
-{
-    waveValue = currWave * 5;
-    GenerateEnemies();
+    {
+        waveValue = currWave * 5;
+        GenerateEnemies();
 
-    waveTimer = waveDuration;
-    spawnTimer = 0;
-}
+        waveTimer = waveDuration;
+        spawnTimer = 0;
+    }
 
     public void GenerateEnemies()
     {
@@ -112,6 +105,45 @@ public class WavePBS : MonoBehaviour
         enemiesToSpawn.Clear();
         enemiesToSpawn = generatedEnemies;
     }
+
+    Vector3 GetSpawnPosition()
+    {
+        Vector3 spawnPosition;
+
+        if (enemiesToSpawn[0].GetComponent<Enemy>().SpawnType)
+        {
+            spawnPosition = spawnLocationUp[spawnIndexUp].position;
+
+            if (spawnIndexUp + 1 <= spawnLocationUp.Length - 1)
+            {
+                spawnIndexUp++;
+            }
+            else
+            {
+                spawnIndexUp = 0;
+            }
+        }
+        else if (enemiesToSpawn[0].GetComponent<Enemy>().SpawnType == false)
+        {
+            spawnPosition = spawnLocationDown[spawnIndexDown].position;
+
+            if (spawnIndexDown + 1 <= spawnLocationDown.Length - 1)
+            {
+                spawnIndexDown++;
+            }
+            else
+            {
+                spawnIndexDown = 0;
+            }
+        }
+        else
+        {
+            spawnPosition = Vector3.zero;
+        }
+
+        return spawnPosition;
+    }
+
 }
 
 [System.Serializable]

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponPowerUp : MonoBehaviour
 {
+    public LivingBomb livingBomb;
     
     public GameObject WeaponPowerUpHUD;
     public GameObject[] PowerUpButton;
@@ -39,5 +40,12 @@ public class WeaponPowerUp : MonoBehaviour
         Spell[2].SetActive(true); 
         HUD = true;
         Destroy(PowerUpButton[2]);
+    }
+
+    public void LivingBomb(){
+        livingBomb.ActiveLB = true;
+        Spell[3].SetActive(true); 
+        HUD = true;
+        Destroy(PowerUpButton[3]);
     }
 }

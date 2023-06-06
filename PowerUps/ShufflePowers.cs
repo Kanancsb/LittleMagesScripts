@@ -16,6 +16,9 @@ public class ShufflePowers : MonoBehaviour
     public MegaFireball MegaFireballChosen;
     public GameObject[] MegaFireballPowerUps;
 
+    public LivingBomb LivingBombChosen;
+    public GameObject[] LivingBombPowerUps;
+
     // List to keep track of active power-ups
     private List<GameObject> activePowerUps = new List<GameObject>();
 
@@ -26,6 +29,7 @@ public class ShufflePowers : MonoBehaviour
 
     // Deactivate and activate random power-ups on re-enabling the script
     void OnEnable(){
+        
         if(FireWheelChosen.FWChosen){
             PowerUps = ExtendArray(PowerUps, FireWheelPowerUps);
             FireWheelChosen.FWChosen = false;
@@ -35,7 +39,11 @@ public class ShufflePowers : MonoBehaviour
         }else if(MegaFireballChosen.MFChosen){
             PowerUps = ExtendArray(PowerUps, MegaFireballPowerUps);
             MegaFireballChosen.MFChosen = false;
+        }else if(LivingBombChosen.LVChosen){
+            PowerUps = ExtendArray(PowerUps, LivingBombPowerUps);
+            LivingBombChosen.LVChosen = false;
         }
+
         DeactivatePowerUps();
         ActivateRandomPowerUps(3);
     }

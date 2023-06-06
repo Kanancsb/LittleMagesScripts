@@ -9,6 +9,7 @@ public class FireballPowerUp : MonoBehaviour
     public FireWheelSpell fireWheelSpell;
     public FireMissile fireMissile;
     public MegaFireball megaFireball;
+    public LivingBomb livingBomb;
     
     // Reference to the PlayerMovement script
     public PlayerMovement playerMovement;
@@ -53,6 +54,7 @@ public class FireballPowerUp : MonoBehaviour
         basicSpell.LifeSteal = basicSpell.LifeSteal + 0.1f;
         fireWheelSpell.LifeSteal = fireWheelSpell.LifeSteal + 0.1f;
         fireMissile.LifeSteal = fireMissile.LifeSteal + 0.1f;
+        livingBomb.LifeSteal = livingBomb.LifeSteal + 0.1f;
 
 
         PowerUpHUD.SetActive(false);
@@ -107,6 +109,22 @@ public class FireballPowerUp : MonoBehaviour
     public void MegaFireballPowerUpSpeed(){
         // Increase the projectile speed of the basic spell by 10%
         megaFireball.projectileSpeed = megaFireball.projectileSpeed * 1.1f;
+        
+        // Deactivate the PowerUpHUD and Active WavePBS
+        PowerUpHUD.SetActive(false);
+    }
+
+    public void LivingBombPowerUpDamage(){
+        // Increase the damage of the basic spell by 20%
+        livingBomb.damage = livingBomb.damage * 1.1f;
+        
+        // Deactivate the PowerUpHUD and Active WavePBS
+        PowerUpHUD.SetActive(false);
+    }
+
+    public void LivingBombPowerUpChance(){
+        // Increase the damage of the basic spell by 20%
+        livingBomb.BombChance = livingBomb.BombChance + 0.05f;
         
         // Deactivate the PowerUpHUD and Active WavePBS
         PowerUpHUD.SetActive(false);
