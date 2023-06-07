@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -24,8 +25,9 @@ public class GameController : MonoBehaviour
     void FixedUpdate(){
 
         if(Wavepbs01.currWave > 9){
-            cont++;
-            WavePBS[0].SetActive(false);
+            SceneManager.LoadScene("MainMenu");
+            /*cont++;
+            WavePBS[0].SetActive(false);*/
         }
 
         if(PowerUpHUD.activeInHierarchy || WeaponPowerUpHUD.activeInHierarchy){

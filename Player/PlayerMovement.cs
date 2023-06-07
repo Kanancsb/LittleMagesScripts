@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController2D controller; // Reference to the CharacterController2D component
 
+    public Animator Walk;
+
     public float runSpeed = 40f; // Speed at which the player moves horizontally
 
     float horizontalMove = 0f; // Input value for horizontal movement
@@ -14,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+
+        Walk.SetFloat("Speed", Mathf.Abs(horizontalMove));
+
         // Get the horizontal input for movement
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 

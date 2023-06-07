@@ -6,30 +6,17 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 using TMPro;
 
-public class MainMenuLogic : MonoBehaviour
+public class PauseGame : MonoBehaviour
 {
-    
-    public GameObject mainMenu;
-    public GameObject optionsMenu;
-    public GameObject loading;
-    public GameObject buttonsMenu;
 
     public AudioMixer GeneralVolume;
     public AudioMixer MusicVolume;
-
+    
     public TMP_Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
 
     void Start(){
-
-        mainMenu.SetActive(true);
-        optionsMenu.SetActive(false);
-        loading.SetActive(false);
-        buttonsMenu.SetActive(false);
-
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
 
         // Start the Resolution part
 
@@ -55,23 +42,6 @@ public class MainMenuLogic : MonoBehaviour
         resolutionDropdown.RefreshShownValue();
 
         // End the Resolution part
-
-    }
-
-    public void StartButton(){
-        loading.SetActive(true);
-        mainMenu.SetActive(false);
-        SceneManager.LoadScene("FightScene-EN-US");
-    }
-
-    public void OptionsButton(){
-        mainMenu.SetActive(false);
-        optionsMenu.SetActive(true);
-    }
-
-    public void ReturnToMainMenuButton(){
-        mainMenu.SetActive(true);
-        optionsMenu.SetActive(false);
     }
 
     public void SetFullScreen(bool isFullscreen){
@@ -94,5 +64,4 @@ public class MainMenuLogic : MonoBehaviour
     public void QuitButton(){
         Application.Quit();
     }
-
 }
