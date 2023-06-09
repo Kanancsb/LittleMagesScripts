@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BasicSpell : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class BasicSpell : MonoBehaviour
 
     // Cooldown between spell casts
     public float CastCD = 3.0f;
+    float lastCast;
+
+    public Image SpellImage;
+    bool CooldownImage = false;
 
     // Damage inflicted by the spell
     public float damage = 10f;
@@ -19,14 +24,13 @@ public class BasicSpell : MonoBehaviour
     // Speed of the projectile
     public float projectileSpeed = 6f;
 
-    // Time of the last spell cast
-    private float lastCast;
 
     public float LifeSteal;
 
     void Update(){
         // Check if the left mouse button is pressed and enough time has passed since the last cast
         if (Input.GetMouseButtonDown(0) && Time.time - lastCast >= CastCD){
+
             // Calculate the direction from the spell position to the mouse position
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = (mousePosition - SpellPosition.position).normalized;
@@ -39,6 +43,16 @@ public class BasicSpell : MonoBehaviour
 
             // Set the time of the last cast to the current time
             lastCast = Time.time;
+            CooldownImage = true;
+            SpellImage.fillAmount = 1f;
+        }
+
+        if (CooldownImage){
+            SpellImage.fillAmount -= 1f / CastCD * Time.deltaTime;
+
+            if (SpellImage.fillAmount <= 0){
+                CooldownImage = false;
+            }
         }
     }
 }

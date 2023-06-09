@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FireMissile : MonoBehaviour
 {
@@ -13,14 +14,17 @@ public class FireMissile : MonoBehaviour
     // Cooldown between spell casts
     public float CastCD = 3.0f;
 
+    // Time of the last spell cast
+    float lastCast;
+
+    public Image SpellImage;
+    bool CooldownImage = false;
+
     // Damage inflicted by the spell
     public float damage = 10f;
 
     // Speed of the projectile
     public float projectileSpeed = 6f;
-
-    // Time of the last spell cast
-    private float lastCast;
 
     public float LifeSteal;
 
@@ -29,6 +33,8 @@ public class FireMissile : MonoBehaviour
     public bool FMChosen = false;
 
     void Start(){
+
+        lastCast = CastCD;
 
         if(button.SpellButton == 1){
             Button = "Fire2";
@@ -41,6 +47,8 @@ public class FireMissile : MonoBehaviour
         if(button.SpellButton > 0){
             FMChosen = true;
         }
+
+        SpellImage.gameObject.SetActive(gameObject.activeSelf);
     }
 
     void Update(){
@@ -58,6 +66,16 @@ public class FireMissile : MonoBehaviour
 
             // Set the time of the last cast to the current time
             lastCast = Time.time;
+            CooldownImage = true;
+            SpellImage.fillAmount = 1f;
+        }
+
+        if (CooldownImage){
+            SpellImage.fillAmount -= 1f / CastCD * Time.deltaTime;
+
+            if (SpellImage.fillAmount <= 0){
+                CooldownImage = false;
+            }
         }
     }
 }
