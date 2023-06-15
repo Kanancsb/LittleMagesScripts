@@ -28,7 +28,7 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision){
 
-        if (collision.CompareTag("EnemySpell") || collision.CompareTag("Enemy")){
+        if (collision.CompareTag("EnemySpell") || collision.CompareTag("Enemy") || collision.CompareTag("Boss")){
             Enemy enemy = collision.GetComponent<Enemy>();
             if (enemy != null){
                 if (basicSpell.LifeSteal != 0){

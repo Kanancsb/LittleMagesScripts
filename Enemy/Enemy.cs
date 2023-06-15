@@ -9,6 +9,9 @@ public class Enemy : MonoBehaviour
     private LivingBomb Livingbomb;
     private WavePBS wavePBS;
 
+    public bool Boss = false;
+    private GameController gameController;
+
     public float health = 100;
 
     public GameObject LivingBomb;
@@ -20,6 +23,7 @@ public class Enemy : MonoBehaviour
         knowledge = FindObjectOfType<PlayerKnowledge>();
         wavePBS = FindObjectOfType<WavePBS>();
         Livingbomb = FindObjectOfType<LivingBomb>();
+        gameController = FindObjectOfType<GameController>();
     }
 
     public void TakeDamage(float damage){
@@ -38,9 +42,15 @@ public class Enemy : MonoBehaviour
     }
 
     void Die(){
-        knowledge.Knowledge += KnowledgeGain;
-        Destroy(gameObject);
-        RemoveFromSpawnedEnemies();
+        if(!Boss){
+            knowledge.Knowledge += KnowledgeGain;
+            Destroy(gameObject);
+            RemoveFromSpawnedEnemies();
+        }else if(Boss){
+            knowledge.Knowledge += KnowledgeGain;
+            gameController.cont++;
+            Destroy(gameObject);
+        }
     }
 
     void RemoveFromSpawnedEnemies(){

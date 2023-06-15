@@ -11,12 +11,13 @@ public class GameController : MonoBehaviour
     public GameObject WeaponPowerUpHUD;
 
     public GameObject[] WavePBS;
+    public GameObject[] Boss;
 
     public WavePBS Wavepbs01;
 
     public GameObject[] enemies;
 
-    int cont = 0;
+    public int cont = 0;
 
     // References to the Movement and Spell behaviors
     public Behaviour Movement;
@@ -24,13 +25,7 @@ public class GameController : MonoBehaviour
 
     void FixedUpdate(){
 
-        if(Wavepbs01.currWave > 9){
-            SceneManager.LoadScene("MainMenu");
-            /*cont++;
-            WavePBS[0].SetActive(false);*/
-        }
-
-        if(PowerUpHUD.activeInHierarchy || WeaponPowerUpHUD.activeInHierarchy){
+        if((PowerUpHUD.activeInHierarchy || WeaponPowerUpHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
             // Set the cursor visibility and lock state
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
@@ -44,16 +39,22 @@ public class GameController : MonoBehaviour
                 Destroy(enemy);
             }
 
-            WavePBS[cont].SetActive(false);
+            if(Wavepbs01.currWave > 9){
+                //SceneManager.LoadScene("MainMenu");
+                Boss[0].SetActive(true);
+                Wavepbs01.currWave = 1;
+                WavePBS[0].SetActive(false);
+                Movement.enabled = true;
+                Spell.enabled = true;
+            }else{
+                WavePBS[cont].SetActive(false);
+            }
 
-        }else{
-            WavePBS[cont].SetActive(true);
-        
-            // Enable the Movement and Spell behaviors
-            Movement.enabled = true;
-            Spell.enabled = true;
+        }else if((!PowerUpHUD.activeInHierarchy || !WeaponPowerUpHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
+                WavePBS[cont].SetActive(true);
+                // Enable the Movement and Spell behaviors
+                Movement.enabled = true;
+                Spell.enabled = true;
         }
-
-
     }
 }
