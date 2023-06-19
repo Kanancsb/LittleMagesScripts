@@ -9,6 +9,9 @@ using TMPro;
 public class PauseGame : MonoBehaviour
 {
 
+    public GameObject PauseGameHUD;
+    public GameObject OptionsHUD;
+
     public AudioMixer GeneralVolume;
     public AudioMixer MusicVolume;
     
@@ -17,6 +20,9 @@ public class PauseGame : MonoBehaviour
     Resolution[] resolutions;
 
     void Start(){
+
+        PauseGameHUD.SetActive(false);
+        OptionsHUD.SetActive(false);
 
         // Start the Resolution part
 
@@ -42,6 +48,35 @@ public class PauseGame : MonoBehaviour
         resolutionDropdown.RefreshShownValue();
 
         // End the Resolution part
+    }
+
+    void Update(){
+
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            PauseGameHUD.SetActive(true);
+            Time.timeScale = 0;
+        }
+    }
+
+    public void Resume(){
+        PauseGameHUD.SetActive(false);
+        OptionsHUD.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void OptionsMenu(){
+        PauseGameHUD.SetActive(false);
+        OptionsHUD.SetActive(true);
+    }
+
+    public void Back(){
+        PauseGameHUD.SetActive(true);
+        OptionsHUD.SetActive(false);
+    }
+
+    public void MainMenu(){
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void SetFullScreen(bool isFullscreen){

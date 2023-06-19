@@ -7,6 +7,8 @@ public class VampireLordLogic : MonoBehaviour
 
     public GameObject Light;
 
+    public GameObject PowerUpHUD;
+
     int cont = 0;
     bool SpellStop = false;
 
@@ -21,11 +23,14 @@ public class VampireLordLogic : MonoBehaviour
     public float Y = 10f;
     public float X = 10f;
 
+    public GameObject TY;
+
     void Start(){
         enemyHealth = FindObjectOfType<Enemy>();
         Health = enemyHealth.health;
         Light.SetActive(false);
         StartCoroutine(ShootProjectile());
+        TY.SetActive(false);
     }
 
     IEnumerator ShootProjectile(){
@@ -54,6 +59,13 @@ public class VampireLordLogic : MonoBehaviour
 
             Health = enemyHealth.health;
         }
+    }
+
+    void OnDestroy(){
+        TY.SetActive(true);
+        Time.timeScale = 0;
+        /*Light.SetActive(true);
+        PowerUpHUD.SetActive(true);*/
     }
 
 }
