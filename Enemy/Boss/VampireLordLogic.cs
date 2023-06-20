@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class VampireLordLogic : MonoBehaviour
 {
@@ -23,6 +24,12 @@ public class VampireLordLogic : MonoBehaviour
     public float Y = 10f;
     public float X = 10f;
 
+    public List<string> Dialogues = new List<string>();
+    public TextMeshProUGUI BossDialogue;
+    bool FirstSpell = false;
+    public float TextSpeed = 0.1f; // Velocidade de exibição do texto
+    private Coroutine dialogueCoroutine;
+
     public GameObject TY;
 
     void Start(){
@@ -30,22 +37,47 @@ public class VampireLordLogic : MonoBehaviour
         Health = enemyHealth.health;
         Light.SetActive(false);
         StartCoroutine(ShootProjectile());
-        TY.SetActive(false);
+    }
+
+    IEnumerator DisplayDialogue(string dialogue)
+    {
+        BossDialogue.text = "";
+
+        foreach (char letter in dialogue)
+        {
+            BossDialogue.text += letter;
+
+            yield return new WaitForSeconds(TextSpeed);
+        }
     }
 
     IEnumerator ShootProjectile(){
         if(!SpellStop){
             yield return new WaitForSeconds(ProjectileCD);
             cont++;
-            Instantiate(ProjectilePrefab, ProjectilePosition.position, Quaternion.identity);
-            if(cont >= 5){
+
+            if (!FirstSpell){
+                Instantiate(ProjectilePrefab, ProjectilePosition.position, Quaternion.identity);
+                FirstSpell = true;
+                if (Dialogues.Count > 0){
+                    int randomIndex = Random.Range(0, Dialogues.Count);
+                    string randomDialogue = Dialogues[randomIndex];
+                    dialogueCoroutine = StartCoroutine(DisplayDialogue(randomDialogue));
+                }
+            }else{
+                Instantiate(ProjectilePrefab, ProjectilePosition.position, Quaternion.identity);
+            }
+
+            if (cont >= 5){
                 SpellStop = true;
             }
             StartCoroutine(ShootProjectile());
+            
         }else{
             yield return new WaitForSeconds(ActionCD);
             cont = 0;
             SpellStop = false;
+            FirstSpell = false;
             StartCoroutine(ShootProjectile());
         }
     }
