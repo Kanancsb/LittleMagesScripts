@@ -84,11 +84,11 @@ public class PauseGame : MonoBehaviour
     }
 
     public void SetGeneralVolume(float Volume){
-        GeneralVolume.SetFloat("volume", Volume);
+        GeneralVolume.SetFloat("GeneralVolumeParameter", Volume);
     }
 
     public void SetMusicVolume(float Volume){
-        MusicVolume.SetFloat("volume", Volume);
+        MusicVolume.SetFloat("MusicVolumeParameter", Volume);
     }
 
     public void SetResolution(int resolutionIndex){

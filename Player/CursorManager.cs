@@ -5,22 +5,31 @@ using UnityEngine.UI;
 
 public class CursorManager : MonoBehaviour
 {
-    [SerializeField] Texture2D CursorTexture;
+    public Texture2D CursorTexture;
+    private Vector2 CursorHotspot;
 
-    Vector2 CursorHotspot;
+    public AudioSource ButtonSound;
 
-    public Button DefaultButton;
-    public Color transparentColor;
+    public float IncreaseObjectScale = 0.1f;
 
-    void Start(){
-        
+    void Start(){        
         CursorHotspot = new Vector2(CursorTexture.width  / 2, CursorTexture.height / 2);
         Cursor.SetCursor(CursorTexture, CursorHotspot, CursorMode.Auto);
     }
 
-    public void ButtonTransparent(){
-        ColorBlock colorBlock = DefaultButton.colors;
+    public void ButtonTransparent(Button button, Color transparentColor){
+        ColorBlock colorBlock = button.colors;
         colorBlock.normalColor = transparentColor;
         colorBlock.highlightedColor = transparentColor;
+    }
+
+    public void OnMouseEnter(Transform ObjectScale){
+        ButtonSound.Play();
+
+        ObjectScale.localScale += new Vector3(IncreaseObjectScale, 0f, 0f);
+    }
+
+    public void OnMouseExit(Transform ObjectScale){       
+        ObjectScale.localScale -= new Vector3(IncreaseObjectScale, 0f, 0f);
     }
 }
