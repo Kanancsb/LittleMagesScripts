@@ -26,9 +26,10 @@ public class SummonEnemys : MonoBehaviour
 
     private IEnumerator spawnEnemy(float timer, GameObject[] enemy, Vector3 summonerPosition){
         yield return new WaitForSeconds(timer);
-            GameObject newEnemy = Instantiate(enemy[i], GetRandomPositionNearSummoner(summonerPosition), Quaternion.identity);
-            StartCoroutine(spawnEnemy(EnemyTimer, enemySummon, summonerPosition));
-            summonedEnemies.Add(newEnemy);
+        i = Random.Range(0, enemy.Length);
+        GameObject newEnemy = Instantiate(enemy[i], GetRandomPositionNearSummoner(summonerPosition), Quaternion.identity);
+        StartCoroutine(spawnEnemy(EnemyTimer, enemySummon, summonerPosition));
+        summonedEnemies.Add(newEnemy);
     }
 
     private Vector3 GetRandomPositionNearSummoner(Vector3 summonerPosition){

@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool jump = false; // Flag for initiating a jump
 
+    public float Isjumping = -4f; 
+
     void Update()
     {
 
@@ -26,6 +28,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             jump = true; // Set the jump flag to true
+        }
+
+        if (transform.position.y > Isjumping){
+            Walk.SetBool("IsJumping", true);
+        }else{
+            Walk.SetBool("IsJumping", false);
         }
     }
 

@@ -39,6 +39,7 @@ public class GameController : MonoBehaviour
                 Destroy(enemy);
             }
 
+        }else if((!PowerUpHUD.activeInHierarchy || !WeaponPowerUpHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
             if(Wavepbs01.currWave > 9){
                 //SceneManager.LoadScene("MainMenu");
                 Boss[0].SetActive(true);
@@ -46,11 +47,7 @@ public class GameController : MonoBehaviour
                 WavePBS[0].SetActive(false);
                 Movement.enabled = true;
                 Spell.enabled = true;
-            }else{
-                WavePBS[cont].SetActive(false);
             }
-
-        }else if((!PowerUpHUD.activeInHierarchy || !WeaponPowerUpHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
                 WavePBS[cont].SetActive(true);
                 // Enable the Movement and Spell behaviors
                 Movement.enabled = true;
