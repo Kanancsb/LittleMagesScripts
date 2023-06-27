@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LivingBomb : MonoBehaviour
 {
+
+    public PlayerKnowledge Lvls;
     
     public bool ActiveLB = false;
 
@@ -13,4 +15,8 @@ public class LivingBomb : MonoBehaviour
     public float LifeSteal = 0;
 
     public bool LVChosen = false;
+
+    void Start(){
+        damage *= (Lvls.DamageLevel * 0.05f) + 1f;
+    }
 }

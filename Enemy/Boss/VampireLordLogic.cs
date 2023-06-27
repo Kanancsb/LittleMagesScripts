@@ -9,6 +9,8 @@ public class VampireLordLogic : MonoBehaviour
     public GameObject Light;
 
     public GameObject PowerUpHUD;
+    public GameObject GameOver;
+    public AudioSource BossMusic;
 
     int cont = 0;
     bool SpellStop = false;
@@ -27,7 +29,7 @@ public class VampireLordLogic : MonoBehaviour
     public List<string> Dialogues = new List<string>();
     public TextMeshProUGUI BossDialogue;
     bool FirstSpell = false;
-    public float TextSpeed = 0.1f; // Velocidade de exibição do texto
+    public float TextSpeed = 0.1f;
     private Coroutine dialogueCoroutine;
 
     public GameObject TY;
@@ -36,6 +38,7 @@ public class VampireLordLogic : MonoBehaviour
         enemyHealth = FindObjectOfType<Enemy>();
         Health = enemyHealth.health;
         Light.SetActive(false);
+        BossMusic.Play();
         StartCoroutine(ShootProjectile());
     }
 
@@ -90,6 +93,10 @@ public class VampireLordLogic : MonoBehaviour
             transform.position = newPosition;
 
             Health = enemyHealth.health;
+        }
+
+        if(GameOver.activeInHierarchy){
+            Destroy(BossMusic);
         }
     }
 

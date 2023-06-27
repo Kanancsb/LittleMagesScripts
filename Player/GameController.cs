@@ -42,16 +42,17 @@ public class GameController : MonoBehaviour
         }else if((!PowerUpHUD.activeInHierarchy || !WeaponPowerUpHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
             if(Wavepbs01.currWave > 9){
                 //SceneManager.LoadScene("MainMenu");
-                Boss[0].SetActive(true);
                 Wavepbs01.currWave = 1;
                 WavePBS[0].SetActive(false);
+                Boss[0].SetActive(true);
                 Movement.enabled = true;
                 Spell.enabled = true;
-            }
+            }else{
                 WavePBS[cont].SetActive(true);
                 // Enable the Movement and Spell behaviors
                 Movement.enabled = true;
                 Spell.enabled = true;
+            }
         }
     }
 }

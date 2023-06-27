@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class BasicSpell : MonoBehaviour
 {
+
+    public PlayerKnowledge Lvls;
+
     // Reference to the position where the spell will be cast from
     public Transform SpellPosition;
 
@@ -12,7 +15,7 @@ public class BasicSpell : MonoBehaviour
     public GameObject projectile;
 
     // Cooldown between spell casts
-    public float CastCD = 3.0f;
+    public float CastCD = 1f;
     float lastCast;
 
     public Image SpellImage;
@@ -26,6 +29,16 @@ public class BasicSpell : MonoBehaviour
 
 
     public float LifeSteal;
+
+    void Start(){
+        damage *= ((Lvls.DamageLevel - 1) * 0.05f) + 1f;
+
+        projectileSpeed *= ((Lvls.DamageLevel - 1) * 0.05f) + 1f;
+        
+        float reductionFactor = Mathf.Pow(0.95f, Lvls.CDLevel - 1);
+        CastCD *= reductionFactor;
+
+    }
 
     void Update(){
         // Check if the left mouse button is pressed and enough time has passed since the last cast

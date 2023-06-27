@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+
+    public PlayerKnowledge Lvls;
     
     public float maxHealth = 100; // Set the max health
     public float currentHealth;
@@ -12,6 +14,9 @@ public class PlayerHealth : MonoBehaviour
     public GameObject GameOverHUD;
     
     void Start(){
+
+        maxHealth *= ((Lvls.PlayerHealthLevel - 1) * 0.1f) + 1f;
+
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth); // call the function SetMaxHealth of the HealthBar Script and set the int maxHealth
         GameOverHUD.SetActive(false);

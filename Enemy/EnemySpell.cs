@@ -43,18 +43,17 @@ public class EnemySpell : MonoBehaviour
         if (other.gameObject.CompareTag("Player")){
             // Deal damage to the player
             other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
-            
-            GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
-            
-            Animator animator = impactInstance.GetComponent<Animator>();
-            if (animator != null){
-                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                float animationDuration = stateInfo.length;
-                
-                Destroy(impactInstance, animationDuration);
-            }
-            else{
-                Destroy(impactInstance);
+
+            if(impacEffect != null){
+                GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
+                Animator animator = impactInstance.GetComponent<Animator>();
+
+                if (animator != null){
+                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                    float animationDuration = stateInfo.length;
+                    
+                    Destroy(impactInstance, animationDuration);
+                }
             }
             
             Destroy(gameObject);

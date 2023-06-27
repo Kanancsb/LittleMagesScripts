@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class MegaFireball : MonoBehaviour
 {
+
+    public PlayerKnowledge Lvls;
+
     // Reference to the position where the spell will be cast from
     public Transform SpellPosition;
 
@@ -33,6 +36,13 @@ public class MegaFireball : MonoBehaviour
     public bool MFChosen = false;
 
     void Start(){
+
+        damage *= (Lvls.DamageLevel * 0.05f) + 1f;
+
+        projectileSpeed *= ((Lvls.DamageLevel - 1) * 0.05f) + 1f;
+        
+        float reductionFactor = Mathf.Pow(0.95f, Lvls.CDLevel - 1);
+        CastCD *= reductionFactor;
 
         lastCast = CastCD;
 

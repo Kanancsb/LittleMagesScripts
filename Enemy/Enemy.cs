@@ -48,6 +48,7 @@ public class Enemy : MonoBehaviour
             RemoveFromSpawnedEnemies();
         }else if(Boss){
             knowledge.Knowledge += KnowledgeGain;
+            knowledge.SavePlayer();
             gameController.cont++;
             Destroy(gameObject);
         }

@@ -6,6 +6,10 @@ public class PlayerKnowledge : MonoBehaviour
 {
     
     public int Knowledge = 0;
+    public int DamageLevel = 1;
+    public int CDLevel = 1;
+    public int SpellSpeedLevel = 1;
+    public int PlayerHealthLevel = 1;
 
     void Start(){
         LoadPlayer();
@@ -21,6 +25,10 @@ public class PlayerKnowledge : MonoBehaviour
         PlayerData data = SaveSystem.LoadPlayer();
 
         Knowledge = data.Knowledge;
+        DamageLevel = data.DamageLevel;
+        CDLevel = data.CDLevel;
+        SpellSpeedLevel = data.SpellSpeedLevel;
+        PlayerHealthLevel = data.PlayerHealthLevel;
     }
 
     void Update(){

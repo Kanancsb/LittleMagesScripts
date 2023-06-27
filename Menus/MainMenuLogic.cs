@@ -13,6 +13,7 @@ public class MainMenuLogic : MonoBehaviour
     public GameObject optionsMenu;
     public GameObject loading;
     public GameObject buttonsMenu;
+    public GameObject AKMenu;
 
     public AudioMixer GeneralVolume;
     public AudioMixer MusicVolume;
@@ -27,6 +28,7 @@ public class MainMenuLogic : MonoBehaviour
         optionsMenu.SetActive(false);
         loading.SetActive(false);
         buttonsMenu.SetActive(false);
+        AKMenu.SetActive(false);
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -64,6 +66,12 @@ public class MainMenuLogic : MonoBehaviour
         SceneManager.LoadScene("FightScene-EN-US");
     }
 
+    public void AncestralKnowledgeButton(){
+        mainMenu.SetActive(false);
+        optionsMenu.SetActive(false);
+        AKMenu.SetActive(true);
+    }
+
     public void OptionsButton(){
         mainMenu.SetActive(false);
         optionsMenu.SetActive(true);
@@ -72,6 +80,7 @@ public class MainMenuLogic : MonoBehaviour
     public void ReturnToMainMenuButton(){
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
+        AKMenu.SetActive(false);
     }
 
     public void SetFullScreen(bool isFullscreen){
