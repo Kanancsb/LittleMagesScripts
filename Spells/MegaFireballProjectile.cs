@@ -12,6 +12,8 @@ public class MegaFireballProjectile : MonoBehaviour
 
     public PlayerHealth CurrentHealth;
 
+    public GameObject impacEffect;
+
     void Start(){
         // Find the BasicSpell component in the scene
         megaFireball = FindObjectOfType<MegaFireball>();
@@ -29,20 +31,48 @@ public class MegaFireballProjectile : MonoBehaviour
         if (collision.CompareTag("EnemySpell")){
         Destroy(collision.gameObject);
         return;
-    }
+        }
 
         Enemy enemy = collision.GetComponent<Enemy>();
         if (enemy != null){
             if (megaFireball.LifeSteal != 0){
                 float lifeStealAmount = megaFireball.damage * megaFireball.LifeSteal;
-                enemy.TakeDamage(megaFireball.damage);
                 CurrentHealth.currentHealth += lifeStealAmount;
-                Destroy(gameObject);
-            }else{
+                GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
+            
+                Animator animator = impactInstance.GetComponent<Animator>();
+                if (animator != null){
+                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                    float animationDuration = stateInfo.length;
+                        
+                    Destroy(impactInstance, animationDuration);
+                }
+                else{
+                    Destroy(impactInstance);
+                }
                 enemy.TakeDamage(megaFireball.damage);
-                Destroy(gameObject);
+
+            }else{
+                GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
+            
+                    Animator animator = impactInstance.GetComponent<Animator>();
+                    if (animator != null){
+                        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                        float animationDuration = stateInfo.length;
+                        
+                        Destroy(impactInstance, animationDuration);
+                    }
+                    else{
+                        Destroy(impactInstance);
+                    }
+                enemy.TakeDamage(megaFireball.damage);
             }
         }
+
+        if(!collision.CompareTag("Player")){
+            Destroy(gameObject);
+        }
+
         if(collision.gameObject.layer == LayerMask.NameToLayer("Bricks")){
             Destroy(gameObject);
         }

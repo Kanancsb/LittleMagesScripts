@@ -107,7 +107,7 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         DamageLevelText.text = "Level: " + knowledge.DamageLevel;
         CDLevelText.text = "Level: " + knowledge.CDLevel;
         SSLevelText.text = "Level: " + knowledge.SpellSpeedLevel;
-        PlayerHealthCostText.text = "Level: " + knowledge.PlayerHealthLevel;
+        PlayerHealthLevelText.text = "Level: " + knowledge.PlayerHealthLevel;
 
         if (levelCosts.TryGetValue(knowledge.CDLevel, out int cdCost)){
             CDCost = cdCost;

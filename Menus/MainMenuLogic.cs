@@ -14,6 +14,7 @@ public class MainMenuLogic : MonoBehaviour
     public GameObject loading;
     public GameObject buttonsMenu;
     public GameObject AKMenu;
+    public GameObject controlsMenu;
 
     public AudioMixer GeneralVolume;
     public AudioMixer MusicVolume;
@@ -75,6 +76,11 @@ public class MainMenuLogic : MonoBehaviour
     public void OptionsButton(){
         mainMenu.SetActive(false);
         optionsMenu.SetActive(true);
+    }
+
+    public void ControlsButton(){
+        controlsMenu.SetActive(true);
+        optionsMenu.SetActive(false);
     }
 
     public void ReturnToMainMenuButton(){
