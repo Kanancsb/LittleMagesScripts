@@ -29,8 +29,8 @@ public class MegaFireballProjectile : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision){
 
         if (collision.CompareTag("EnemySpell")){
-        Destroy(collision.gameObject);
-        return;
+            Destroy(collision.gameObject);
+            return;
         }
 
         Enemy enemy = collision.GetComponent<Enemy>();
@@ -55,21 +55,20 @@ public class MegaFireballProjectile : MonoBehaviour
             }else{
                 GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
             
-                    Animator animator = impactInstance.GetComponent<Animator>();
-                    if (animator != null){
-                        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                        float animationDuration = stateInfo.length;
+                Animator animator = impactInstance.GetComponent<Animator>();
+                if (animator != null){
+                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                    float animationDuration = stateInfo.length;
                         
-                        Destroy(impactInstance, animationDuration);
-                    }
-                    else{
-                        Destroy(impactInstance);
-                    }
+                    Destroy(impactInstance, animationDuration);
+                }else{
+                    Destroy(impactInstance);
+                }
                 enemy.TakeDamage(megaFireball.damage);
             }
         }
 
-        if(!collision.CompareTag("Player")){
+        if(!collision.CompareTag("Player") && !collision.CompareTag("PlayerSpell")){
             Destroy(gameObject);
         }
 

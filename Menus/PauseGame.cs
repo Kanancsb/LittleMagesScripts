@@ -8,6 +8,7 @@ using TMPro;
 
 public class PauseGame : MonoBehaviour
 {
+    public PlayerKnowledge SaveGame;
 
     public GameObject PauseGameHUD;
     public GameObject OptionsHUD;
@@ -76,6 +77,7 @@ public class PauseGame : MonoBehaviour
 
     public void MainMenu(){
         Time.timeScale = 1;
+        SaveGame.SavePlayer();
         SceneManager.LoadScene("MainMenu");
     }
 

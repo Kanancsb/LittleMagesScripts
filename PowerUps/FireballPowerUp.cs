@@ -51,10 +51,11 @@ public class FireballPowerUp : MonoBehaviour
 
     public void playerLifesteal(){
 
-        basicSpell.LifeSteal = basicSpell.LifeSteal + 0.1f;
-        fireWheelSpell.LifeSteal = fireWheelSpell.LifeSteal + 0.1f;
-        fireMissile.LifeSteal = fireMissile.LifeSteal + 0.1f;
-        livingBomb.LifeSteal = livingBomb.LifeSteal + 0.1f;
+        basicSpell.LifeSteal = basicSpell.LifeSteal + 0.05f;
+        fireWheelSpell.LifeSteal = fireWheelSpell.LifeSteal + 0.05f;
+        fireMissile.LifeSteal = fireMissile.LifeSteal + 0.05f;
+        megaFireball.LifeSteal = fireMissile.LifeSteal + 0.05f;
+        livingBomb.LifeSteal = livingBomb.LifeSteal + 0.05f;
 
 
         PowerUpHUD.SetActive(false);

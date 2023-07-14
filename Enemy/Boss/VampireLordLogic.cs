@@ -6,6 +6,9 @@ using TMPro;
 public class VampireLordLogic : MonoBehaviour
 {
 
+    public GameObject FirstWave;
+    public GameObject SecondWave;
+
     public GameObject Light;
 
     public GameObject PowerUpHUD;
@@ -31,8 +34,6 @@ public class VampireLordLogic : MonoBehaviour
     bool FirstSpell = false;
     public float TextSpeed = 0.1f;
     private Coroutine dialogueCoroutine;
-
-    public GameObject TY;
 
     void Start(){
         enemyHealth = FindObjectOfType<Enemy>();
@@ -101,10 +102,10 @@ public class VampireLordLogic : MonoBehaviour
     }
 
     void OnDestroy(){
-        TY.SetActive(true);
-        Time.timeScale = 0;
-        /*Light.SetActive(true);
-        PowerUpHUD.SetActive(true);*/
+        FirstWave.SetActive(false);
+        SecondWave.SetActive(true);
+        Light.SetActive(true);
+        PowerUpHUD.SetActive(true);
     }
 
 }

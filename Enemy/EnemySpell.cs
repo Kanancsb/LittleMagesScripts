@@ -5,9 +5,13 @@ using UnityEngine;
 public class EnemySpell : MonoBehaviour
 {
     public GameObject player;
+
     private Rigidbody2D rigidbody;
 
     public GameObject impacEffect;
+
+    public bool Burn = false;
+    public float BurnDamage;
 
     public int damage;
 
@@ -37,12 +41,16 @@ public class EnemySpell : MonoBehaviour
         StartCoroutine(ProjectileFade());
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
+    void OnTriggerEnter2D(Collider2D other){
         // Check if the enemy spell collides with the player
         if (other.gameObject.CompareTag("Player")){
             // Deal damage to the player
-            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            if(Burn){
+                other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+                other.gameObject.GetComponent<PlayerHealth>().OverTimeDamage(BurnDamage, 10, true);
+            }else{
+                other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            }
 
             if(impacEffect != null){
                 GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
@@ -57,6 +65,19 @@ public class EnemySpell : MonoBehaviour
             }
             
             Destroy(gameObject);
+        }else if(other.gameObject.layer == LayerMask.NameToLayer("Bricks")){
+            if(impacEffect != null){
+                GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
+                Animator animator = impactInstance.GetComponent<Animator>();
+
+                if (animator != null){
+                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                    float animationDuration = stateInfo.length;
+                    
+                    Destroy(impactInstance, animationDuration);
+                }
+            }
+            Destroy(gameObject);
         }
     }
 
@@ -64,4 +85,5 @@ public class EnemySpell : MonoBehaviour
         yield return new WaitForSeconds(5f);
         Destroy(gameObject);
     }
+
 }

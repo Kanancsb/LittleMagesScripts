@@ -17,7 +17,7 @@ public class FireWheelSpell : MonoBehaviour
     // Cooldown between spell casts
     public float CastCD = 3.0f;
     // Time of the last spell cast
-    float lastCast;
+    float lastCast = 0;
 
     public Image SpellImage;
     bool CooldownImage = false;

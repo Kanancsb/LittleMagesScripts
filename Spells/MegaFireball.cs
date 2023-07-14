@@ -18,7 +18,7 @@ public class MegaFireball : MonoBehaviour
     public float CastCD = 3.0f;
 
     // Time of the last spell cast
-    float lastCast;
+    float lastCast = 0;
 
     public Image SpellImage;
     bool CooldownImage = false;
@@ -37,14 +37,14 @@ public class MegaFireball : MonoBehaviour
 
     void Start(){
 
+        lastCast = Time.time;
+
         damage *= (Lvls.DamageLevel * 0.05f) + 1f;
 
         projectileSpeed *= ((Lvls.DamageLevel - 1) * 0.05f) + 1f;
         
         float reductionFactor = Mathf.Pow(0.95f, Lvls.CDLevel - 1);
         CastCD *= reductionFactor;
-
-        lastCast = CastCD;
 
         if(button.SpellButton == 1){
             Button = "Fire2";

@@ -38,4 +38,20 @@ public class PlayerHealth : MonoBehaviour
         healthBar.SetHealth(currentHealth);
     }
 
+    public void OverTimeDamage(float damage, float time, bool burn){
+        if (burn){
+            StartCoroutine(ApplyOverTimeDamage(damage, time));
+        }
+    }
+
+    private IEnumerator ApplyOverTimeDamage(float damage, float time){
+        float elapsedTime = 0f;
+
+        while (elapsedTime < time){
+            TakeDamage(damage);
+            yield return new WaitForSeconds(1f); // Apply damage every second
+            elapsedTime += 1f;
+        }
+    }
+
 }

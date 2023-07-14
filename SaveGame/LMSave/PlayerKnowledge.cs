@@ -31,11 +31,11 @@ public class PlayerKnowledge : MonoBehaviour
         PlayerHealthLevel = data.PlayerHealthLevel;
     }
 
-    void Update(){
+    /*void Update(){
         if(Input.GetButtonDown("Pause")){
             SavePlayer();
         }else if(Input.GetButtonDown("Load")){
             LoadPlayer();
         }
-    }
+    }*/
 }
