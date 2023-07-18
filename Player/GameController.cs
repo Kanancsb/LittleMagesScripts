@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     public GameObject[] Boss;
 
     public WavePBS Wavepbs01;
+    public WavePBS Wavepbs02;
 
     public GameObject[] enemies;
 
@@ -23,7 +24,7 @@ public class GameController : MonoBehaviour
     public Behaviour Movement;
     public Behaviour Spell;
 
-    void FixedUpdate(){
+    void Update(){
 
         if((PowerUpHUD.activeInHierarchy || WeaponPowerUpHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
             // Set the cursor visibility and lock state
@@ -41,15 +42,19 @@ public class GameController : MonoBehaviour
 
         }else if((!PowerUpHUD.activeInHierarchy || !WeaponPowerUpHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
             if(Wavepbs01.currWave > 9){
-                //SceneManager.LoadScene("MainMenu");
                 Wavepbs01.currWave = 1;
                 WavePBS[0].SetActive(false);
                 Boss[0].SetActive(true);
                 Movement.enabled = true;
                 Spell.enabled = true;
+            }else if(Wavepbs02.currWave > 9){
+                Wavepbs02.currWave = 1;
+                WavePBS[1].SetActive(false);
+                Boss[1].SetActive(true);
+                Movement.enabled = true;
+                Spell.enabled = true;
             }else{
                 WavePBS[cont].SetActive(true);
-                // Enable the Movement and Spell behaviors
                 Movement.enabled = true;
                 Spell.enabled = true;
             }

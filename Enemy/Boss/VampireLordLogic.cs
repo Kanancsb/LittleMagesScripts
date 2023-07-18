@@ -43,12 +43,10 @@ public class VampireLordLogic : MonoBehaviour
         StartCoroutine(ShootProjectile());
     }
 
-    IEnumerator DisplayDialogue(string dialogue)
-    {
+    IEnumerator DisplayDialogue(string dialogue){
         BossDialogue.text = "";
 
-        foreach (char letter in dialogue)
-        {
+        foreach (char letter in dialogue){
             BossDialogue.text += letter;
 
             yield return new WaitForSeconds(TextSpeed);

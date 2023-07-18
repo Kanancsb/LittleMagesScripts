@@ -21,7 +21,6 @@ public class WavePBS : MonoBehaviour
 
     public GameObject UpgradeSkill;
     public GameObject UpgradeWeapon;
-    public GameObject Wave01;
 
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 
