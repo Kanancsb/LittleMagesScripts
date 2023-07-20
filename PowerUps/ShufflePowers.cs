@@ -19,6 +19,9 @@ public class ShufflePowers : MonoBehaviour
     public LivingBomb LivingBombChosen;
     public GameObject[] LivingBombPowerUps;
 
+    public FireOrb FireOrbChosen;
+    public GameObject[] FireOrbPowerUps;
+
     // List to keep track of active power-ups
     private List<GameObject> activePowerUps = new List<GameObject>();
 
@@ -42,6 +45,9 @@ public class ShufflePowers : MonoBehaviour
         }else if(LivingBombChosen.LVChosen){
             PowerUps = ExtendArray(PowerUps, LivingBombPowerUps);
             LivingBombChosen.LVChosen = false;
+        }else if(FireOrbChosen.FOChosen){
+            PowerUps = ExtendArray(PowerUps, FireOrbPowerUps);
+            FireOrbChosen.FOChosen = false;
         }
 
         DeactivatePowerUps();

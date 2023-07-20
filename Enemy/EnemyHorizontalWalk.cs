@@ -32,8 +32,7 @@ public class EnemyHorizontalWalk : MonoBehaviour
                     currentIndex = targetPoints.Count - 2;
                     movingForward = false;
                 }
-            }
-            else{
+            }else{
                 currentIndex--;
                 if (currentIndex < 0){
                     currentIndex = 1;

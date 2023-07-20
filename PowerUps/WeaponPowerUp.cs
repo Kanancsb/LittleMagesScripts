@@ -48,4 +48,10 @@ public class WeaponPowerUp : MonoBehaviour
         HUD = true;
         Destroy(PowerUpButton[3]);
     }
+
+    public void FireOrb(){
+        Spell[4].SetActive(true);
+        HUD = true;
+        Destroy(PowerUpButton[4]);
+    }
 }

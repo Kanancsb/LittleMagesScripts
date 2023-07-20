@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     public WavePBS Wavepbs02;
 
     public GameObject[] enemies;
+    public GameObject[] enemySpells;
 
     public int cont = 0;
 
@@ -38,6 +39,12 @@ public class GameController : MonoBehaviour
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             foreach (GameObject enemy in enemies){
                 Destroy(enemy);
+            }
+
+            GameObject[] enemySpells = GameObject.FindGameObjectsWithTag("EnemySpell");
+            foreach (GameObject enemySpell in enemySpells)
+            {
+                Destroy(enemySpell);
             }
 
         }else if((!PowerUpHUD.activeInHierarchy || !WeaponPowerUpHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){

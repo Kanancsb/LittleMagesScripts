@@ -39,15 +39,13 @@ public class ShuffleWeaponPowerUp : MonoBehaviour
     }
 
     // Activate a specified number of random power-ups
-    void ActivateRandomPowerUps(int count)
-    {
+    void ActivateRandomPowerUps(int count){
         int powerUpCount = Mathf.Min(count, PowerUps.Length);
 
         // Create a copy of the power-ups array
         List<GameObject> powerUpsCopy = new List<GameObject>(PowerUps);
 
-        for (int i = 0; i < powerUpCount; i++)
-        {
+        for (int i = 0; i < powerUpCount; i++){
             // Get a random index within the remaining power-ups
             int randomIndex = Random.Range(0, powerUpsCopy.Count);
 
@@ -55,19 +53,21 @@ public class ShuffleWeaponPowerUp : MonoBehaviour
             GameObject powerUp = powerUpsCopy[randomIndex];
 
             // If the power-up is null, skip to the next iteration
-            if (powerUp == null)
-            {
+            if (powerUp == null){
+                if(powerUpCount < 20){
+                    powerUpCount++;
+                }
                 continue;
+            }else{
+                // Activate the power-up
+                powerUp.SetActive(true);
+
+                // Add the power-up to the active power-ups list
+                activePowerUps.Add(powerUp);
+
+                // Remove the power-up from the copy to avoid duplicates
+                powerUpsCopy.RemoveAt(randomIndex);
             }
-
-            // Activate the power-up
-            powerUp.SetActive(true);
-
-            // Add the power-up to the active power-ups list
-            activePowerUps.Add(powerUp);
-
-            // Remove the power-up from the copy to avoid duplicates
-            powerUpsCopy.RemoveAt(randomIndex);
         }
     }
 }
