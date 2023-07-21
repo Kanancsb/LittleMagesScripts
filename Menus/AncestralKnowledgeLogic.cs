@@ -47,6 +47,7 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         knowledge.SavePlayer();
     }
     
+    // Damage Upgrade
     public void DamageButton(){
         foreach (GameObject Hud in HUD){
             Hud.SetActive(false);
@@ -60,7 +61,9 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             knowledge.DamageLevel++;
         }
     }
+    // ---- !
 
+    // Cooldown Upgrade
     public void CDButton(){
         foreach (GameObject Hud in HUD){
             Hud.SetActive(false);
@@ -74,7 +77,9 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             knowledge.CDLevel++;
         }
     }
+    // ---- !
 
+    // Speed Upgrade
     public void SpellSpeedButton(){
         foreach (GameObject Hud in HUD){
             Hud.SetActive(false);
@@ -89,6 +94,9 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         }
     }
 
+    // ---- !
+
+    // Health Upgrade
     public void PlayerHealthButton(){
         foreach (GameObject Hud in HUD){
             Hud.SetActive(false);
@@ -103,7 +111,9 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         }
     }
 
-    public void FixedUpdate(){
+    // ---- !
+
+    public void Update(){
         DamageLevelText.text = "Level: " + knowledge.DamageLevel;
         CDLevelText.text = "Level: " + knowledge.CDLevel;
         SSLevelText.text = "Level: " + knowledge.SpellSpeedLevel;
