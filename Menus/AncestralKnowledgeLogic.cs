@@ -26,6 +26,14 @@ public class AncestralKnowledgeLogic : MonoBehaviour
     public TMP_Text PlayerHealthLevelText;
     public TMP_Text PlayerHealthCostText;
 
+    public int ExtraLifeCost;
+    public TMP_Text ExtraLifeLevelText;
+    public TMP_Text ExtraLifeCostText;
+
+    public int RerollCost;
+    public TMP_Text RerollLevelText;
+    public TMP_Text RerollCostText;
+
     Dictionary<int, int> levelCosts = new Dictionary<int, int>()
         {
             { 1, 200 },
@@ -34,6 +42,20 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             { 4, 10000 },
             { 5, 50000 }
         };
+    
+    Dictionary<int, int> levelCostsExtraLife = new Dictionary<int, int>()
+        {
+            { 1, 5000 },
+            { 2, 20000 },
+            { 3, 50000 },
+        };
+
+    Dictionary<int, int> levelCostReroll = new Dictionary<int, int>()
+        {
+            { 1, 2000 },
+            { 2, 10000 },
+            { 3, 30000 },
+        };
 
     void Start(){
         knowledge = FindObjectOfType<PlayerKnowledge>();
@@ -41,6 +63,8 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         CDLevelText.text = "Level: " + knowledge.CDLevel;
         SSCostText.text = "Level: " + knowledge.SpellSpeedLevel;
         PlayerHealthCostText.text = "Level: " + knowledge.PlayerHealthLevel;
+        ExtraLifeCostText.text = "Level: " + knowledge.ExtraLifeLevel;
+        RerollCostText.text = "Level: " + knowledge.RerollLevel;
     }
 
     public void SaveButton(){
@@ -113,11 +137,45 @@ public class AncestralKnowledgeLogic : MonoBehaviour
 
     // ---- !
 
+    // Life Upgrade
+    public void PlayerLifeButton(){
+        foreach(GameObject Hud in HUD){
+            Hud.SetActive(false);
+        }
+        HUD[4].SetActive(true);
+    }
+
+    public void LearnExtraLife(){
+        if(knowledge.Knowledge >= ExtraLifeCost){
+            knowledge.Knowledge -= ExtraLifeCost;
+            knowledge.ExtraLifeLevel++;
+        }
+    }
+
+    // ---- !
+
+    // Reroll Upgrade
+    public void RerollButton(){
+        foreach(GameObject Hud in HUD){
+            Hud.SetActive(false);
+        }
+        HUD[5].SetActive(true);
+    }
+
+    public void LearnReroll(){
+        if(knowledge.Knowledge >= RerollCost){
+            knowledge.Knowledge -= RerollCost;
+            knowledge.RerollLevel++;
+        }
+    }
+
     public void Update(){
         DamageLevelText.text = "Level: " + knowledge.DamageLevel;
         CDLevelText.text = "Level: " + knowledge.CDLevel;
         SSLevelText.text = "Level: " + knowledge.SpellSpeedLevel;
         PlayerHealthLevelText.text = "Level: " + knowledge.PlayerHealthLevel;
+        ExtraLifeLevelText.text = "Level: " + knowledge.ExtraLifeLevel;
+        RerollLevelText.text = "Level: " + knowledge.RerollLevel;
 
         if (levelCosts.TryGetValue(knowledge.CDLevel, out int cdCost)){
             CDCost = cdCost;
@@ -137,6 +195,16 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         if (levelCosts.TryGetValue(knowledge.PlayerHealthLevel, out int phCost)){
             PlayerHealthCost = phCost;
             PlayerHealthCostText.text = "Cost: " + PlayerHealthCost;
+        }
+
+        if (levelCostsExtraLife.TryGetValue(knowledge.ExtraLifeLevel, out int elCost)){
+            ExtraLifeCost = elCost;
+            ExtraLifeCostText.text = "Cost: " + ExtraLifeCost;
+        }
+
+        if (levelCostReroll.TryGetValue(knowledge.RerollLevel, out int reCost)){
+            RerollCost = reCost;
+            RerollCostText.text = "Cost: " + RerollCost;
         }
     }
 

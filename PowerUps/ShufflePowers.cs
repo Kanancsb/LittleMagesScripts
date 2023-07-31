@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ShufflePowers : MonoBehaviour
 {
+    public PlayerKnowledge Lvls;
+
+    public GameObject RerollHUD;
+    public int RerollLvl;
+
     // Array of power-up game objects
     public GameObject[] PowerUps;
 
@@ -24,6 +29,10 @@ public class ShufflePowers : MonoBehaviour
 
     // List to keep track of active power-ups
     private List<GameObject> activePowerUps = new List<GameObject>();
+
+    void Start(){
+        RerollLvl = Lvls.RerollLevel - 1;
+    }
 
     // Activate random power-ups on Awake
     void Awake(){
@@ -51,7 +60,15 @@ public class ShufflePowers : MonoBehaviour
         }
 
         DeactivatePowerUps();
-        ActivateRandomPowerUps(3);
+        ActivateRandomPowerUps(3);       
+    }
+
+    void Update(){
+        if(RerollLvl > 0){
+            RerollHUD.SetActive(true);
+        }else{
+            RerollHUD.SetActive(false);
+        }
     }
 
     // Deactivate all active power-ups
@@ -87,10 +104,16 @@ public class ShufflePowers : MonoBehaviour
         }
     }
 
-        T[] ExtendArray<T>(T[] array, T[] newElements){
-            T[] newArray = new T[array.Length + newElements.Length];
-            array.CopyTo(newArray, 0);
-            newElements.CopyTo(newArray, array.Length);
-            return newArray;
-        }
+    T[] ExtendArray<T>(T[] array, T[] newElements){
+        T[] newArray = new T[array.Length + newElements.Length];
+        array.CopyTo(newArray, 0);
+        newElements.CopyTo(newArray, array.Length);
+        return newArray;
+    }
+
+    public void Reroll(){
+            DeactivatePowerUps();
+            ActivateRandomPowerUps(3);
+            RerollLvl--;
+    }
 }

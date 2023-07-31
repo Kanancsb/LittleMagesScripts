@@ -9,32 +9,32 @@ public class PlayerHealth : MonoBehaviour
     
     public float maxHealth = 100; // Set the max health
     public float currentHealth;
-    public HealthBar healthBar; // calls the HealthBar Script
+    public HealthBar healthBar;
+
+    public int PlayerLifes;
 
     public GameObject GameOverHUD;
     
     void Start(){
-
         maxHealth *= ((Lvls.PlayerHealthLevel - 1) * 0.1f) + 1f;
+        PlayerLifes = Lvls.ExtraLifeLevel;
 
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth); // call the function SetMaxHealth of the HealthBar Script and set the int maxHealth
         GameOverHUD.SetActive(false);
     }
 
-    public void TakeDamage(float damage){
-        currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
-    }
-
     void FixedUpdate(){
         if(currentHealth <= 0){
-            Destroy(gameObject);
-            GameOverHUD.SetActive(true);
-            Time.timeScale = 0;
+            PlayerDeath();
         }else if(currentHealth > 100){
             currentHealth = maxHealth;
         }
+        healthBar.SetHealth(currentHealth);
+    }
+
+    public void TakeDamage(float damage){
+        currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
     }
 
@@ -49,8 +49,20 @@ public class PlayerHealth : MonoBehaviour
 
         while (elapsedTime < time){
             TakeDamage(damage);
-            yield return new WaitForSeconds(1f); // Apply damage every second
+            yield return new WaitForSeconds(1f);
             elapsedTime += 1f;
+        }
+    }
+
+    //Player Death Function
+    public void PlayerDeath(){
+        if(PlayerLifes < 1){
+            Destroy(gameObject);
+            GameOverHUD.SetActive(true);
+            Time.timeScale = 0;
+        }else{
+            currentHealth = 50;
+            PlayerLifes--;
         }
     }
 

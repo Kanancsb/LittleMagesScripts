@@ -4,34 +4,46 @@ using UnityEngine;
 
 public class ShuffleWeaponPowerUp : MonoBehaviour
 {
+    public PlayerKnowledge Lvls;
+
+    public GameObject RerollHUD;
+    public int RerollLvl;
+
     // Array of power-up game objects
     public GameObject[] PowerUps;
 
     // List to keep track of active power-ups
     private List<GameObject> activePowerUps = new List<GameObject>();
 
+    void Start(){
+        RerollLvl = Lvls.RerollLevel - 1;
+    }
+
     // Activate random power-ups on Awake
-    void Awake()
-    {
+    void Awake(){
         int count = Mathf.Min(PowerUps.Length, 3);
         ActivateRandomPowerUps(count);
     }
 
     // Deactivate and activate random power-ups on re-enabling the script
-    void OnEnable()
-    {
+    void OnEnable(){
         DeactivatePowerUps();
         int count = Mathf.Min(PowerUps.Length, 3);
         ActivateRandomPowerUps(count);
     }
 
+    void Update(){
+        if(RerollLvl > 0){
+            RerollHUD.SetActive(true);
+        }else{
+            RerollHUD.SetActive(false);
+        }
+    }
+
     // Deactivate all active power-ups
-    void DeactivatePowerUps()
-    {
-        foreach (GameObject powerUp in activePowerUps)
-        {
-            if (powerUp != null)
-            {
+    void DeactivatePowerUps(){
+        foreach (GameObject powerUp in activePowerUps){
+            if (powerUp != null){
                 powerUp.SetActive(false);
             }
         }
@@ -69,5 +81,11 @@ public class ShuffleWeaponPowerUp : MonoBehaviour
                 powerUpsCopy.RemoveAt(randomIndex);
             }
         }
+    }
+
+    public void Reroll(){
+            DeactivatePowerUps();
+            ActivateRandomPowerUps(3);
+            RerollLvl--;
     }
 }

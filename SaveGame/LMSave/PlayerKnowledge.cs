@@ -10,6 +10,8 @@ public class PlayerKnowledge : MonoBehaviour
     public int CDLevel = 1;
     public int SpellSpeedLevel = 1;
     public int PlayerHealthLevel = 1;
+    public int ExtraLifeLevel = 1;
+    public int RerollLevel = 1;
 
     void Start(){
         LoadPlayer();
@@ -20,15 +22,21 @@ public class PlayerKnowledge : MonoBehaviour
         SaveSystem.SavePlayer(this);
     }
 
-    // Load the player's data
+    // Load the player's data from PlayerData Script
     public void LoadPlayer(){
         PlayerData data = SaveSystem.LoadPlayer();
 
-        Knowledge = data.Knowledge;
-        DamageLevel = data.DamageLevel;
-        CDLevel = data.CDLevel;
-        SpellSpeedLevel = data.SpellSpeedLevel;
-        PlayerHealthLevel = data.PlayerHealthLevel;
+        if (data != null){
+            Knowledge = data.Knowledge;
+            DamageLevel = data.DamageLevel;
+            CDLevel = data.CDLevel;
+            SpellSpeedLevel = data.SpellSpeedLevel;
+            PlayerHealthLevel = data.PlayerHealthLevel;
+            ExtraLifeLevel = data.ExtraLifeLevel;
+            RerollLevel = data.RerollLevel;
+        }else{
+            Debug.LogWarning("Failed to load player data. Using default values.");
+        }
     }
 
     /*void Update(){
