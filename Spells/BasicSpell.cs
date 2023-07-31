@@ -14,21 +14,18 @@ public class BasicSpell : MonoBehaviour
     // Reference to the projectile game object
     public GameObject projectile;
 
+    public Image SpellImage;
+    bool CooldownImage = false;
+
     // Cooldown between spell casts
     public float CastCD = 1f;
     float lastCast;
 
-    public Image SpellImage;
-    bool CooldownImage = false;
-
-    // Damage inflicted by the spell
     public float damage = 10f;
-
-    // Speed of the projectile
     public float projectileSpeed = 6f;
-
-
     public float LifeSteal;
+
+    public int ExtraSpell;
 
     void Start(){
         damage *= ((Lvls.DamageLevel - 1) * 0.05f) + 1f;
@@ -38,6 +35,7 @@ public class BasicSpell : MonoBehaviour
         float reductionFactor = Mathf.Pow(0.95f, Lvls.CDLevel - 1);
         CastCD *= reductionFactor;
 
+        ExtraSpell = Lvls.ExtraSpellLevel - 1;
     }
 
     void Update(){
@@ -54,6 +52,26 @@ public class BasicSpell : MonoBehaviour
             // Create a new projectile at the spell position with the calculated angle
             GameObject newProjectile = Instantiate(projectile, SpellPosition.position, Quaternion.AngleAxis(angle, Vector3.forward));
 
+            if(ExtraSpell > 0){{
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                GameObject[] bosses = GameObject.FindGameObjectsWithTag("Boss");
+                List<GameObject> targets = new List<GameObject>();
+                targets.AddRange(enemies);
+                targets.AddRange(bosses);
+
+                // If targets are found, create another projectile towards a random target
+                if (targets.Count > 0)
+                {
+                    int randomIndex = Random.Range(0, targets.Count);
+                    GameObject randomTarget = targets[randomIndex];
+                    Vector2 extraSpellDirection = (randomTarget.transform.position - SpellPosition.position).normalized;
+                    float extraSpellAngle = Mathf.Atan2(extraSpellDirection.y, extraSpellDirection.x) * Mathf.Rad2Deg;
+
+                    GameObject extraProjectile = Instantiate(projectile, SpellPosition.position, Quaternion.AngleAxis(extraSpellAngle, Vector3.forward));
+                }
+            }
+            }
+
             // Set the time of the last cast to the current time
             lastCast = Time.time;
             CooldownImage = true;
@@ -67,5 +85,24 @@ public class BasicSpell : MonoBehaviour
                 CooldownImage = false;
             }
         }
+    }
+
+    GameObject FindNearestTarget(GameObject[] targets, Vector3 position)
+    {
+        float minDistance = Mathf.Infinity;
+        GameObject nearestTarget = null;
+
+        foreach (GameObject target in targets)
+        {
+            float distance = Vector3.Distance(target.transform.position, position);
+
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestTarget = target;
+            }
+        }
+
+        return nearestTarget;
     }
 }

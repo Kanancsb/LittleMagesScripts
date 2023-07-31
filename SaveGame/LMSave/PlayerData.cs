@@ -12,6 +12,7 @@ public class PlayerData
     public int PlayerHealthLevel;
     public int ExtraLifeLevel;
     public int RerollLevel;
+    public int ExtraSpellLevel;
 
     // Constructor that takes a PlayerKnowledge object as a parameter
     public PlayerData(PlayerKnowledge player){
@@ -23,5 +24,6 @@ public class PlayerData
         PlayerHealthLevel = player.PlayerHealthLevel;
         ExtraLifeLevel = player.ExtraLifeLevel;
         RerollLevel = player.RerollLevel;
+        ExtraSpellLevel = player.ExtraSpellLevel;
     }
 }

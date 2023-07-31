@@ -9,6 +9,8 @@ public class ShufflePowers : MonoBehaviour
     public GameObject RerollHUD;
     public int RerollLvl;
 
+    public ShuffleWeaponPowerUp shuffleWeaponPowerUp;
+
     // Array of power-up game objects
     public GameObject[] PowerUps;
 
@@ -115,5 +117,6 @@ public class ShufflePowers : MonoBehaviour
             DeactivatePowerUps();
             ActivateRandomPowerUps(3);
             RerollLvl--;
+            shuffleWeaponPowerUp.RerollLvl--;
     }
 }

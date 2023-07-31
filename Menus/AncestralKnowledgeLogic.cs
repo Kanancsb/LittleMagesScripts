@@ -34,6 +34,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
     public TMP_Text RerollLevelText;
     public TMP_Text RerollCostText;
 
+    public int ExtraSpellCost;
+    public TMP_Text ExtraSpellLevelText;
+    public TMP_Text ExtraSpellCostText;
+
     Dictionary<int, int> levelCosts = new Dictionary<int, int>()
         {
             { 1, 200 },
@@ -65,6 +69,7 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         PlayerHealthCostText.text = "Level: " + knowledge.PlayerHealthLevel;
         ExtraLifeCostText.text = "Level: " + knowledge.ExtraLifeLevel;
         RerollCostText.text = "Level: " + knowledge.RerollLevel;
+        ExtraSpellCostText.text = "Level: " + knowledge.ExtraSpellLevel;
     }
 
     public void SaveButton(){
@@ -169,6 +174,25 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         }
     }
 
+    // ---- !
+
+    // Extra Spell Upgrade
+    public void ExtraSpellButton(){
+        foreach(GameObject Hud in HUD){
+            Hud.SetActive(false);
+        }
+        HUD[6].SetActive(true);
+    }
+
+    public void LearnExtraSpell(){
+        if(knowledge.Knowledge >= ExtraSpellCost){
+            knowledge.Knowledge -= ExtraSpellCost;
+            knowledge.ExtraSpellLevel++;
+        }
+    }
+
+    // ---- !
+
     public void Update(){
         DamageLevelText.text = "Level: " + knowledge.DamageLevel;
         CDLevelText.text = "Level: " + knowledge.CDLevel;
@@ -176,6 +200,7 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         PlayerHealthLevelText.text = "Level: " + knowledge.PlayerHealthLevel;
         ExtraLifeLevelText.text = "Level: " + knowledge.ExtraLifeLevel;
         RerollLevelText.text = "Level: " + knowledge.RerollLevel;
+        ExtraSpellLevelText.text = "Level: " + knowledge.ExtraSpellLevel;
 
         if (levelCosts.TryGetValue(knowledge.CDLevel, out int cdCost)){
             CDCost = cdCost;
@@ -205,6 +230,11 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         if (levelCostReroll.TryGetValue(knowledge.RerollLevel, out int reCost)){
             RerollCost = reCost;
             RerollCostText.text = "Cost: " + RerollCost;
+        }
+
+        if (levelCostsExtraLife.TryGetValue(knowledge.ExtraSpellLevel, out int esCost)){
+            ExtraSpellCost = esCost;
+            ExtraSpellCostText.text = "Cost: " + ExtraSpellCost;
         }
     }
 

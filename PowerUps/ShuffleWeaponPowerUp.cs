@@ -6,6 +6,8 @@ public class ShuffleWeaponPowerUp : MonoBehaviour
 {
     public PlayerKnowledge Lvls;
 
+    public ShufflePowers shufflePowers;
+
     public GameObject RerollHUD;
     public int RerollLvl;
 
@@ -87,5 +89,6 @@ public class ShuffleWeaponPowerUp : MonoBehaviour
             DeactivatePowerUps();
             ActivateRandomPowerUps(3);
             RerollLvl--;
+            shufflePowers.RerollLvl--;
     }
 }

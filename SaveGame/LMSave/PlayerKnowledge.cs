@@ -12,6 +12,7 @@ public class PlayerKnowledge : MonoBehaviour
     public int PlayerHealthLevel = 1;
     public int ExtraLifeLevel = 1;
     public int RerollLevel = 1;
+    public int ExtraSpellLevel = 1;
 
     void Start(){
         LoadPlayer();
@@ -34,6 +35,7 @@ public class PlayerKnowledge : MonoBehaviour
             PlayerHealthLevel = data.PlayerHealthLevel;
             ExtraLifeLevel = data.ExtraLifeLevel;
             RerollLevel = data.RerollLevel;
+            ExtraSpellLevel = data.ExtraSpellLevel;
         }else{
             Debug.LogWarning("Failed to load player data. Using default values.");
         }
