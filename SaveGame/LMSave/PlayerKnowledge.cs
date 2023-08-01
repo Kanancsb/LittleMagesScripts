@@ -15,7 +15,7 @@ public class PlayerKnowledge : MonoBehaviour
     public int RerollLevel = 1;
     public int ExtraSpellLevel = 1;
 
-    void Start(){
+    void Awake(){
         LoadPlayer();
     }
 

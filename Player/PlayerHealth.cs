@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
 
-    public PlayerKnowledge Lvl;
-    public BasicSpell Lvls;
+    public PlayerKnowledge Lvls;
     
     public float maxHealth = 100; // Set the max health
     public float currentHealth;
@@ -17,14 +16,15 @@ public class PlayerHealth : MonoBehaviour
     public GameObject GameOverHUD;
 
     void Start(){
+        maxHealth *= ((Lvls.PlayerHealthLevel - 1) * 0.1f) + 1f;;
+        PlayerLifes = Lvls.ExtraLifeLevel - 1;
+
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth); // call the function SetMaxHealth of the HealthBar Script and set the int maxHealth
         GameOverHUD.SetActive(false);
     }
 
     void FixedUpdate(){
-        maxHealth = Lvls.MaxHealth;
-        PlayerLifes = Lvls.ExtraLife;
         if(currentHealth <= 0){
             PlayerDeath();
         }else if(currentHealth > maxHealth){
@@ -54,7 +54,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    //Player Death Function
+    //What happend when the player die
     public void PlayerDeath(){
         if(PlayerLifes < 1){
             Destroy(gameObject);
@@ -62,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
             Time.timeScale = 0;
         }else{
             currentHealth = 50;
-            Lvls.ExtraLife--;
+            PlayerLifes--;
         }
     }
 

@@ -26,10 +26,10 @@ public class GameController : MonoBehaviour
     public Behaviour Movement;
     public Behaviour Spell;
 
-    public int Reroll = 5;
+    public int Reroll;
 
     void Start(){
-        Reroll = Lvls.RerollLevel;
+        Reroll = Lvls.RerollLevel - 1;
     }
 
     void Update(){

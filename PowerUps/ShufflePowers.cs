@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShufflePowers : MonoBehaviour
 {
-    public BasicSpell basicSpell;
+    public GameController gameController;
 
     public GameObject RerollHUD;
 
@@ -59,7 +59,7 @@ public class ShufflePowers : MonoBehaviour
     }
 
     void Update(){
-        if(basicSpell.Roll > 0){
+        if(gameController.Reroll > 0){
             RerollHUD.SetActive(true);
         }else{
             RerollHUD.SetActive(false);
@@ -109,6 +109,6 @@ public class ShufflePowers : MonoBehaviour
     public void Reroll(){
             DeactivatePowerUps();
             ActivateRandomPowerUps(3);
-            basicSpell.Roll--;
+            gameController.Reroll--;
     }
 }
