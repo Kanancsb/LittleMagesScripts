@@ -13,6 +13,8 @@ public class WeaponPowerUp : MonoBehaviour
     public GameObject[] Spell;
     public int SpellButton = 0;
 
+    public GameObject RerollHUD;
+
     bool HUD = false;
 
     void FixedUpdate(){
@@ -27,6 +29,7 @@ public class WeaponPowerUp : MonoBehaviour
         Spell[0].SetActive(true); 
         HUD = true;
         Destroy(PowerUpButton[0]);
+        RerollHUD.SetActive(false);
     }
 
     public void FireMissile(){
@@ -34,6 +37,7 @@ public class WeaponPowerUp : MonoBehaviour
         Spell[1].SetActive(true); 
         HUD = true;
         Destroy(PowerUpButton[1]);
+        RerollHUD.SetActive(false);
     }
 
     public void MegaFireball(){
@@ -41,6 +45,7 @@ public class WeaponPowerUp : MonoBehaviour
         Spell[2].SetActive(true); 
         HUD = true;
         Destroy(PowerUpButton[2]);
+        RerollHUD.SetActive(false);
     }
 
     public void LivingBomb(){
@@ -49,6 +54,7 @@ public class WeaponPowerUp : MonoBehaviour
         Spell[3].SetActive(true); 
         HUD = true;
         Destroy(PowerUpButton[3]);
+        RerollHUD.SetActive(false);
     }
 
     public void FireOrb(){
@@ -56,5 +62,6 @@ public class WeaponPowerUp : MonoBehaviour
         Spell[4].SetActive(true);
         HUD = true;
         Destroy(PowerUpButton[4]);
+        RerollHUD.SetActive(false);
     }
 }

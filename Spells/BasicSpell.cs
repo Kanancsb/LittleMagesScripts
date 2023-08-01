@@ -27,6 +27,10 @@ public class BasicSpell : MonoBehaviour
 
     public int ExtraSpell;
 
+    public float MaxHealth = 100;
+    public int ExtraLife;
+    public int Roll;
+
     void Start(){
         damage *= ((Lvls.DamageLevel - 1) * 0.05f) + 1f;
 
@@ -36,6 +40,13 @@ public class BasicSpell : MonoBehaviour
         CastCD *= reductionFactor;
 
         ExtraSpell = Lvls.ExtraSpellLevel - 1;
+
+        // Don't ask why, but this only works in this script
+        MaxHealth *= ((Lvls.PlayerHealthLevel - 1) * 0.1f) + 1f;
+        ExtraLife = Lvls.ExtraLifeLevel - 1;
+        Roll = Lvls.RerollLevel - 1;
+
+        // ---- !
     }
 
     void Update(){
@@ -52,7 +63,10 @@ public class BasicSpell : MonoBehaviour
             // Create a new projectile at the spell position with the calculated angle
             GameObject newProjectile = Instantiate(projectile, SpellPosition.position, Quaternion.AngleAxis(angle, Vector3.forward));
 
-            if(ExtraSpell > 0){{
+            if (ExtraSpell > 0){
+            // Create ExtraSpell number of additional projectiles
+            for (int i = 0; i < ExtraSpell; i++)
+            {
                 GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
                 GameObject[] bosses = GameObject.FindGameObjectsWithTag("Boss");
                 List<GameObject> targets = new List<GameObject>();
@@ -70,7 +84,7 @@ public class BasicSpell : MonoBehaviour
                     GameObject extraProjectile = Instantiate(projectile, SpellPosition.position, Quaternion.AngleAxis(extraSpellAngle, Vector3.forward));
                 }
             }
-            }
+        }
 
             // Set the time of the last cast to the current time
             lastCast = Time.time;

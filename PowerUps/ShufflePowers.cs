@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class ShufflePowers : MonoBehaviour
 {
-    public PlayerKnowledge Lvls;
+    public BasicSpell basicSpell;
 
     public GameObject RerollHUD;
-    public int RerollLvl;
-
-    public ShuffleWeaponPowerUp shuffleWeaponPowerUp;
 
     // Array of power-up game objects
     public GameObject[] PowerUps;
@@ -31,10 +28,6 @@ public class ShufflePowers : MonoBehaviour
 
     // List to keep track of active power-ups
     private List<GameObject> activePowerUps = new List<GameObject>();
-
-    void Start(){
-        RerollLvl = Lvls.RerollLevel - 1;
-    }
 
     // Activate random power-ups on Awake
     void Awake(){
@@ -66,7 +59,7 @@ public class ShufflePowers : MonoBehaviour
     }
 
     void Update(){
-        if(RerollLvl > 0){
+        if(basicSpell.Roll > 0){
             RerollHUD.SetActive(true);
         }else{
             RerollHUD.SetActive(false);
@@ -116,7 +109,6 @@ public class ShufflePowers : MonoBehaviour
     public void Reroll(){
             DeactivatePowerUps();
             ActivateRandomPowerUps(3);
-            RerollLvl--;
-            shuffleWeaponPowerUp.RerollLvl--;
+            basicSpell.Roll--;
     }
 }

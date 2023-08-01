@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class PlayerKnowledge : MonoBehaviour
 {
@@ -41,11 +42,25 @@ public class PlayerKnowledge : MonoBehaviour
         }
     }
 
-    /*void Update(){
+    void Update(){
         if(Input.GetButtonDown("Pause")){
             SavePlayer();
         }else if(Input.GetButtonDown("Load")){
             LoadPlayer();
+        }else if (Input.GetButtonDown("Delete")){
+            // Define o save file path
+            string path = Application.persistentDataPath + "/player.save";
+
+            // Verifica se o arquivo de save existe antes de excluir
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+                Debug.Log("Save file deleted.");
+            }
+            else
+            {
+                Debug.LogWarning("Save file not found. No file to delete.");
+            }
         }
-    }*/
+    }
 }

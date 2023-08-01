@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    public PlayerKnowledge Lvls;
 
     // Reference to the PowerUpHUD game object
     public GameObject PowerUpHUD;
@@ -24,6 +25,12 @@ public class GameController : MonoBehaviour
     // References to the Movement and Spell behaviors
     public Behaviour Movement;
     public Behaviour Spell;
+
+    public int Reroll = 5;
+
+    void Start(){
+        Reroll = Lvls.RerollLevel;
+    }
 
     void Update(){
 
