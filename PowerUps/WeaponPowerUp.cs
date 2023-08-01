@@ -58,8 +58,8 @@ public class WeaponPowerUp : MonoBehaviour
     }
 
     public void FireOrb(){
-        fireOrb.FOChosen = true;
         Spell[4].SetActive(true);
+        fireOrb.FOChosen = true;
         HUD = true;
         Destroy(PowerUpButton[4]);
         RerollHUD.SetActive(false);
