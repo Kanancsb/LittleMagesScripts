@@ -22,7 +22,7 @@ public class ElementalHeroldLogic : MonoBehaviour
 
     // Dialogue Logic
     public List <string> Dialogues = new List<string>();
-    public TextMeshProUGUI BossDialogue;
+    public GameObject FloatingTextPrefab;
     public float TextSpeed = 0.1f;
     private Coroutine dialogueCoroutine;
 
@@ -32,10 +32,10 @@ public class ElementalHeroldLogic : MonoBehaviour
     }
 
     IEnumerator DisplayDialogue(string dialogue){
-        BossDialogue.text = "";
+        FloatingTextPrefab.GetComponent<TextMesh>().text = "";
 
-        foreach(char letter in dialogue){
-            BossDialogue.text += letter;
+        foreach (char letter in dialogue){
+            FloatingTextPrefab.GetComponent<TextMesh>().text += letter;
 
             yield return new WaitForSeconds(TextSpeed);
         }

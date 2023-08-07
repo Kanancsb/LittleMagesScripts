@@ -49,7 +49,6 @@ public class Enemy : MonoBehaviour
     }
 
     void ShowFloatingText(float damage){
-
         var go = Instantiate(FloatingTextPrefab, transform.position, Quaternion.identity, transform);
         go.GetComponent<TextMesh>().text = damage.ToString();
     }

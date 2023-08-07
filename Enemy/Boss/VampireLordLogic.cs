@@ -30,10 +30,11 @@ public class VampireLordLogic : MonoBehaviour
     public float X = 10f;
 
     public List<string> Dialogues = new List<string>();
-    public TextMeshProUGUI BossDialogue;
-    bool FirstSpell = false;
+    public GameObject FloatingTextPrefab;
     public float TextSpeed = 0.1f;
     private Coroutine dialogueCoroutine;
+
+    bool FirstSpell = false;
 
     void Start(){
         enemyHealth = FindObjectOfType<Enemy>();
@@ -44,10 +45,10 @@ public class VampireLordLogic : MonoBehaviour
     }
 
     IEnumerator DisplayDialogue(string dialogue){
-        BossDialogue.text = "";
+        FloatingTextPrefab.GetComponent<TextMesh>().text = "";
 
         foreach (char letter in dialogue){
-            BossDialogue.text += letter;
+            FloatingTextPrefab.GetComponent<TextMesh>().text += letter;
 
             yield return new WaitForSeconds(TextSpeed);
         }
