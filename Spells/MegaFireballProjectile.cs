@@ -14,8 +14,14 @@ public class MegaFireballProjectile : MonoBehaviour
 
     public GameObject impacEffect;
 
+    public GameObject ImpactSound;
+    public AudioSource impactSound;
+
     void Start(){
-        // Find the BasicSpell component in the scene
+
+        ImpactSound = GameObject.Find("Hit2");
+        impactSound = ImpactSound.GetComponent<AudioSource>();
+
         megaFireball = FindObjectOfType<MegaFireball>();
 
         CurrentHealth = FindObjectOfType<PlayerHealth>();
@@ -29,11 +35,13 @@ public class MegaFireballProjectile : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision){
 
         if (collision.CompareTag("EnemySpell")){
+            impactSound.Play();
             Destroy(collision.gameObject);
             return;
         }
 
         Enemy enemy = collision.GetComponent<Enemy>();
+        impactSound.Play();
         if (enemy != null){
             if (megaFireball.LifeSteal != 0){
                 float lifeStealAmount = megaFireball.damage * megaFireball.LifeSteal;
@@ -51,7 +59,6 @@ public class MegaFireballProjectile : MonoBehaviour
                     Destroy(impactInstance);
                 }
                 enemy.TakeDamage(megaFireball.damage);
-
             }else{
                 GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
             
@@ -69,10 +76,12 @@ public class MegaFireballProjectile : MonoBehaviour
         }
 
         if(!collision.CompareTag("Player") && !collision.CompareTag("PlayerSpell")){
+            impactSound.Play();
             Destroy(gameObject);
         }
 
         if(collision.gameObject.layer == LayerMask.NameToLayer("Bricks")){
+            impactSound.Play();
             Destroy(gameObject);
         }
     }

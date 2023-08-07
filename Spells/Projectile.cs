@@ -12,10 +12,16 @@ public class Projectile : MonoBehaviour
 
     public PlayerHealth CurrentHealth;
 
-    public GameObject impacEffect;
+    public GameObject impactEffect;
+
+    public GameObject ImpactSound;
+    public AudioSource impactSound;
 
     void Start(){
-        // Find the BasicSpell component in the scene
+        
+        ImpactSound = GameObject.Find("Hit");
+        impactSound = ImpactSound.GetComponent<AudioSource>();
+
         basicSpell = FindObjectOfType<BasicSpell>();
 
         CurrentHealth = FindObjectOfType<PlayerHealth>();
@@ -30,12 +36,13 @@ public class Projectile : MonoBehaviour
 
         if (collision.CompareTag("EnemySpell") || collision.CompareTag("Enemy") || collision.CompareTag("Boss")){
             Enemy enemy = collision.GetComponent<Enemy>();
+            impactSound.Play();
             if (enemy != null){
                 if (basicSpell.LifeSteal != 0){
                     float lifeStealAmount = basicSpell.damage * basicSpell.LifeSteal;
                     enemy.TakeDamage(basicSpell.damage);
                     CurrentHealth.currentHealth += lifeStealAmount;
-                    GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
+                    GameObject impactInstance = Instantiate(impactEffect, transform.position, transform.rotation);
             
                     Animator animator = impactInstance.GetComponent<Animator>();
                     if (animator != null){
@@ -49,7 +56,7 @@ public class Projectile : MonoBehaviour
                     }
                 }else{
                     enemy.TakeDamage(basicSpell.damage);
-                    GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
+                    GameObject impactInstance = Instantiate(impactEffect, transform.position, transform.rotation);
             
                     Animator animator = impactInstance.GetComponent<Animator>();
                     if (animator != null){
@@ -66,6 +73,7 @@ public class Projectile : MonoBehaviour
 
             Destroy(gameObject);
         }else if(collision.gameObject.layer == LayerMask.NameToLayer("Bricks")){
+            impactSound.Play();
             Destroy(gameObject);
         }
     }

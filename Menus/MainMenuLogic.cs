@@ -21,6 +21,8 @@ public class MainMenuLogic : MonoBehaviour
 
     public TMP_Dropdown resolutionDropdown;
 
+    public AudioSource StartSound;
+
     Resolution[] resolutions;
 
     void Start(){
@@ -64,6 +66,7 @@ public class MainMenuLogic : MonoBehaviour
     public void StartButton(){
         loading.SetActive(true);
         mainMenu.SetActive(false);
+        StartSound.Play();
         SceneManager.LoadScene("FightScene-EN-US");
     }
 

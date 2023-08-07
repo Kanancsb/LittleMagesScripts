@@ -9,7 +9,13 @@ public class LivingBombExplosion : MonoBehaviour
 
     private PlayerHealth CurrentHealth;
 
+    public GameObject ImpactSound;
+    public AudioSource impactSound;
+
     void Start(){
+
+        ImpactSound = GameObject.Find("Hit");
+        impactSound = ImpactSound.GetComponent<AudioSource>();
 
         CurrentHealth = FindObjectOfType<PlayerHealth>();
 
@@ -26,6 +32,7 @@ public class LivingBombExplosion : MonoBehaviour
             }else{
                 enemy.TakeDamage(bomb.damage);
             }
+            impactSound.Play();
         }
     }
 }

@@ -17,9 +17,14 @@ public class EnemySpell : MonoBehaviour
 
     public float Speed;
 
+    public GameObject ImpactSound;
+    public AudioSource impactSound;
 
-    void Start()
-    {
+    void Start(){
+
+        ImpactSound = GameObject.Find("Hit");
+        impactSound = ImpactSound.GetComponent<AudioSource>();
+
         // Get the Rigidbody2D component attached to the enemy spell
         rigidbody = GetComponent<Rigidbody2D>();
 
@@ -44,6 +49,8 @@ public class EnemySpell : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other){
         // Check if the enemy spell collides with the player
         if (other.gameObject.CompareTag("Player")){
+            impactSound.Play();
+
             // Deal damage to the player
             if(Burn){
                 other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
@@ -66,6 +73,7 @@ public class EnemySpell : MonoBehaviour
             
             Destroy(gameObject);
         }else if(other.gameObject.layer == LayerMask.NameToLayer("Bricks")){
+            impactSound.Play();
             if(impacEffect != null){
                 GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
                 Animator animator = impactInstance.GetComponent<Animator>();

@@ -10,6 +10,9 @@ public class AncestralKnowledgeLogic : MonoBehaviour
 
     public GameObject[] HUD;
 
+    public AudioSource DeniedSound;
+    public AudioSource BuySound;
+
     public int DamageCost;
     public TMP_Text DamageLevelText;
     public TMP_Text DamageCostText;
@@ -88,6 +91,9 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         if(knowledge.Knowledge >= DamageCost){
             knowledge.Knowledge -= DamageCost;
             knowledge.DamageLevel++;
+            BuySound.Play();
+        }else{
+            DeniedSound.Play();
         }
     }
     // ---- !
@@ -104,6 +110,9 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         if(knowledge.Knowledge >= CDCost){
             knowledge.Knowledge -= CDCost;
             knowledge.CDLevel++;
+            BuySound.Play();
+        }else{
+            DeniedSound.Play();
         }
     }
     // ---- !
@@ -120,6 +129,9 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         if(knowledge.Knowledge >= SSCost){
             knowledge.Knowledge -= SSCost;
             knowledge.SpellSpeedLevel++;
+            BuySound.Play();
+        }else{
+            DeniedSound.Play();
         }
     }
 
@@ -137,6 +149,9 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         if(knowledge.Knowledge >= PlayerHealthCost){
             knowledge.Knowledge -= PlayerHealthCost;
             knowledge.PlayerHealthLevel++;
+            BuySound.Play();
+        }else{
+            DeniedSound.Play();
         }
     }
 
@@ -154,6 +169,9 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         if(knowledge.Knowledge >= ExtraLifeCost){
             knowledge.Knowledge -= ExtraLifeCost;
             knowledge.ExtraLifeLevel++;
+            BuySound.Play();
+        }else{
+            DeniedSound.Play();
         }
     }
 
@@ -171,6 +189,9 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         if(knowledge.Knowledge >= RerollCost){
             knowledge.Knowledge -= RerollCost;
             knowledge.RerollLevel++;
+            BuySound.Play();
+        }else{
+            DeniedSound.Play();
         }
     }
 
@@ -188,6 +209,9 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         if(knowledge.Knowledge >= ExtraSpellCost){
             knowledge.Knowledge -= ExtraSpellCost;
             knowledge.ExtraSpellLevel++;
+            BuySound.Play();
+        }else{
+            DeniedSound.Play();
         }
     }
 

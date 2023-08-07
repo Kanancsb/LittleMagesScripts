@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public GameObject FloatingTextPrefab;
+
     private PlayerKnowledge knowledge;
     public int KnowledgeGain;
     private LivingBomb Livingbomb;
@@ -32,6 +34,11 @@ public class Enemy : MonoBehaviour
             BombActive = true;
             StartCoroutine(LivingBombExplosion());
         }
+
+        if(FloatingTextPrefab){
+            ShowFloatingText(damage);
+        }
+
         if (health <= 0){
             if(Livingbomb.ActiveLB && BombActive){
                 StartCoroutine(LivingBombExplosion());
@@ -39,6 +46,12 @@ public class Enemy : MonoBehaviour
                 Die();
             }
         }
+    }
+
+    void ShowFloatingText(float damage){
+
+        var go = Instantiate(FloatingTextPrefab, transform.position, Quaternion.identity, transform);
+        go.GetComponent<TextMesh>().text = damage.ToString();
     }
 
     void Die(){

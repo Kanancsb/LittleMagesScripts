@@ -13,7 +13,14 @@ public class FireOrbProjectile : MonoBehaviour
 
     private float phaseShift;
 
+    public GameObject ImpactSound;
+    public AudioSource impactSound;
+
     void Start(){
+
+        ImpactSound = GameObject.Find("Hit");
+        impactSound = ImpactSound.GetComponent<AudioSource>();
+
         fireOrb = FindObjectOfType<FireOrb>();
 
         CurrentHealth = FindObjectOfType<PlayerHealth>();
@@ -34,6 +41,7 @@ public class FireOrbProjectile : MonoBehaviour
         if(collision.CompareTag("Enemy") || collision.CompareTag("Boss")){
 
             Enemy enemy = collision.GetComponent<Enemy>();
+            impactSound.Play();
 
             if(fireOrb.LifeSteal != 0){
                 float lifeStealAmout = fireOrb.damage * fireOrb.LifeSteal;
@@ -49,6 +57,7 @@ public class FireOrbProjectile : MonoBehaviour
         }
 
         if(collision.CompareTag("EnemySpell")){
+            impactSound.Play();
             fireOrb.currentFireOrbs --;
             Destroy(collision.gameObject);
             Destroy(gameObject);

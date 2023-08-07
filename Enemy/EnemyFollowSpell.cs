@@ -11,7 +11,13 @@ public class EnemyFollowSpell : MonoBehaviour
     public int damage = 10;
     public float moveSpeed = 5f;
 
+    public GameObject ImpactSound;
+    public AudioSource impactSound;
+
     void Start(){
+        ImpactSound = GameObject.Find("Hit1");
+        impactSound = ImpactSound.GetComponent<AudioSource>();
+
         enemyProjectile = FindObjectOfType<EnemyProjectile>();
         rigidbody = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -26,6 +32,7 @@ public class EnemyFollowSpell : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collision){
+        impactSound.Play();
         if(collision.gameObject.CompareTag("Player")){
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
             Destroy(gameObject);

@@ -12,8 +12,14 @@ public class FireMissileProjectile : MonoBehaviour
 
     public PlayerHealth CurrentHealth;
 
+    public GameObject ImpactSound;
+    public AudioSource impactSound;
+
     void Start(){
-        // Find the BasicSpell component in the scene
+
+        ImpactSound = GameObject.Find("Hit1");
+        impactSound = ImpactSound.GetComponent<AudioSource>();
+
         fireMissile = FindObjectOfType<FireMissile>();
 
         CurrentHealth = FindObjectOfType<PlayerHealth>();
@@ -35,8 +41,10 @@ public class FireMissileProjectile : MonoBehaviour
             }else{
                 enemy.TakeDamage(fireMissile.damage);
             }
+            impactSound.Play();
         }
         if(collision.gameObject.layer == LayerMask.NameToLayer("Bricks")){
+            impactSound.Play();
             Destroy(gameObject);
         }
     }

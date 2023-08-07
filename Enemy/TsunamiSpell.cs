@@ -11,7 +11,13 @@ public class TsunamiSpell : MonoBehaviour
     public int damage = 30;
     public float moveSpeed = 5f;
 
+    public GameObject ImpactSound;
+    public AudioSource impactSound;
+
     void Start(){
+        ImpactSound = GameObject.Find("Hit2");
+        impactSound = ImpactSound.GetComponent<AudioSource>();
+
         rigidbody = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Target").transform;
     }
@@ -32,6 +38,7 @@ public class TsunamiSpell : MonoBehaviour
     
 
     void OnTriggerEnter2D(Collider2D collision){
+        impactSound.Play();
         if(collision.gameObject.CompareTag("Player")){
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
         }

@@ -12,7 +12,13 @@ public class FireWheel : MonoBehaviour
     private Transform target;
     private List<Transform> hitEnemies = new List<Transform>();
 
+    public GameObject ImpactSound;
+    public AudioSource impactSound;
+
     void Start(){
+
+        ImpactSound = GameObject.Find("Hit1");
+        impactSound = ImpactSound.GetComponent<AudioSource>();
 
         fireWheelSpell = FindObjectOfType<FireWheelSpell>();
         rigidbody.velocity = transform.right * fireWheelSpell.projectileSpeed;
@@ -31,6 +37,7 @@ public class FireWheel : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision){
 
         if(collision.gameObject.layer == LayerMask.NameToLayer("Bricks")){
+            impactSound.Play();
             Destroy(gameObject);
             return;
         }
@@ -51,6 +58,7 @@ public class FireWheel : MonoBehaviour
 
                 target = FindClosestEnemy();
             }
+            impactSound.Play();
         }
     }
 
