@@ -21,7 +21,12 @@ public class Enemy : MonoBehaviour
 
     public bool SpawnType = true;
 
+    public float CritChance = 0.1f;
+    public float CritDamage = 2;
+
     void Start(){
+        CritChance = 0.1f;
+        CritDamage = 2;
         knowledge = FindObjectOfType<PlayerKnowledge>();
         wavePBS = FindObjectOfType<WavePBS>();
         Livingbomb = FindObjectOfType<LivingBomb>();
@@ -29,15 +34,23 @@ public class Enemy : MonoBehaviour
     }
 
     public void TakeDamage(float damage){
+        float Critical = Random.Range(0, 1f);
+        if(Critical < CritChance){
+            damage *= CritDamage;
+        }else{
+            float damageVariance = damage * Random.Range(-0.15f, 0.05f);
+            damage += damageVariance;
+        }
+        
         health -= damage;
-        if(Random.Range(0f, 1f) <= Livingbomb.BombChance && Livingbomb.ActiveLB){
+
+        float bombchanceValue = Random.Range(0f, 1f);
+        if (bombchanceValue <= Livingbomb.BombChance && Livingbomb.ActiveLB){
             BombActive = true;
             StartCoroutine(LivingBombExplosion());
         }
 
-        if(FloatingTextPrefab){
-            ShowFloatingText(damage);
-        }
+        ShowFloatingText(damage);
 
         if (health <= 0){
             if(Livingbomb.ActiveLB && BombActive){
@@ -48,9 +61,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    // Displays the damage dealt by the character, rounded to an integer
     void ShowFloatingText(float damage){
         var go = Instantiate(FloatingTextPrefab, transform.position, Quaternion.identity, transform);
-        go.GetComponent<TextMesh>().text = damage.ToString();
+        int damageInt = Mathf.RoundToInt(damage);
+        go.GetComponent<TextMesh>().text = damageInt.ToString();
     }
 
     void Die(){
