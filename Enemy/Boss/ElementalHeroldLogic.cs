@@ -25,13 +25,26 @@ public class ElementalHeroldLogic : MonoBehaviour
     public GameObject FloatingTextPrefab;
     public float TextSpeed = 0.1f;
     private Coroutine dialogueCoroutine;
+    private bool isDisplayingDialogue = false;
+
+    //HealthBar Logic
+    public float Health;
+    public HealthBar healthBar;
+    public Enemy enemyHealth;
 
     void Start(){
+
+        Health = enemyHealth.health;
+        healthBar.SetMaxHealth(Health);
+
         BossMusic.Play();
         StartCoroutine(ShootSpells());
+        StartCoroutine(ShowRandomDialogue());
     }
 
+    // Dialogue System
     IEnumerator DisplayDialogue(string dialogue){
+        isDisplayingDialogue = true;
         FloatingTextPrefab.GetComponent<TextMesh>().text = "";
 
         foreach (char letter in dialogue){
@@ -39,27 +52,31 @@ public class ElementalHeroldLogic : MonoBehaviour
 
             yield return new WaitForSeconds(TextSpeed);
         }
+
+        isDisplayingDialogue = false;
     }
 
-    IEnumerator ShootSpells()
-    {
+    IEnumerator ShowRandomDialogue(){
+        yield return new WaitForSeconds(3f);
+            if (!isDisplayingDialogue && Dialogues.Count > 0){
+                int randomIndex = Random.Range(0, Dialogues.Count);
+                string randomDialogue = Dialogues[randomIndex];
+                StartCoroutine(DisplayDialogue(randomDialogue));
+            }
+
+            StartCoroutine(ShowRandomDialogue());
+        }
+    // End the Dialogue System
+
+    // Function that randomly triggers the spells
+    IEnumerator ShootSpells(){
         yield return new WaitForSeconds(ProjectileCD);
 
         List<int> randomIndexes = GenerateRandomIndexes(SpellPrefabs.Count);
 
-        foreach (int index in randomIndexes)
-        {
-            if (index >= 0 && index < SpellPrefabs.Count)
-            {
-                if (Dialogues.Count > 0)
-                {
-                    int randomIndex = Random.Range(0, Dialogues.Count);
-                    string randomDialogue = Dialogues[randomIndex];
-                    dialogueCoroutine = StartCoroutine(DisplayDialogue(randomDialogue));
-                }
-
-                if (index >= 0 && index < ProjectilePositions.Count)
-                {
+        foreach (int index in randomIndexes){
+            if (index >= 0 && index < SpellPrefabs.Count){
+                if (index >= 0 && index < ProjectilePositions.Count){
                     Transform projectilePosition = ProjectilePositions[index];
                     Instantiate(SpellPrefabs[index], projectilePosition.position, projectilePosition.rotation);
                 }
@@ -67,20 +84,17 @@ public class ElementalHeroldLogic : MonoBehaviour
 
             yield return new WaitForSeconds(ProjectileCD);
         }
-
         StartCoroutine(ShootSpells());
     }
 
-    List<int> GenerateRandomIndexes(int count)
-    {
+    // Function that shuffles the spells 
+    List<int> GenerateRandomIndexes(int count){
         List<int> indexes = new List<int>();
-        for (int i = 0; i < count; i++)
-        {
+        for (int i = 0; i < count; i++){
             indexes.Add(i);
         }
 
-        for (int i = 0; i < count - 1; i++)
-        {
+        for (int i = 0; i < count - 1; i++){
             int randomIndex = Random.Range(i, count);
             int temp = indexes[i];
             indexes[i] = indexes[randomIndex];
@@ -93,6 +107,10 @@ public class ElementalHeroldLogic : MonoBehaviour
     void Update(){
         if(GameOver.activeInHierarchy){
             Destroy(BossMusic);
+        }
+        if(Health > enemyHealth.health){
+            Health = enemyHealth.health;
+            healthBar.SetHealth(Health);
         }
     }
 

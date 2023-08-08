@@ -6,6 +6,7 @@ using TMPro;
 public class VampireLordLogic : MonoBehaviour
 {
 
+    // Begin and End Fight
     public GameObject FirstWave;
     public GameObject SecondWave;
 
@@ -15,20 +16,22 @@ public class VampireLordLogic : MonoBehaviour
     public GameObject GameOver;
     public AudioSource BossMusic;
 
+    // Spell Logic
     int cont = 0;
     bool SpellStop = false;
-
     public GameObject ProjectilePrefab;
     public Transform ProjectilePosition;
-    
     public float ProjectileCD = 5f;
     public float ActionCD = 5;
 
+    // Health Bar and Teleport Logic
+    public HealthBar healthBar;
     private Enemy enemyHealth;
     float Health;
     public float Y = 10f;
     public float X = 10f;
 
+    // Dialogue Logic
     public List<string> Dialogues = new List<string>();
     public GameObject FloatingTextPrefab;
     public float TextSpeed = 0.1f;
@@ -39,14 +42,17 @@ public class VampireLordLogic : MonoBehaviour
     void Start(){
         enemyHealth = FindObjectOfType<Enemy>();
         Health = enemyHealth.health;
+        healthBar.SetMaxHealth(Health);
         Light.SetActive(false);
         BossMusic.Play();
         StartCoroutine(ShootProjectile());
     }
 
+// Dialogue Function
     IEnumerator DisplayDialogue(string dialogue){
         FloatingTextPrefab.GetComponent<TextMesh>().text = "";
 
+        // Every TextSpeed seconds, add a character to the dialogue, resets every time is called
         foreach (char letter in dialogue){
             FloatingTextPrefab.GetComponent<TextMesh>().text += letter;
 
@@ -54,6 +60,7 @@ public class VampireLordLogic : MonoBehaviour
         }
     }
 
+// Function that triggers spells every ProjectileCD seconds, and the dialogues are displayed on the screen every time the function is called, also shoot the spells
     IEnumerator ShootProjectile(){
         if(!SpellStop){
             yield return new WaitForSeconds(ProjectileCD);
@@ -93,6 +100,7 @@ public class VampireLordLogic : MonoBehaviour
             transform.position = newPosition;
 
             Health = enemyHealth.health;
+            healthBar.SetHealth(Health);
         }
 
         if(GameOver.activeInHierarchy){
