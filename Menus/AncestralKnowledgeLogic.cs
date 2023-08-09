@@ -10,9 +10,11 @@ public class AncestralKnowledgeLogic : MonoBehaviour
 
     public GameObject[] HUD;
 
+    // Audio Logic
     public AudioSource DeniedSound;
     public AudioSource BuySound;
 
+    // Buy Ancestral Knowledge Logic
     public int DamageCost;
     public TMP_Text DamageLevelText;
     public TMP_Text DamageCostText;
@@ -41,6 +43,11 @@ public class AncestralKnowledgeLogic : MonoBehaviour
     public TMP_Text ExtraSpellLevelText;
     public TMP_Text ExtraSpellCostText;
 
+    public int CriticalChanceCost;
+    public TMP_Text CriticalChanceLevelText;
+    public TMP_Text CriticalChanceCostText;
+
+    // Costs Logic
     Dictionary<int, int> levelCosts = new Dictionary<int, int>()
         {
             { 1, 200 },
@@ -217,6 +224,26 @@ public class AncestralKnowledgeLogic : MonoBehaviour
 
     // ---- !
 
+    // Critical Chance Upgrade
+    public void CriticalChanceButton(){
+        foreach(GameObject Hud in HUD){
+            Hud.SetActive(false);
+        }
+        HUD[7].SetActive(true);
+    }
+
+    public void LearnCriticalChance(){
+        if(knowledge.Knowledge >= CriticalChanceCost){
+            knowledge.Knowledge -= CriticalChanceCost;
+            knowledge.CriticalChanceLevel++;
+            BuySound.Play();
+        }else{
+            DeniedSound.Play();
+        }
+    }
+
+    // ---- !
+
     public void Update(){
         DamageLevelText.text = "Level: " + knowledge.DamageLevel;
         CDLevelText.text = "Level: " + knowledge.CDLevel;
@@ -225,6 +252,7 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         ExtraLifeLevelText.text = "Level: " + knowledge.ExtraLifeLevel;
         RerollLevelText.text = "Level: " + knowledge.RerollLevel;
         ExtraSpellLevelText.text = "Level: " + knowledge.ExtraSpellLevel;
+        CriticalChanceLevelText.text = "Level: " + knowledge.CriticalChanceLevel;
 
         if (levelCosts.TryGetValue(knowledge.CDLevel, out int cdCost)){
             CDCost = cdCost;
@@ -259,6 +287,11 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         if (levelCostsExtraLife.TryGetValue(knowledge.ExtraSpellLevel, out int esCost)){
             ExtraSpellCost = esCost;
             ExtraSpellCostText.text = "Cost: " + ExtraSpellCost;
+        }
+
+        if(levelCosts.TryGetValue(knowledge.CriticalChanceLevel, out int ccCost)){
+            CriticalChanceCost = ccCost;
+            CriticalChanceCostText.text = "Cost: " + CriticalChanceCost;
         }
     }
 

@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class FireballPowerUp : MonoBehaviour
 {
-    // Reference to the BasicSpell script
+    // Scripts needed
     public BasicSpell basicSpell;
     public FireWheelSpell fireWheelSpell;
     public FireMissile fireMissile;
     public MegaFireball megaFireball;
     public LivingBomb livingBomb;
     public FireOrb fireOrb;
+    public PlayerKnowledgeController Lvls;
     
-    // Reference to the PlayerMovement script
     public PlayerMovement playerMovement;
 
-    // Reference to the PowerUpHUD game object
     public GameObject PowerUpHUD;
     public GameObject RerollHUD;
 
@@ -109,6 +108,12 @@ public class FireballPowerUp : MonoBehaviour
     public void FireOrbPowerUpCD(){
         fireOrb.Cooldown = fireOrb.Cooldown * 0.9f;
         fireOrb.speed = fireOrb.speed * 1.1f;
+        PowerUpHUD.SetActive(false);
+        RerollHUD.SetActive(false);
+    }
+
+    public void CriticalChancePowerUp(){
+        Lvls.CritChance += 0.05f;
         PowerUpHUD.SetActive(false);
         RerollHUD.SetActive(false);
     }

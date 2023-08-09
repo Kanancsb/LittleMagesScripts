@@ -14,6 +14,7 @@ public class PlayerKnowledge : MonoBehaviour
     public int ExtraLifeLevel = 1;
     public int RerollLevel = 1;
     public int ExtraSpellLevel = 1;
+    public int CriticalChanceLevel = 1;
 
     void Awake(){
         LoadPlayer();
@@ -37,6 +38,7 @@ public class PlayerKnowledge : MonoBehaviour
             ExtraLifeLevel = data.ExtraLifeLevel;
             RerollLevel = data.RerollLevel;
             ExtraSpellLevel = data.ExtraSpellLevel;
+            CriticalChanceLevel = data.CriticalChanceLevel;
         }else{
             Debug.LogWarning("Failed to load player data. Using default values.");
         }

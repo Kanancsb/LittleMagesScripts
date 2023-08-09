@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    private PlayerKnowledgeController Lvls;
+
     public GameObject FloatingTextPrefab;
 
     private PlayerKnowledge knowledge;
     public int KnowledgeGain;
+
     private LivingBomb Livingbomb;
     private WavePBS wavePBS;
 
@@ -21,12 +24,8 @@ public class Enemy : MonoBehaviour
 
     public bool SpawnType = true;
 
-    public float CritChance = 0.1f;
-    public float CritDamage = 2;
-
     void Start(){
-        CritChance = 0.1f;
-        CritDamage = 2;
+        Lvls = FindObjectOfType<PlayerKnowledgeController>();
         knowledge = FindObjectOfType<PlayerKnowledge>();
         wavePBS = FindObjectOfType<WavePBS>();
         Livingbomb = FindObjectOfType<LivingBomb>();
@@ -35,8 +34,8 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage){
         float Critical = Random.Range(0, 1f);
-        if(Critical < CritChance){
-            damage *= CritDamage;
+        if(Critical < Lvls.CritChance){
+            damage *= Lvls.CritDamage;
         }else{
             float damageVariance = damage * Random.Range(-0.15f, 0.05f);
             damage += damageVariance;

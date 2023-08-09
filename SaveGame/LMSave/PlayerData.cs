@@ -13,6 +13,7 @@ public class PlayerData
     public int ExtraLifeLevel;
     public int RerollLevel;
     public int ExtraSpellLevel;
+    public int CriticalChanceLevel;
 
     // Constructor that takes a PlayerKnowledge object as a parameter
     public PlayerData(PlayerKnowledge player){
@@ -25,5 +26,6 @@ public class PlayerData
         ExtraLifeLevel = player.ExtraLifeLevel;
         RerollLevel = player.RerollLevel;
         ExtraSpellLevel = player.ExtraSpellLevel;
+        CriticalChanceLevel = player.CriticalChanceLevel;
     }
 }
