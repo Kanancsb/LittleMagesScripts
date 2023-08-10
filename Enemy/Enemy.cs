@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
     }
 
     public void TakeDamage(float damage){
+        damage *= ((knowledge.DamageLevel - 1) * 0.05f) + 1f;
         float Critical = Random.Range(0, 1f);
         if(Critical < Lvls.CritChance){
             damage *= Lvls.CritDamage;

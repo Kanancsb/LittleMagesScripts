@@ -32,8 +32,6 @@ public class BasicSpell : MonoBehaviour
     public int Roll;
 
     void Start(){
-        damage *= ((Lvls.DamageLevel - 1) * 0.05f) + 1f;
-
         projectileSpeed *= ((Lvls.SpellSpeedLevel - 1) * 0.05f) + 1f;
         
         float reductionFactor = Mathf.Pow(0.95f, Lvls.CDLevel - 1);

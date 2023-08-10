@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
     public GameObject GameOverHUD;
 
     void Start(){
-        maxHealth *= ((Lvls.PlayerHealthLevel - 1) * 0.1f) + 1f;;
+        maxHealth *= ((Lvls.PlayerHealthLevel - 1) * 0.1f) + 1f;
         PlayerLifes = Lvls.ExtraLifeLevel - 1;
 
         currentHealth = maxHealth;
@@ -30,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
         }else if(currentHealth > maxHealth){
             currentHealth = maxHealth;
         }
+        healthBar.SetMaxHealth(maxHealth);
         healthBar.SetHealth(currentHealth);
     }
 

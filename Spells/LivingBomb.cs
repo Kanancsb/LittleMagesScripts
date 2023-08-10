@@ -16,7 +16,4 @@ public class LivingBomb : MonoBehaviour
 
     public bool LVChosen = false;
 
-    void Start(){
-        damage *= (Lvls.DamageLevel * 0.05f) + 1f;
-    }
 }

@@ -19,7 +19,7 @@ public class FireballPowerUp : MonoBehaviour
     public GameObject RerollHUD;
 
     public void FireballPowerUpDamage01(){
-        basicSpell.damage = basicSpell.damage + 5;
+        basicSpell.damage += 5;
         PowerUpHUD.SetActive(false);
         RerollHUD.SetActive(false);
     }
@@ -39,12 +39,12 @@ public class FireballPowerUp : MonoBehaviour
 
     public void playerLifesteal(){
 
-        basicSpell.LifeSteal = basicSpell.LifeSteal + 0.05f;
-        fireWheelSpell.LifeSteal = fireWheelSpell.LifeSteal + 0.05f;
-        fireMissile.LifeSteal = fireMissile.LifeSteal + 0.05f;
-        megaFireball.LifeSteal = fireMissile.LifeSteal + 0.05f;
-        livingBomb.LifeSteal = livingBomb.LifeSteal + 0.05f;
-        fireOrb.LifeSteal = fireOrb.LifeSteal + 0.05f;
+        basicSpell.LifeSteal = basicSpell.LifeSteal + 0.02f;
+        fireWheelSpell.LifeSteal = fireWheelSpell.LifeSteal + 0.02f;
+        fireMissile.LifeSteal = fireMissile.LifeSteal + 0.02f;
+        megaFireball.LifeSteal = fireMissile.LifeSteal + 0.02f;
+        livingBomb.LifeSteal = livingBomb.LifeSteal + 0.02f;
+        fireOrb.LifeSteal = fireOrb.LifeSteal + 0.02f;
 
         PowerUpHUD.SetActive(false);
         RerollHUD.SetActive(false);
