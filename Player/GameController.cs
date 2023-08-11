@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
 
     public WavePBS Wavepbs01;
     public WavePBS Wavepbs02;
+    public WavePBS Wavepbs03;
 
     public GameObject[] enemies;
     public GameObject[] enemySpells;
@@ -65,6 +66,12 @@ public class GameController : MonoBehaviour
                 Wavepbs02.currWave = 1;
                 WavePBS[1].SetActive(false);
                 Boss[1].SetActive(true);
+                Movement.enabled = true;
+                Spell.enabled = true;
+            }else if(Wavepbs03.currWave > 9){
+                Wavepbs02.currWave = 1;
+                WavePBS[2].SetActive(false);
+                Boss[2].SetActive(true);
                 Movement.enabled = true;
                 Spell.enabled = true;
             }else{

@@ -7,6 +7,7 @@ public class PlayerKnowledge : MonoBehaviour
 {
     
     public int Knowledge = 0;
+    public int RefundKnowledge = 0;
     public int DamageLevel = 1;
     public int CDLevel = 1;
     public int SpellSpeedLevel = 1;
@@ -31,6 +32,7 @@ public class PlayerKnowledge : MonoBehaviour
 
         if (data != null){
             Knowledge = data.Knowledge;
+            RefundKnowledge = data.RefundKnowledge;
             DamageLevel = data.DamageLevel;
             CDLevel = data.CDLevel;
             SpellSpeedLevel = data.SpellSpeedLevel;

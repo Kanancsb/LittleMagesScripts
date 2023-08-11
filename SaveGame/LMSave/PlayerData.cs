@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerData
 {
     public int Knowledge;
+    public int RefundKnowledge;
     public int DamageLevel;
     public int CDLevel;
     public int SpellSpeedLevel;
@@ -18,6 +19,7 @@ public class PlayerData
     // Constructor that takes a PlayerKnowledge object as a parameter
     public PlayerData(PlayerKnowledge player){
         // Assign the knowledge value from the PlayerKnowledge object to the Knowledge field
+        RefundKnowledge = player.RefundKnowledge;
         Knowledge = player.Knowledge;
         DamageLevel = player.DamageLevel;
         CDLevel = player.CDLevel;

@@ -81,10 +81,6 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         RerollCostText.text = "Level: " + knowledge.RerollLevel;
         ExtraSpellCostText.text = "Level: " + knowledge.ExtraSpellLevel;
     }
-
-    public void SaveButton(){
-        knowledge.SavePlayer();
-    }
     
     // Damage Upgrade
     public void DamageButton(){
@@ -97,8 +93,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
     public void LearnDamage(){ 
         if(knowledge.Knowledge >= DamageCost){
             knowledge.Knowledge -= DamageCost;
+            knowledge.RefundKnowledge += DamageCost;
             knowledge.DamageLevel++;
             BuySound.Play();
+            knowledge.SavePlayer();
         }else{
             DeniedSound.Play();
         }
@@ -116,8 +114,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
     public void LearnCD(){ 
         if(knowledge.Knowledge >= CDCost){
             knowledge.Knowledge -= CDCost;
+            knowledge.RefundKnowledge += CDCost;
             knowledge.CDLevel++;
             BuySound.Play();
+            knowledge.SavePlayer();
         }else{
             DeniedSound.Play();
         }
@@ -135,8 +135,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
     public void LearnSpellSpeed(){ 
         if(knowledge.Knowledge >= SSCost){
             knowledge.Knowledge -= SSCost;
+            knowledge.RefundKnowledge += SSCost;
             knowledge.SpellSpeedLevel++;
             BuySound.Play();
+            knowledge.SavePlayer();
         }else{
             DeniedSound.Play();
         }
@@ -155,8 +157,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
     public void LearnPlayerHealth(){ 
         if(knowledge.Knowledge >= PlayerHealthCost){
             knowledge.Knowledge -= PlayerHealthCost;
+            knowledge.RefundKnowledge += PlayerHealthCost;
             knowledge.PlayerHealthLevel++;
             BuySound.Play();
+            knowledge.SavePlayer();
         }else{
             DeniedSound.Play();
         }
@@ -175,8 +179,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
     public void LearnExtraLife(){
         if(knowledge.Knowledge >= ExtraLifeCost){
             knowledge.Knowledge -= ExtraLifeCost;
+            knowledge.RefundKnowledge += ExtraLifeCost;
             knowledge.ExtraLifeLevel++;
             BuySound.Play();
+            knowledge.SavePlayer();
         }else{
             DeniedSound.Play();
         }
@@ -195,8 +201,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
     public void LearnReroll(){
         if(knowledge.Knowledge >= RerollCost){
             knowledge.Knowledge -= RerollCost;
+            knowledge.RefundKnowledge += RerollCost;
             knowledge.RerollLevel++;
             BuySound.Play();
+            knowledge.SavePlayer();
         }else{
             DeniedSound.Play();
         }
@@ -215,8 +223,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
     public void LearnExtraSpell(){
         if(knowledge.Knowledge >= ExtraSpellCost){
             knowledge.Knowledge -= ExtraSpellCost;
+            knowledge.RefundKnowledge += ExtraSpellCost;
             knowledge.ExtraSpellLevel++;
             BuySound.Play();
+            knowledge.SavePlayer();
         }else{
             DeniedSound.Play();
         }
@@ -235,8 +245,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
     public void LearnCriticalChance(){
         if(knowledge.Knowledge >= CriticalChanceCost){
             knowledge.Knowledge -= CriticalChanceCost;
+            knowledge.RefundKnowledge += CriticalChanceCost;
             knowledge.CriticalChanceLevel++;
             BuySound.Play();
+            knowledge.SavePlayer();
         }else{
             DeniedSound.Play();
         }
