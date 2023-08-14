@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     private PlayerKnowledgeController Lvls;
 
     public GameObject FloatingTextPrefab;
+    public GameObject FloatingTextPrefabCrit;
 
     private PlayerKnowledge knowledge;
     public int KnowledgeGain;
@@ -37,9 +38,11 @@ public class Enemy : MonoBehaviour
         float Critical = Random.Range(0, 1f);
         if(Critical < Lvls.CritChance){
             damage *= Lvls.CritDamage;
+            ShowFloatingTextCrit(damage);
         }else{
             float damageVariance = damage * Random.Range(-0.15f, 0.05f);
             damage += damageVariance;
+            ShowFloatingText(damage);
         }
         
         health -= damage;
@@ -49,8 +52,6 @@ public class Enemy : MonoBehaviour
             BombActive = true;
             StartCoroutine(LivingBombExplosion());
         }
-
-        ShowFloatingText(damage);
 
         if (health <= 0){
             if(Livingbomb.ActiveLB && BombActive){
@@ -63,9 +64,17 @@ public class Enemy : MonoBehaviour
 
     // Displays the damage dealt by the character, rounded to an integer
     void ShowFloatingText(float damage){
-        var go = Instantiate(FloatingTextPrefab, transform.position, Quaternion.identity, transform);
+        Vector3 spawnPosition = transform.position + new Vector3(0, 0.5f, 0);
+        var go = Instantiate(FloatingTextPrefab, spawnPosition, Quaternion.identity);
         int damageInt = Mathf.RoundToInt(damage);
         go.GetComponent<TextMesh>().text = damageInt.ToString();
+    }
+
+    void ShowFloatingTextCrit(float damage){
+        Vector3 spawnPosition = transform.position + new Vector3(0, 0.5f, 0);
+        var go = Instantiate(FloatingTextPrefabCrit, spawnPosition, Quaternion.identity);
+        int damageInt = Mathf.RoundToInt(damage);
+        go.GetComponent<TextMesh>().text = damageInt.ToString() + "!!";
     }
 
     void Die(){

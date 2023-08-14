@@ -24,7 +24,7 @@ public class LivingBombExplosion : MonoBehaviour
 
     private void OnParticleCollision(GameObject collision){
         Enemy enemy = collision.GetComponent<Enemy>();
-        if (enemy != null){
+        if (enemy != null && enemy != gameObject){
             if (bomb.LifeSteal != 0){
                 float lifeStealAmount = bomb.damage * bomb.LifeSteal;
                 enemy.TakeDamage(bomb.damage);
