@@ -7,29 +7,21 @@ public class MegaFireball : MonoBehaviour
 {
 
     public PlayerKnowledge Lvls;
+    public ShootLogic shootLogic;
 
-    // Reference to the position where the spell will be cast from
     public Transform SpellPosition;
-
-    // Reference to the projectile game object
     public GameObject projectile;
 
-    // Cooldown between spell casts
     public float CastCD = 3.0f;
-
-    // Time of the last spell cast
-    float lastCast = 0;
+    float lastCast = 5;
 
     public Image SpellImage;
     bool CooldownImage = false;
 
-    // Damage inflicted by the spell
-    public float damage = 100f;
-
-    // Speed of the projectile
+    public float damage = 10f;
     public float projectileSpeed = 6f;
-
     public float LifeSteal;
+    public int extraSpell;
 
     string Button;
     public WeaponPowerUp button;
@@ -37,12 +29,8 @@ public class MegaFireball : MonoBehaviour
 
     void Start(){
 
-        lastCast = Time.time;
-
-        projectileSpeed *= ((Lvls.SpellSpeedLevel - 1) * 0.05f) + 1f;
-        
-        float reductionFactor = Mathf.Pow(0.95f, Lvls.CDLevel - 1);
-        CastCD *= reductionFactor;
+        shootLogic = FindObjectOfType<ShootLogic>();
+        shootLogic.AKBuffs(projectileSpeed, CastCD, extraSpell);
 
         if(button.SpellButton == 1){
             Button = "Fire2";
@@ -62,15 +50,8 @@ public class MegaFireball : MonoBehaviour
     void Update(){
         // Check if the left mouse button is pressed and enough time has passed since the last cast
         if (Input.GetButtonDown(Button) && Time.time - lastCast >= CastCD){
-            // Calculate the direction from the spell position to the mouse position
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 direction = (mousePosition - SpellPosition.position).normalized;
-
-            // Calculate the angle of the direction in degrees
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-            // Create a new projectile at the spell position with the calculated angle
-            GameObject newProjectile = Instantiate(projectile, SpellPosition.position, Quaternion.AngleAxis(angle, Vector3.forward));
+            shootLogic.ShootSpell(projectile);
+            shootLogic.ExtraSpell(extraSpell, projectile);
 
             // Set the time of the last cast to the current time
             lastCast = Time.time;

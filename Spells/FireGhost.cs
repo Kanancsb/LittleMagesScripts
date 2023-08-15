@@ -3,36 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FireMissile : MonoBehaviour
+public class FireGhost : MonoBehaviour
 {
-
     public PlayerKnowledge Lvls;
     public ShootLogic shootLogic;
 
     public Transform SpellPosition;
     public GameObject projectile;
 
-    public float CastCD = 3.0f;
-    float lastCast = 0;
-
     public Image SpellImage;
     bool CooldownImage = false;
 
-    public float damage = 10f;
-    public float projectileSpeed = 6f;
+    public float CastCD = 1f;
+    private float lastCast = 5;
+
+    public float damage = 50f;
+    public float projectileSpeed = 5f;
     public float LifeSteal;
     public int extraSpell;
 
-    string Button;
+    private string Button;
     public WeaponPowerUp button;
-    public bool FMChosen = false;
+    public bool FGChosen = false;
 
     void Start(){
-
         shootLogic = FindObjectOfType<ShootLogic>();
 
-        shootLogic.AKBuffs(projectileSpeed, CastCD, extraSpell);
-        
+        shootLogic.AKBuffs(projectileSpeed, CastCD, extraSpell++);
+
+        lastCast = CastCD;
+
         if(button.SpellButton == 1){
             Button = "Fire2";
         }else if(button.SpellButton == 2){
@@ -42,19 +42,16 @@ public class FireMissile : MonoBehaviour
         }
 
         if(button.SpellButton > 0){
-            FMChosen = true;
+            FGChosen = true;
         }
 
         SpellImage.gameObject.SetActive(gameObject.activeSelf);
     }
 
     void Update(){
-        // Check if the left mouse button is pressed and enough time has passed since the last cast
-        if (Input.GetButtonDown(Button) && Time.time - lastCast >= CastCD){
-            shootLogic.ShootSpell(projectile);
+        if(Input.GetMouseButtonDown(1) && Time.time - lastCast >= CastCD){
             shootLogic.ExtraSpell(extraSpell, projectile);
-
-            // Set the time of the last cast to the current time
+            
             lastCast = Time.time;
             CooldownImage = true;
             SpellImage.fillAmount = 1f;
