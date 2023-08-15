@@ -64,4 +64,12 @@ public class WeaponPowerUp : MonoBehaviour
         Destroy(PowerUpButton[4]);
         RerollHUD.SetActive(false);
     }
+
+    public void FireGhost(){
+        SpellButton++;
+        Spell[5].SetActive(true); 
+        HUD = true;
+        Destroy(PowerUpButton[5]);
+        RerollHUD.SetActive(false);
+    }
 }

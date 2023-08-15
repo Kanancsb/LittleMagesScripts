@@ -49,7 +49,7 @@ public class FireGhost : MonoBehaviour
     }
 
     void Update(){
-        if(Input.GetMouseButtonDown(1) && Time.time - lastCast >= CastCD){
+        if(Input.GetButtonDown(Button) && Time.time - lastCast >= CastCD){
             shootLogic.ExtraSpell(extraSpell, projectile);
             
             lastCast = Time.time;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireGhostProjectile : MonoBehaviour
 {
     public FireGhost fireGhost;
+    public PlayerKnowledgeController Crit;
 
     public Rigidbody2D rigidbody;
 
@@ -21,6 +22,7 @@ public class FireGhostProjectile : MonoBehaviour
 
         fireGhost = FindObjectOfType<FireGhost>();
         CurrentHealth = FindObjectOfType<PlayerHealth>();
+        Crit = FindObjectOfType<PlayerKnowledgeController>();
         
         rigidbody.velocity = transform.right * fireGhost.projectileSpeed;
 
@@ -35,7 +37,9 @@ public class FireGhostProjectile : MonoBehaviour
             if (enemy != null){
                 if (fireGhost.LifeSteal != 0){
                     float lifeStealAmount = fireGhost.damage * fireGhost.LifeSteal;
+                    Crit.CritDamage++;
                     enemy.TakeDamage(fireGhost.damage);
+                    Crit.CritDamage--;
                     CurrentHealth.currentHealth += lifeStealAmount;
                     GameObject impactInstance = Instantiate(impactEffect, transform.position, transform.rotation);
             
@@ -49,7 +53,9 @@ public class FireGhostProjectile : MonoBehaviour
                         Destroy(impactInstance);
                     }
                 }else{
+                    Crit.CritDamage++;
                     enemy.TakeDamage(fireGhost.damage);
+                    Crit.CritDamage--;
                     GameObject impactInstance = Instantiate(impactEffect, transform.position, transform.rotation);
             
                     Animator animator = impactInstance.GetComponent<Animator>();
