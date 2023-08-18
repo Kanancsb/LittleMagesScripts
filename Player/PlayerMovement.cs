@@ -14,7 +14,11 @@ public class PlayerMovement : MonoBehaviour
 
     public bool jump = false; // Flag for initiating a jump
 
-    public float Isjumping = -4f; 
+    public float Isjumping = -4f;
+
+    public float dashForce = 10f; // Define a força do empurrão do dash
+    public bool firedash = false; // Verifique se o dash está ativo
+    public LayerMask brickLayer;
 
     void Update()
     {
@@ -27,7 +31,11 @@ public class PlayerMovement : MonoBehaviour
         // Check if the jump button is pressed
         if (Input.GetButtonDown("Jump"))
         {
-            jump = true; // Set the jump flag to true
+            if(firedash){
+                Dash();
+            }else{
+                jump = true; // Set the jump flag to true
+            }
         }
 
         if (transform.position.y > Isjumping){
@@ -44,5 +52,18 @@ public class PlayerMovement : MonoBehaviour
 
         // Reset the jump input after it has been used
         jump = false;
+    }
+
+    void Dash(){
+        Vector2 dashDirection = new Vector2(horizontalMove, 0f);
+        dashDirection.Normalize();
+
+        Vector2 dashForceVector = dashDirection * dashForce;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, dashDirection, dashForce, brickLayer);
+
+        if (hit.collider == null){
+            controller.transform.position += (Vector3)dashForceVector;
+        }
     }
 }

@@ -46,31 +46,10 @@ public class MegaFireballProjectile : MonoBehaviour
             if (megaFireball.LifeSteal != 0){
                 float lifeStealAmount = megaFireball.damage * megaFireball.LifeSteal;
                 CurrentHealth.currentHealth += lifeStealAmount;
-                GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
-            
-                Animator animator = impactInstance.GetComponent<Animator>();
-                if (animator != null){
-                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                    float animationDuration = stateInfo.length;
-                        
-                    Destroy(impactInstance, animationDuration);
-                }
-                else{
-                    Destroy(impactInstance);
-                }
+                DestroyAnimation();
                 enemy.TakeDamage(megaFireball.damage);
             }else{
-                GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
-            
-                Animator animator = impactInstance.GetComponent<Animator>();
-                if (animator != null){
-                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                    float animationDuration = stateInfo.length;
-                        
-                    Destroy(impactInstance, animationDuration);
-                }else{
-                    Destroy(impactInstance);
-                }
+                DestroyAnimation();
                 enemy.TakeDamage(megaFireball.damage);
             }
         }
@@ -89,5 +68,18 @@ public class MegaFireballProjectile : MonoBehaviour
     IEnumerator ProjectileFade(){
         yield return new WaitForSeconds(5f);
         Destroy(gameObject);
+    }
+
+    void DestroyAnimation(){
+        GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
+        Animator animator = impactInstance.GetComponent<Animator>();
+        if (animator != null){
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            float animationDuration = stateInfo.length;
+
+            Destroy(impactInstance, animationDuration);
+        }else{
+            Destroy(impactInstance);
+        }
     }
 }

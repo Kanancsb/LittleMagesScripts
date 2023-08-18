@@ -24,6 +24,7 @@ public class BasicSpell : MonoBehaviour
     public float damage = 10f;
     public float projectileSpeed = 6f;
     public float LifeSteal;
+    public int SpellResist = 0;
 
     public int extraSpell;
 

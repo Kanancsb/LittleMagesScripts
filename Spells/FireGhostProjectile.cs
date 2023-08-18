@@ -41,33 +41,13 @@ public class FireGhostProjectile : MonoBehaviour
                     enemy.TakeDamage(fireGhost.damage);
                     Crit.CritDamage -= fireGhost.critDamage;
                     CurrentHealth.currentHealth += lifeStealAmount;
-                    GameObject impactInstance = Instantiate(impactEffect, transform.position, transform.rotation);
-            
-                    Animator animator = impactInstance.GetComponent<Animator>();
-                    if (animator != null){
-                        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                        float animationDuration = stateInfo.length;
-                        
-                        Destroy(impactInstance, animationDuration);
-                    }else{
-                        Destroy(impactInstance);
-                    }
-                }else{
+                    DestroyAnimation();
+                }
+                else{
                     Crit.CritDamage++;
                     enemy.TakeDamage(fireGhost.damage);
                     Crit.CritDamage--;
-                    GameObject impactInstance = Instantiate(impactEffect, transform.position, transform.rotation);
-            
-                    Animator animator = impactInstance.GetComponent<Animator>();
-                    if (animator != null){
-                        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                        float animationDuration = stateInfo.length;
-                        
-                        Destroy(impactInstance, animationDuration);
-                    }
-                    else{
-                        Destroy(impactInstance);
-                    }
+                    DestroyAnimation();
                 }
             }
 
@@ -78,5 +58,18 @@ public class FireGhostProjectile : MonoBehaviour
     IEnumerator ProjectileFade(){
         yield return new WaitForSeconds(5f);
         Destroy(gameObject);
+    }
+
+    void DestroyAnimation(){
+        GameObject impactInstance = Instantiate(impactEffect, transform.position, transform.rotation);
+        Animator animator = impactInstance.GetComponent<Animator>();
+        if (animator != null){
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            float animationDuration = stateInfo.length;
+
+            Destroy(impactInstance, animationDuration);
+        }else{
+            Destroy(impactInstance);
+        }
     }
 }

@@ -8,6 +8,8 @@ public class ShootLogic : MonoBehaviour
 
     public Transform SpellPosition;
 
+    public GameObject impacEffect;
+
     GameObject FindNearestTarget(GameObject[] targets, Vector3 position){
         float minDistance = Mathf.Infinity;
         GameObject nearestTarget = null;
