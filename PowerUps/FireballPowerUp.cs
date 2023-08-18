@@ -11,6 +11,7 @@ public class FireballPowerUp : MonoBehaviour
     public MegaFireball megaFireball;
     public LivingBomb livingBomb;
     public FireOrb fireOrb;
+    public FireGhost fireGhost;
     public PlayerKnowledgeController Lvls;
     
     public PlayerMovement playerMovement;
@@ -25,7 +26,7 @@ public class FireballPowerUp : MonoBehaviour
     }
 
     public void FireballPowerUpCD01(){
-        basicSpell.CastCD = basicSpell.CastCD * 0.9f;
+        basicSpell.CastCD = basicSpell.CastCD * 0.85f;
         basicSpell.projectileSpeed = basicSpell.projectileSpeed * 1.1f;
         PowerUpHUD.SetActive(false);
         RerollHUD.SetActive(false);
@@ -57,7 +58,7 @@ public class FireballPowerUp : MonoBehaviour
     }
 
     public void FireWheelPowerUpCD(){
-        fireWheelSpell.CastCD = fireWheelSpell.CastCD * 0.9f;
+        fireWheelSpell.CastCD = fireWheelSpell.CastCD * 0.85f;
         PowerUpHUD.SetActive(false);
         RerollHUD.SetActive(false);
     }
@@ -69,7 +70,7 @@ public class FireballPowerUp : MonoBehaviour
     }
 
     public void FireMissilePowerUpCD(){
-        fireMissile.CastCD = fireMissile.CastCD * 0.9f;
+        fireMissile.CastCD = fireMissile.CastCD * 0.85f;
         PowerUpHUD.SetActive(false);
         RerollHUD.SetActive(false);
     }
@@ -81,7 +82,7 @@ public class FireballPowerUp : MonoBehaviour
     }
 
     public void MegaFireballPowerUpCD(){
-        megaFireball.CastCD = megaFireball.CastCD * 0.9f;
+        megaFireball.CastCD = megaFireball.CastCD * 0.85f;
         megaFireball.projectileSpeed = megaFireball.projectileSpeed * 1.1f;
         PowerUpHUD.SetActive(false);
         RerollHUD.SetActive(false);
@@ -106,7 +107,7 @@ public class FireballPowerUp : MonoBehaviour
     }
 
     public void FireOrbPowerUpCD(){
-        fireOrb.Cooldown = fireOrb.Cooldown * 0.9f;
+        fireOrb.Cooldown = fireOrb.Cooldown * 0.85f;
         fireOrb.speed = fireOrb.speed * 1.1f;
         PowerUpHUD.SetActive(false);
         RerollHUD.SetActive(false);
@@ -114,6 +115,18 @@ public class FireballPowerUp : MonoBehaviour
 
     public void CriticalChancePowerUp(){
         Lvls.CritChance += 0.05f;
+        PowerUpHUD.SetActive(false);
+        RerollHUD.SetActive(false);
+    }
+
+    public void FireGhostPowerUp(){
+        fireGhost.damage *= 1.2f;
+        PowerUpHUD.SetActive(false);
+        RerollHUD.SetActive(false);
+    }
+
+    public void FireGhostCDPowerUp(){
+        fireGhost.CastCD *= 0.85f;
         PowerUpHUD.SetActive(false);
         RerollHUD.SetActive(false);
     }

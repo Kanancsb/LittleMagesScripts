@@ -18,6 +18,7 @@ public class FireGhost : MonoBehaviour
     private float lastCast = 5;
 
     public float damage = 50f;
+    public float critDamage = 1f;
     public float projectileSpeed = 5f;
     public float LifeSteal;
     public int extraSpell;
@@ -29,7 +30,7 @@ public class FireGhost : MonoBehaviour
     void Start(){
         shootLogic = FindObjectOfType<ShootLogic>();
 
-        shootLogic.AKBuffs(projectileSpeed, CastCD, extraSpell++);
+        shootLogic.AKBuffs(projectileSpeed, CastCD, extraSpell+2);
 
         lastCast = CastCD;
 

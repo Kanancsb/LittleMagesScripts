@@ -37,9 +37,9 @@ public class FireGhostProjectile : MonoBehaviour
             if (enemy != null){
                 if (fireGhost.LifeSteal != 0){
                     float lifeStealAmount = fireGhost.damage * fireGhost.LifeSteal;
-                    Crit.CritDamage++;
+                    Crit.CritDamage += fireGhost.critDamage;
                     enemy.TakeDamage(fireGhost.damage);
-                    Crit.CritDamage--;
+                    Crit.CritDamage -= fireGhost.critDamage;
                     CurrentHealth.currentHealth += lifeStealAmount;
                     GameObject impactInstance = Instantiate(impactEffect, transform.position, transform.rotation);
             
