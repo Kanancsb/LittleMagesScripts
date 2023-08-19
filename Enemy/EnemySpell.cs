@@ -25,10 +25,7 @@ public class EnemySpell : MonoBehaviour
         ImpactSound = GameObject.Find("Hit");
         impactSound = ImpactSound.GetComponent<AudioSource>();
 
-        // Get the Rigidbody2D component attached to the enemy spell
         rigidbody = GetComponent<Rigidbody2D>();
-
-        // Find the player object using the "Player" tag
         player = GameObject.FindGameObjectWithTag("Player");
 
         // Calculate the direction from the enemy spell to the player
@@ -47,11 +44,9 @@ public class EnemySpell : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other){
-        // Check if the enemy spell collides with the player
         if (other.gameObject.CompareTag("Player")){
             impactSound.Play();
 
-            // Deal damage to the player
             if(Burn){
                 other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
                 other.gameObject.GetComponent<PlayerHealth>().OverTimeDamage(BurnDamage, 10, true);
@@ -59,32 +54,11 @@ public class EnemySpell : MonoBehaviour
                 other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
             }
 
-            if(impacEffect != null){
-                GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
-                Animator animator = impactInstance.GetComponent<Animator>();
-
-                if (animator != null){
-                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                    float animationDuration = stateInfo.length;
-                    
-                    Destroy(impactInstance, animationDuration);
-                }
-            }
-            
+            AnimationEffect();
             Destroy(gameObject);
         }else if(other.gameObject.layer == LayerMask.NameToLayer("Bricks")){
             impactSound.Play();
-            if(impacEffect != null){
-                GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
-                Animator animator = impactInstance.GetComponent<Animator>();
-
-                if (animator != null){
-                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                    float animationDuration = stateInfo.length;
-                    
-                    Destroy(impactInstance, animationDuration);
-                }
-            }
+            AnimationEffect();
             Destroy(gameObject);
         }
     }
@@ -92,6 +66,20 @@ public class EnemySpell : MonoBehaviour
     IEnumerator ProjectileFade(){
         yield return new WaitForSeconds(5f);
         Destroy(gameObject);
+    }
+
+    void AnimationEffect(){
+        if(impacEffect != null){
+                GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
+                Animator animator = impactInstance.GetComponent<Animator>();
+
+                if (animator != null){
+                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                    float animationDuration = stateInfo.length;
+                    
+                    Destroy(impactInstance, animationDuration);
+                }
+            }
     }
 
 }

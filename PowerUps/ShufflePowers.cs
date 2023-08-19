@@ -40,27 +40,7 @@ public class ShufflePowers : MonoBehaviour
 
     // Deactivate and activate random power-ups on re-enabling the script
     void OnEnable(){
-        
-        if(FireWheelChosen.FWChosen){
-            PowerUps = ExtendArray(PowerUps, FireWheelPowerUps);
-            FireWheelChosen.FWChosen = false;
-        }else if(FireMissileChosen.FMChosen){
-            PowerUps = ExtendArray(PowerUps, FireMissilePowerUps);
-            FireMissileChosen.FMChosen = false;
-        }else if(MegaFireballChosen.MFChosen){
-            PowerUps = ExtendArray(PowerUps, MegaFireballPowerUps);
-            MegaFireballChosen.MFChosen = false;
-        }else if(LivingBombChosen.LVChosen){
-            PowerUps = ExtendArray(PowerUps, LivingBombPowerUps);
-            LivingBombChosen.LVChosen = false;
-        }else if(FireOrbChosen.FOChosen){
-            PowerUps = ExtendArray(PowerUps, FireOrbPowerUps);
-            FireOrbChosen.FOChosen = false;
-        }else if (FireGhostChosen.FGChosen){
-            PowerUps = ExtendArray(PowerUps, FireGhostPowerUps);
-            FireGhostChosen.FGChosen = false;
-        }
-
+        SpellsPowers();
         DeactivatePowerUps();
         ActivateRandomPowerUps(3);       
     }
@@ -74,7 +54,7 @@ public class ShufflePowers : MonoBehaviour
     }
 
     // Deactivate all active power-ups
-    void DeactivatePowerUps(){
+    public void DeactivatePowerUps(){
         foreach (GameObject powerUp in activePowerUps){
             powerUp.SetActive(false);
         }
@@ -82,7 +62,7 @@ public class ShufflePowers : MonoBehaviour
     }
 
     // Activate a specified number of random power-ups
-    void ActivateRandomPowerUps(int count){
+    public void ActivateRandomPowerUps(int count){
         int powerUpCount = Mathf.Min(count, PowerUps.Length);
 
         // Create a copy of the power-ups array
@@ -117,5 +97,27 @@ public class ShufflePowers : MonoBehaviour
             DeactivatePowerUps();
             ActivateRandomPowerUps(3);
             gameController.Reroll--;
+    }
+
+    public void SpellsPowers(){
+        if(FireWheelChosen.FWChosen){
+            PowerUps = ExtendArray(PowerUps, FireWheelPowerUps);
+            FireWheelChosen.FWChosen = false;
+        }else if(FireMissileChosen.FMChosen){
+            PowerUps = ExtendArray(PowerUps, FireMissilePowerUps);
+            FireMissileChosen.FMChosen = false;
+        }else if(MegaFireballChosen.MFChosen){
+            PowerUps = ExtendArray(PowerUps, MegaFireballPowerUps);
+            MegaFireballChosen.MFChosen = false;
+        }else if(LivingBombChosen.LVChosen){
+            PowerUps = ExtendArray(PowerUps, LivingBombPowerUps);
+            LivingBombChosen.LVChosen = false;
+        }else if(FireOrbChosen.FOChosen){
+            PowerUps = ExtendArray(PowerUps, FireOrbPowerUps);
+            FireOrbChosen.FOChosen = false;
+        }else if (FireGhostChosen.FGChosen){
+            PowerUps = ExtendArray(PowerUps, FireGhostPowerUps);
+            FireGhostChosen.FGChosen = false;
+        }
     }
 }

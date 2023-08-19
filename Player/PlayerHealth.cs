@@ -6,8 +6,9 @@ public class PlayerHealth : MonoBehaviour
 {
 
     public PlayerKnowledge Lvls;
+    public Enemy enemy;
     
-    public float maxHealth = 100; // Set the max health
+    public float maxHealth = 100;
     public float currentHealth;
     public HealthBar healthBar;
 
@@ -20,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
         PlayerLifes = Lvls.ExtraLifeLevel - 1;
 
         currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth); // call the function SetMaxHealth of the HealthBar Script and set the int maxHealth
+        healthBar.SetMaxHealth(maxHealth);
         GameOverHUD.SetActive(false);
     }
 
@@ -66,5 +67,4 @@ public class PlayerHealth : MonoBehaviour
             PlayerLifes--;
         }
     }
-
 }

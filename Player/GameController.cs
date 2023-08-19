@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     // Reference to the PowerUpHUD game object
     public GameObject PowerUpHUD;
     public GameObject WeaponPowerUpHUD;
+    public GameObject ImbuementHUD;
 
     public GameObject[] WavePBS;
     public GameObject[] Boss;
@@ -35,7 +36,7 @@ public class GameController : MonoBehaviour
 
     void Update(){
 
-        if((PowerUpHUD.activeInHierarchy || WeaponPowerUpHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
+        if((PowerUpHUD.activeInHierarchy || WeaponPowerUpHUD.activeInHierarchy || ImbuementHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
             // Set the cursor visibility and lock state
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
@@ -55,7 +56,7 @@ public class GameController : MonoBehaviour
                 Destroy(enemySpell);
             }
 
-        }else if((!PowerUpHUD.activeInHierarchy || !WeaponPowerUpHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
+        }else if((!PowerUpHUD.activeInHierarchy || !WeaponPowerUpHUD.activeInHierarchy || !ImbuementHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
             if(Wavepbs01.currWave > 9){
                 Wavepbs01.currWave = 1;
                 WavePBS[0].SetActive(false);

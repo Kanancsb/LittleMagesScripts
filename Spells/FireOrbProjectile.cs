@@ -16,6 +16,8 @@ public class FireOrbProjectile : MonoBehaviour
     public GameObject ImpactSound;
     public AudioSource impactSound;
 
+    private int cont = 0;
+
     void Start(){
 
         ImpactSound = GameObject.Find("Hit");
@@ -29,6 +31,8 @@ public class FireOrbProjectile : MonoBehaviour
 
         int orbIndex = transform.GetSiblingIndex();
         phaseShift = (float)orbIndex / fireOrb.maxFireOrbs * 2f * Mathf.PI;
+
+        cont = fireOrb.SpellResist;
     }
 
     void Update(){
@@ -43,23 +47,45 @@ public class FireOrbProjectile : MonoBehaviour
             impactSound.Play();
 
             if(fireOrb.LifeSteal != 0){
-                float lifeStealAmout = fireOrb.damage * fireOrb.LifeSteal;
-                enemy.TakeDamage(fireOrb.damage);
-                CurrentHealth.currentHealth += lifeStealAmout;
-                fireOrb.currentFireOrbs --;
-                Destroy(gameObject);
+                if(fireOrb.SpellResist >0){
+                    float lifeStealAmout = fireOrb.damage * fireOrb.LifeSteal;
+                    enemy.TakeDamage(fireOrb.damage);
+                    CurrentHealth.currentHealth += lifeStealAmout;
+                    fireOrb.SpellResist--;
+                    return;
+                }else{
+                    float lifeStealAmout = fireOrb.damage * fireOrb.LifeSteal;
+                    enemy.TakeDamage(fireOrb.damage);
+                    CurrentHealth.currentHealth += lifeStealAmout;
+                    fireOrb.currentFireOrbs --;
+                    Destroy(gameObject);
+                }
+                
             }else{
-                enemy.TakeDamage(fireOrb.damage);
-                fireOrb.currentFireOrbs --;
-                Destroy(gameObject);
+                if(fireOrb.SpellResist >0){
+                    enemy.TakeDamage(fireOrb.damage);
+                    fireOrb.SpellResist--;
+                    return;
+                }else{
+                    enemy.TakeDamage(fireOrb.damage);
+                    fireOrb.currentFireOrbs --;
+                    Destroy(gameObject);
+                }
             }
         }
 
         if(collision.CompareTag("EnemySpell")){
             impactSound.Play();
-            fireOrb.currentFireOrbs --;
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
+            if(fireOrb.SpellResist >0){
+                Destroy(collision.gameObject);
+                fireOrb.SpellResist--;
+                return;
+            }else{
+                fireOrb.currentFireOrbs --;
+                fireOrb.SpellResist = cont;
+                Destroy(collision.gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 }

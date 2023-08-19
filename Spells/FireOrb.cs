@@ -17,6 +17,7 @@ public class FireOrb : MonoBehaviour
     public int maxFireOrbs = 5;
     public int currentFireOrbs = 0;
     private bool canSpawn = true;
+    public int SpellResist = 0;
 
     public bool FOChosen = false;
 
