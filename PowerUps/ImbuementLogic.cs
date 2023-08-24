@@ -8,6 +8,7 @@ public class ImbuementLogic : MonoBehaviour
     public BasicSpell basicSpell;
     public FireOrb fireOrb;
     public PlayerHealth playerHealth;
+    public FireArmor fireArmor;
 
     public GameObject ImbuementHUD;
     public GameObject RerollHUD;
@@ -31,7 +32,7 @@ public class ImbuementLogic : MonoBehaviour
     }
 
     public void FireArmorButton(){
-        //playerHealth.FireArmor = true;
+        fireArmor.FireArmorSpell = true;
         ImbuementHUD.SetActive(false);
         RerollHUD.SetActive(false);
     }

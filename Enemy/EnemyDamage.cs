@@ -6,8 +6,16 @@ public class EnemyDamage : MonoBehaviour
 {
     public int damage;
     public PlayerHealth playerHealth;
-    
-    private void Start(){
+
+    public FireArmor fireArmor;
+
+    public GameObject ImpactSound;
+    public AudioSource impactSound;
+
+    void Start(){
+        ImpactSound = GameObject.Find("Hit1");
+        impactSound = ImpactSound.GetComponent<AudioSource>();
+        fireArmor = FindObjectOfType<FireArmor>();
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null){
             playerHealth = playerObject.GetComponent<PlayerHealth>();
@@ -16,7 +24,13 @@ public class EnemyDamage : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision){
         if(collision.gameObject.tag == "Player"){
-            playerHealth.TakeDamage(damage);
+            if(fireArmor.FireArmorSpell){
+                fireArmor.Backslash(damage, GetComponent<Enemy>(), impactSound);
+                playerHealth.TakeDamage(damage);
+            }else{
+                playerHealth.TakeDamage(damage);
+            }
+            
         }
     }
 }

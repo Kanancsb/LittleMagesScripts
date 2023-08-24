@@ -16,6 +16,9 @@ public class PlayerHealth : MonoBehaviour
 
     public GameObject GameOverHUD;
 
+    public bool FireArmor = false;
+    public float FireArmorDamage = 0.5f;
+
     void Start(){
         maxHealth *= ((Lvls.PlayerHealthLevel - 1) * 0.1f) + 1f;
         PlayerLifes = Lvls.ExtraLifeLevel - 1;
@@ -24,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
         GameOverHUD.SetActive(false);
     }
+    
 
     void FixedUpdate(){
         if(currentHealth <= 0){
@@ -45,6 +49,7 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine(ApplyOverTimeDamage(damage, time));
         }
     }
+    
 
     private IEnumerator ApplyOverTimeDamage(float damage, float time){
         float elapsedTime = 0f;

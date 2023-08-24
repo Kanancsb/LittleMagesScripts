@@ -33,11 +33,6 @@ public class Enemy : MonoBehaviour
         gameController = FindObjectOfType<GameController>();
     }
 
-    public void SetPlayerHealth(PlayerHealth playerHealth)
-    {
-        this.playerHealth = playerHealth;
-    }
-
     public void TakeDamage(float damage){
         damage *= ((knowledge.DamageLevel - 1) * 0.05f) + 1f;
         float Critical = Random.Range(0, 1f);

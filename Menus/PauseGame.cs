@@ -20,42 +20,26 @@ public class PauseGame : MonoBehaviour
 
     Resolution[] resolutions;
 
+    private bool IsPaused = false;
+
     void Start(){
 
         PauseGameHUD.SetActive(false);
         OptionsHUD.SetActive(false);
 
-        // Start the Resolution part
-
-        resolutions = Screen.resolutions;
-        
-        resolutionDropdown.ClearOptions();
-
-        List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
-
-        int currentResolutionIndex = 0;
-
-        for(int i=0; i < resolutions.Length; i++){
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(new TMP_Dropdown.OptionData(option));
-
-            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height){
-                currentResolutionIndex = i;
-            }
-        }
-
-        resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex;
-        resolutionDropdown.RefreshShownValue();
-
-        // End the Resolution part
+        ResolutionLogic();
     }
 
     void Update(){
 
-        if(Input.GetKeyDown(KeyCode.Escape)){
+        if(Input.GetKeyDown(KeyCode.Escape) && !IsPaused){
             PauseGameHUD.SetActive(true);
             Time.timeScale = 0;
+            IsPaused = true;
+        }else if(Input.GetKeyDown(KeyCode.Escape) && OptionsHUD.activeInHierarchy){
+            Back();
+        }else if(Input.GetKeyDown(KeyCode.Escape) && IsPaused && !OptionsHUD.activeInHierarchy){
+            Resume();
         }
     }
 
@@ -63,6 +47,7 @@ public class PauseGame : MonoBehaviour
         PauseGameHUD.SetActive(false);
         OptionsHUD.SetActive(false);
         Time.timeScale = 1;
+        IsPaused = false;
     }
 
     public void OptionsMenu(){
@@ -100,5 +85,28 @@ public class PauseGame : MonoBehaviour
 
     public void QuitButton(){
         Application.Quit();
+    }
+
+    public void ResolutionLogic(){
+        resolutions = Screen.resolutions;
+        
+        resolutionDropdown.ClearOptions();
+
+        List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
+
+        int currentResolutionIndex = 0;
+
+        for(int i=0; i < resolutions.Length; i++){
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            options.Add(new TMP_Dropdown.OptionData(option));
+
+            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height){
+                currentResolutionIndex = i;
+            }
+        }
+
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
     }
 }

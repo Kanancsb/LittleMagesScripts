@@ -102,6 +102,7 @@ public class FireballPowerUp : MonoBehaviour
 
     public void FireOrbPowerUpDamage(){
         fireOrb.damage = fireOrb.damage * 1.1f;
+        fireOrb.radius *= 1.1f;
         PowerUpHUD.SetActive(false);
         RerollHUD.SetActive(false);
     }

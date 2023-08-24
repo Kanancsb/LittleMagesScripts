@@ -14,7 +14,10 @@ public class TsunamiSpell : MonoBehaviour
     public GameObject ImpactSound;
     public AudioSource impactSound;
 
+    public FireArmor fireArmor;
+
     void Start(){
+        fireArmor = FindObjectOfType<FireArmor>();
         ImpactSound = GameObject.Find("Hit2");
         impactSound = ImpactSound.GetComponent<AudioSource>();
 
@@ -40,7 +43,12 @@ public class TsunamiSpell : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision){
         impactSound.Play();
         if(collision.gameObject.CompareTag("Player")){
-            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            if(fireArmor.FireArmorSpell){
+                fireArmor.Backslash(damage, GetComponent<Enemy>(), impactSound);
+                collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            }else{
+                collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            }
         }
     }
 

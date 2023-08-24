@@ -41,8 +41,8 @@ public class MegaFireballProjectile : MonoBehaviour
         }
 
         Enemy enemy = collision.GetComponent<Enemy>();
-        impactSound.Play();
         if (enemy != null){
+            impactSound.Play();
             if (megaFireball.LifeSteal != 0){
                 float lifeStealAmount = megaFireball.damage * megaFireball.LifeSteal;
                 CurrentHealth.currentHealth += lifeStealAmount;

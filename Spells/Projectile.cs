@@ -39,8 +39,8 @@ public class Projectile : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision){
 
         if (collision.CompareTag("EnemySpell")){
+            impactSound.Play();
             if(basicSpell.SpellResist > 0){
-                impactSound.Play();
                 Destroy(collision.gameObject);
                 basicSpell.SpellResist--;
                 return;

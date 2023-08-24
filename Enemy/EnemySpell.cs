@@ -20,6 +20,8 @@ public class EnemySpell : MonoBehaviour
     public GameObject ImpactSound;
     public AudioSource impactSound;
 
+    public FireArmor fireArmor;
+
     void Start(){
 
         ImpactSound = GameObject.Find("Hit");
@@ -27,6 +29,7 @@ public class EnemySpell : MonoBehaviour
 
         rigidbody = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
+        fireArmor = FindObjectOfType<FireArmor>();
 
         // Calculate the direction from the enemy spell to the player
         Vector3 direction = player.transform.position - transform.position;
@@ -48,10 +51,20 @@ public class EnemySpell : MonoBehaviour
             impactSound.Play();
 
             if(Burn){
-                other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+                if(fireArmor.FireArmorSpell){
+                    fireArmor.Backslash(damage, GetComponent<Enemy>(), impactSound);
+                    other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+                }else{
+                    other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+                }
                 other.gameObject.GetComponent<PlayerHealth>().OverTimeDamage(BurnDamage, 10, true);
             }else{
-                other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+                if(fireArmor.FireArmorSpell){
+                    fireArmor.Backslash(damage, GetComponent<Enemy>(), impactSound);
+                    other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+                }else{
+                    other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+                }
             }
 
             AnimationEffect();
