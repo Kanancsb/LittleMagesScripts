@@ -17,9 +17,11 @@ public class EnemyHorizontalWalk : MonoBehaviour
     }
 
     void Update(){
-        if (targetPoints.Count <= 0)
-            return;
+        Moviments(targetPoints, moveSpeed, currentIndex, movingForward);
+    }
 
+    public void Moviments(List<Transform> targetPoints, float moveSpeed, int currentIndex, bool movingForward){
+        if (targetPoints.Count <= 0) return;
         // Move towards the target
         transform.position = Vector2.MoveTowards(transform.position, targetPoints[currentIndex].position, moveSpeed * Time.deltaTime);
 

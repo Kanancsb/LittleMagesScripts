@@ -58,14 +58,13 @@ public class ElementalHeroldLogic : MonoBehaviour
 
     IEnumerator ShowRandomDialogue(){
         yield return new WaitForSeconds(3f);
-            if (!isDisplayingDialogue && Dialogues.Count > 0){
-                int randomIndex = Random.Range(0, Dialogues.Count);
-                string randomDialogue = Dialogues[randomIndex];
-                StartCoroutine(DisplayDialogue(randomDialogue));
-            }
-
-            StartCoroutine(ShowRandomDialogue());
+        if (!isDisplayingDialogue && Dialogues.Count > 0){
+            int randomIndex = Random.Range(0, Dialogues.Count);
+            string randomDialogue = Dialogues[randomIndex];
+            StartCoroutine(DisplayDialogue(randomDialogue));
         }
+        StartCoroutine(ShowRandomDialogue());
+    }
     // End the Dialogue System
 
     // Function that randomly triggers the spells
