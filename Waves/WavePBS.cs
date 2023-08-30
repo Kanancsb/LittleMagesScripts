@@ -20,6 +20,7 @@ public class WavePBS : MonoBehaviour
     private float waveTimer;
     public float spawnInterval; 
     private float spawnTimer;
+    public int WaveCost;
 
     public GameObject UpgradeSkill;
     public GameObject UpgradeWeapon;
@@ -74,7 +75,7 @@ public class WavePBS : MonoBehaviour
     }
 
     public void GenerateWave(){
-        waveValue = currWave * 5;
+        waveValue = currWave * WaveCost;
         GenerateEnemies();
 
         waveTimer = waveDuration;

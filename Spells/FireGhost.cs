@@ -28,9 +28,13 @@ public class FireGhost : MonoBehaviour
     public bool FGChosen = false;
 
     void Start(){
+        Lvls = FindObjectOfType<PlayerKnowledge>();
         shootLogic = FindObjectOfType<ShootLogic>();
 
-        shootLogic.AKBuffs(projectileSpeed, CastCD, extraSpell+2);
+        projectileSpeed *= ((Lvls.SpellSpeedLevel - 1) * 0.05f) + 1f;
+        float reductionFactor = Mathf.Pow(0.95f, Lvls.CDLevel - 1);
+        CastCD *= reductionFactor;
+        extraSpell = 1 + Lvls.ExtraSpellLevel;
 
         lastCast = CastCD;
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class FireWheel : MonoBehaviour
 {
@@ -64,7 +65,7 @@ public class FireWheel : MonoBehaviour
 
     public Transform FindClosestEnemy(){
 
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy").Concat(GameObject.FindGameObjectsWithTag("Boss")).ToArray();
         Transform closestEnemy = null;
         float closestDistance = Mathf.Infinity;
 

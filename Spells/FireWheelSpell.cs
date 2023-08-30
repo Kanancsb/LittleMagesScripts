@@ -12,8 +12,10 @@ public class FireWheelSpell : MonoBehaviour
     public Transform SpellPosition;
     public GameObject projectile;
 
-    public float CastCD = 3.0f;
-    float lastCast = 0;
+    public float CastCD = 1f;
+    float extraCD;
+    float lastCast;
+    float extraLastCast;
 
     public Image SpellImage;
     bool CooldownImage = false;
@@ -29,10 +31,14 @@ public class FireWheelSpell : MonoBehaviour
     public bool FWChosen = false;
 
     void Start(){
-
+        Lvls = FindObjectOfType<PlayerKnowledge>();
         shootLogic = FindObjectOfType<ShootLogic>();
 
-        shootLogic.AKBuffs(projectileSpeed, CastCD, extraSpell);
+        projectileSpeed *= ((Lvls.SpellSpeedLevel - 1) * 0.05f) + 1f;
+        float reductionFactor = Mathf.Pow(0.95f, Lvls.CDLevel - 1);
+        CastCD *= reductionFactor;
+        extraCD = CastCD * 2.5f;
+        extraSpell = Lvls.ExtraSpellLevel;
 
         if(button.SpellButton == 1){
             Button = "Fire2";
@@ -54,12 +60,16 @@ public class FireWheelSpell : MonoBehaviour
         // Check if the left mouse button is pressed and enough time has passed since the last cast
         if (Input.GetButtonDown(Button) && Time.time - lastCast >= CastCD){
             shootLogic.ShootSpell(projectile);
-            shootLogic.ExtraSpell(extraSpell, projectile);
 
             // Set the time of the last cast to the current time
             lastCast = Time.time;
             CooldownImage = true;
             SpellImage.fillAmount = 1f;
+        }
+
+        if(Time.time - extraLastCast >= extraCD){
+            shootLogic.ExtraSpell(extraSpell, projectile);
+            extraLastCast = Time.time;
         }
 
         if (CooldownImage){

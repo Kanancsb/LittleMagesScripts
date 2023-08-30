@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class ShootLogic : MonoBehaviour
 {
-    public PlayerKnowledge Lvls;
-
     public Transform SpellPosition;
-
-    public GameObject impacEffect;
 
     GameObject FindNearestTarget(GameObject[] targets, Vector3 position){
         float minDistance = Mathf.Infinity;
@@ -35,9 +31,9 @@ public class ShootLogic : MonoBehaviour
     }
 
     public void ExtraSpell(int extraSpell, GameObject projectile){
-        if (extraSpell > 0){
+        if (extraSpell > 1){
             // Create ExtraSpell number of additional projectiles
-            for (int i = 0; i < extraSpell; i++){
+            for (int i = 1; i < extraSpell; i++){
                 GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
                 GameObject[] bosses = GameObject.FindGameObjectsWithTag("Boss");
                 List<GameObject> targets = new List<GameObject>();
@@ -57,7 +53,7 @@ public class ShootLogic : MonoBehaviour
         }
     }
 
-    public void AKBuffs(float projectileSpeed, float CastCD, int extraSpell){
+    public void AKBuffs(float projectileSpeed, float CastCD, int extraSpell, PlayerKnowledge Lvls){
         projectileSpeed *= ((Lvls.SpellSpeedLevel - 1) * 0.05f) + 1f;
         float reductionFactor = Mathf.Pow(0.95f, Lvls.CDLevel - 1);
         CastCD *= reductionFactor;

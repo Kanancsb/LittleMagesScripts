@@ -11,12 +11,12 @@ public class PoolDamage : MonoBehaviour
     void Start(){
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         playerHealth = playerObject.GetComponent<PlayerHealth>();
+        StartCoroutine(SelfDestroy());
     }
 
-    void OnCollisionEnter2D(Collision2D collision){
-        if(collision.gameObject.tag == "Player"){
-            playerHealth.TakeDamage(damage);
-            StartCoroutine(SelfDestroy());
+    void OnTriggerStay2D(Collider2D collision){
+        if (collision.gameObject.CompareTag("Player")){
+            playerHealth.TakeDamage(damage * Time.deltaTime);
         }
     }
 

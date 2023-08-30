@@ -40,12 +40,11 @@ public class Projectile : MonoBehaviour
 
         if (collision.CompareTag("EnemySpell")){
             impactSound.Play();
-            if(basicSpell.SpellResist > 0){
+            if(cont > 0){
                 Destroy(collision.gameObject);
-                basicSpell.SpellResist--;
+                cont--;
                 return;
             }else{
-                basicSpell.SpellResist = cont;
                 Destroy(gameObject);
             }
         }
