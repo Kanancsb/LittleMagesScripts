@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator Walk;
 
     public float runSpeed = 40f; // Speed at which the player moves horizontally
+    public float originalrunSpeed;
 
     float horizontalMove = 0f; // Input value for horizontal movement
 
@@ -16,9 +17,13 @@ public class PlayerMovement : MonoBehaviour
 
     public float Isjumping = -4f;
 
-    public float dashForce = 10f; // Define a força do empurrão do dash
-    public bool firedash = false; // Verifique se o dash está ativo
+    public float dashForce = 10f;
+    public bool firedash = false;
     public LayerMask brickLayer;
+
+    void Start(){
+        originalrunSpeed = runSpeed;
+    }
 
     void Update()
     {

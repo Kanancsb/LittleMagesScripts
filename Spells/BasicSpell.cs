@@ -8,11 +8,10 @@ public class BasicSpell : MonoBehaviour
     public PlayerKnowledge Lvls;
     public ShootLogic shootLogic;
 
-    // Reference to the position where the spell will be cast from
     public Transform SpellPosition;
-
-    // Reference to the projectile game object
     public GameObject projectile;
+
+    public float DamageCont;
 
     public Image SpellImage;
     bool CooldownImage = false;

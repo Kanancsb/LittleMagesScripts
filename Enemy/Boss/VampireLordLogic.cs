@@ -39,7 +39,11 @@ public class VampireLordLogic : MonoBehaviour
 
     bool FirstSpell = false;
 
+    //
+    public TMP_Text WaveHUD;
+
     void Start(){
+        WaveHUD.text = "Vampire Lord!!";
         enemyHealth = FindObjectOfType<Enemy>();
         Health = enemyHealth.health;
         healthBar.SetMaxHealth(Health);

@@ -53,6 +53,7 @@ public class Projectile : MonoBehaviour
             Enemy enemy = collision.GetComponent<Enemy>();
             impactSound.Play();
             if (enemy != null){
+                basicSpell.DamageCont += basicSpell.damage;
                 if (basicSpell.LifeSteal != 0){
                         float lifeStealAmount = basicSpell.damage * basicSpell.LifeSteal;
                         enemy.TakeDamage(basicSpell.damage);

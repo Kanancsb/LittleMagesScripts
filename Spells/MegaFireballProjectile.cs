@@ -42,15 +42,16 @@ public class MegaFireballProjectile : MonoBehaviour
 
         Enemy enemy = collision.GetComponent<Enemy>();
         if (enemy != null){
+            megaFireball.DamageCont += megaFireball.damage;
             impactSound.Play();
             if (megaFireball.LifeSteal != 0){
                 float lifeStealAmount = megaFireball.damage * megaFireball.LifeSteal;
                 CurrentHealth.currentHealth += lifeStealAmount;
-                DestroyAnimation();
                 enemy.TakeDamage(megaFireball.damage);
+                Imbuement(enemy, megaFireball.imbuement);
             }else{
-                DestroyAnimation();
                 enemy.TakeDamage(megaFireball.damage);
+                Imbuement(enemy, megaFireball.imbuement);
             }
         }
 
@@ -80,6 +81,20 @@ public class MegaFireballProjectile : MonoBehaviour
             Destroy(impactInstance, animationDuration);
         }else{
             Destroy(impactInstance);
+        }
+    }
+    
+    void Imbuement(Enemy enemy, bool imbuement){
+        if(imbuement){
+            if(enemy.health <= 0){
+                return;
+            }else{
+                DestroyAnimation();
+                Destroy(gameObject);
+            }
+        }else{
+            DestroyAnimation();
+            Destroy(gameObject);
         }
     }
 }

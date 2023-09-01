@@ -74,11 +74,11 @@ public class MainMenuLogic : MonoBehaviour
     }
 
     public void SetGeneralVolume(float Volume){
-        GeneralVolume.SetFloat("GeneralVolumeParameter", Volume);
+        GeneralVolume.SetFloat("GeneralVolumeParameter",  Mathf.Log10(Volume) * 20);
     }
 
     public void SetMusicVolume(float Volume){
-        MusicVolume.SetFloat("MusicVolumeParameter", Volume);
+        MusicVolume.SetFloat("MusicVolumeParameter", Mathf.Log10(Volume) * 20);
     }
 
     public void SetResolution(int resolutionIndex){
@@ -92,7 +92,7 @@ public class MainMenuLogic : MonoBehaviour
 
     public void ResolutionLogic(){
         resolutions = Screen.resolutions;
-        
+
         resolutionDropdown.ClearOptions();
 
         List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
@@ -100,11 +100,17 @@ public class MainMenuLogic : MonoBehaviour
         int currentResolutionIndex = 0;
 
         for(int i=0; i < resolutions.Length; i++){
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(new TMP_Dropdown.OptionData(option));
+            // Calculate the aspect ratio as a floating-point value
+            float aspectRatio = (float)resolutions[i].width / (float)resolutions[i].height;
 
-            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height){
-                currentResolutionIndex = i;
+            // Check if the aspect ratio is approximately 16:9
+            if (Mathf.Approximately(aspectRatio, 16f / 9f)) {
+                string option = resolutions[i].width + " x " + resolutions[i].height + " @ " + resolutions[i].refreshRate + "hz";
+                options.Add(new TMP_Dropdown.OptionData(option));
+
+                if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height){
+                    currentResolutionIndex = i;
+                }
             }
         }
 
@@ -112,5 +118,6 @@ public class MainMenuLogic : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
     }
+
 
 }

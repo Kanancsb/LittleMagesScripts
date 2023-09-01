@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DoomsayerLogic : MonoBehaviour
 {
@@ -24,7 +25,11 @@ public class DoomsayerLogic : MonoBehaviour
     private Coroutine dialogueCoroutine;
     private bool isDisplayingDialogue = false;
 
+    //
+    public TMP_Text WaveHUD;
+
     void Start(){
+        WaveHUD.text = "Doomsayer!!";
         enemyHealth = FindObjectOfType<Enemy>();
         Health = enemyHealth.health;
         healthBar.SetMaxHealth(Health);

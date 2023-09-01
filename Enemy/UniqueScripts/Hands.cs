@@ -16,19 +16,18 @@ public class Hands : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision){
         if(collision.gameObject.CompareTag("Player")){
-            originalSpeed = movement.runSpeed;
             movement.runSpeed *= slowValue;
         }
     }
 
     void OnTriggerExit2D(Collider2D collision){
         if(collision.gameObject.CompareTag("Player")){
-            movement.runSpeed = originalSpeed;
+            movement.runSpeed = movement.originalrunSpeed;
         }
     }
     IEnumerator ProjectileFade(float timer){
         yield return new WaitForSeconds(timer);
-        movement.runSpeed = originalSpeed;
+        movement.runSpeed = movement.originalrunSpeed;;
         Destroy(gameObject);
     }
 }

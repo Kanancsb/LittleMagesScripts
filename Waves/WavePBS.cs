@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WavePBS : MonoBehaviour
 {
     private PlayerHealth playerHealth;
+
+    public TMP_Text WaveHUD;
 
     public List<EnemyPBS> enemies = new List<EnemyPBS>();
     public int currWave;
@@ -28,6 +31,7 @@ public class WavePBS : MonoBehaviour
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     void Start(){
+        WaveHUD.text = "Wave: " + currWave;
         playerHealth = FindObjectOfType<PlayerHealth>();
         UpgradeSkill.SetActive(false);
         UpgradeWeapon.SetActive(false);
@@ -35,6 +39,8 @@ public class WavePBS : MonoBehaviour
     }
 
     void FixedUpdate(){
+
+        spawnedEnemies.RemoveAll(item => item == null);
 
         if(UpgradeSkill.activeSelf){
             return;
@@ -70,6 +76,7 @@ public class WavePBS : MonoBehaviour
                 playerHealth.currentHealth += 5;
                 GenerateWave();
                 UpgradeSkill.SetActive(true);
+                WaveHUD.text = "Wave: " + currWave;
             }
         }
     }

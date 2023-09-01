@@ -16,6 +16,7 @@ public class WeaponPowerUp : MonoBehaviour
     public GameObject RerollHUD;
 
     public GameObject[] StatsHUD;
+    public GameObject[] StatsCont;
 
     bool HUD = false;
 
@@ -28,6 +29,7 @@ public class WeaponPowerUp : MonoBehaviour
 
     public void FireWheelSpell(){
         StatsHUD[0].SetActive(true);
+        StatsCont[0].SetActive(true);
         SpellButton++;
         Spell[0].SetActive(true); 
         HUD = true;
@@ -37,6 +39,7 @@ public class WeaponPowerUp : MonoBehaviour
 
     public void FireMissile(){
         StatsHUD[1].SetActive(true);
+        StatsCont[1].SetActive(true);
         SpellButton++;
         Spell[1].SetActive(true); 
         HUD = true;
@@ -46,6 +49,7 @@ public class WeaponPowerUp : MonoBehaviour
 
     public void MegaFireball(){
         StatsHUD[2].SetActive(true);
+        StatsCont[2].SetActive(true);
         SpellButton++;
         Spell[2].SetActive(true); 
         HUD = true;
@@ -64,6 +68,7 @@ public class WeaponPowerUp : MonoBehaviour
 
     public void FireOrb(){
         StatsHUD[3].SetActive(true);
+        StatsCont[3].SetActive(true);
         Spell[4].SetActive(true);
         fireOrb.FOChosen = true;
         HUD = true;
@@ -73,6 +78,7 @@ public class WeaponPowerUp : MonoBehaviour
 
     public void FireGhost(){
         StatsHUD[4].SetActive(true);
+        StatsCont[4].SetActive(true);
         SpellButton++;
         Spell[5].SetActive(true); 
         HUD = true;

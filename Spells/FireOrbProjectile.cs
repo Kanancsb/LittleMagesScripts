@@ -45,6 +45,7 @@ public class FireOrbProjectile : MonoBehaviour
         if(collision.CompareTag("Enemy") || collision.CompareTag("Boss")){
             Enemy enemy = collision.GetComponent<Enemy>();
             impactSound.Play();
+            fireOrb.DamageCont += fireOrb.damage;
 
             if(fireOrb.LifeSteal != 0){
                 if(fireOrb.SpellResist >0){

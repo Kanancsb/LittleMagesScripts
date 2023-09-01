@@ -11,6 +11,8 @@ public class FireGhost : MonoBehaviour
     public Transform SpellPosition;
     public GameObject projectile;
 
+    public float DamageCont;
+
     public Image SpellImage;
     bool CooldownImage = false;
 
@@ -34,7 +36,7 @@ public class FireGhost : MonoBehaviour
         projectileSpeed *= ((Lvls.SpellSpeedLevel - 1) * 0.05f) + 1f;
         float reductionFactor = Mathf.Pow(0.95f, Lvls.CDLevel - 1);
         CastCD *= reductionFactor;
-        extraSpell = 1 + Lvls.ExtraSpellLevel;
+        extraSpell = Lvls.ExtraSpellLevel + 1;
 
         lastCast = CastCD;
 

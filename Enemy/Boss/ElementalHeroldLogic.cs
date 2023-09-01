@@ -32,8 +32,11 @@ public class ElementalHeroldLogic : MonoBehaviour
     public HealthBar healthBar;
     public Enemy enemyHealth;
 
-    void Start(){
+    //
+    public TMP_Text WaveHUD;
 
+    void Start(){
+        WaveHUD.text = "Elemental Herold!!";
         Health = enemyHealth.health;
         healthBar.SetMaxHealth(Health);
 

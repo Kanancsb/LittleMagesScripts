@@ -9,6 +9,9 @@ public class ImbuementLogic : MonoBehaviour
     public FireOrb fireOrb;
     public PlayerHealth playerHealth;
     public FireArmor fireArmor;
+    public FireGhost fireGhost;
+    public MegaFireball megaFireball;
+    public FireMissile fireMissile;
 
     public GameObject ImbuementHUD;
     public GameObject RerollHUD;
@@ -38,6 +41,20 @@ public class ImbuementLogic : MonoBehaviour
     public void FireArmorButton(){
         StatsHUD[3].SetActive(true);
         fireArmor.FireArmorSpell = true;
+        ImbuementHUD.SetActive(false);
+        RerollHUD.SetActive(false);
+    }
+
+    public void MegaFireballButton(){
+        StatsHUD[4].SetActive(true);
+        megaFireball.imbuement = true;
+        ImbuementHUD.SetActive(false);
+        RerollHUD.SetActive(false);
+    }
+
+    public void FireMissileButton(){
+        StatsHUD[5].SetActive(true);
+        fireMissile.imbuement = true;
         ImbuementHUD.SetActive(false);
         RerollHUD.SetActive(false);
     }

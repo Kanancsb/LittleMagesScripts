@@ -44,6 +44,7 @@ public class FireWheel : MonoBehaviour
         }
         Enemy enemy = collision.GetComponent<Enemy>();
         if (enemy != null){
+            fireWheelSpell.DamageCont += fireWheelSpell.damage;
             hitEnemies.Add(enemy.transform);
 
             if (fireWheelSpell.LifeSteal != 0){

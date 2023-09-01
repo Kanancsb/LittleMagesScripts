@@ -12,6 +12,8 @@ public class MegaFireball : MonoBehaviour
     public Transform SpellPosition;
     public GameObject projectile;
 
+    public float DamageCont;
+
     public float CastCD = 3.0f;
     float extraCD;
     float lastCast;
@@ -28,6 +30,8 @@ public class MegaFireball : MonoBehaviour
     string Button;
     public WeaponPowerUp button;
     public bool MFChosen = false;
+
+    public bool imbuement = false;
 
     void Start(){
 

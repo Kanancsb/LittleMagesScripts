@@ -12,6 +12,8 @@ public class FireWheelSpell : MonoBehaviour
     public Transform SpellPosition;
     public GameObject projectile;
 
+    public float DamageCont;
+
     public float CastCD = 1f;
     float extraCD;
     float lastCast;

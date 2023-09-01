@@ -12,6 +12,8 @@ public class FireOrb : MonoBehaviour
     public float speed = 2f;
     public float radius = 2f;
 
+    public float DamageCont;
+
     public GameObject Projectile;
 
     public int maxFireOrbs = 5;

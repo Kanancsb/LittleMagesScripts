@@ -35,6 +35,7 @@ public class FireGhostProjectile : MonoBehaviour
             Enemy enemy = collision.GetComponent<Enemy>();
             impactSound.Play();
             if (enemy != null){
+                fireGhost.DamageCont += fireGhost.damage;
                 if (fireGhost.LifeSteal != 0){
                     float lifeStealAmount = fireGhost.damage * fireGhost.LifeSteal;
                     Crit.CritDamage += fireGhost.critDamage;
@@ -42,16 +43,14 @@ public class FireGhostProjectile : MonoBehaviour
                     Crit.CritDamage -= fireGhost.critDamage;
                     CurrentHealth.currentHealth += lifeStealAmount;
                     DestroyAnimation();
-                }
-                else{
-                    Crit.CritDamage++;
+                }else{
+                    Crit.CritDamage += fireGhost.critDamage;
                     enemy.TakeDamage(fireGhost.damage);
-                    Crit.CritDamage--;
+                    Crit.CritDamage -= fireGhost.critDamage;
                     DestroyAnimation();
                 }
+                Destroy(gameObject);
             }
-
-            Destroy(gameObject);
         }
     }
 
