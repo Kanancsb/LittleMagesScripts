@@ -54,7 +54,7 @@ public class ImbuementLogic : MonoBehaviour
 
     public void FireMissileButton(){
         StatsHUD[5].SetActive(true);
-        fireMissile.imbuement = true;
+        fireMissile.Imbuement = true;
         ImbuementHUD.SetActive(false);
         RerollHUD.SetActive(false);
     }

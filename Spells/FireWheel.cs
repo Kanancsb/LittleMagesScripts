@@ -16,6 +16,10 @@ public class FireWheel : MonoBehaviour
     public GameObject ImpactSound;
     public AudioSource impactSound;
 
+    private int hitsOnSameEnemy = 0;
+    public bool imbuement = false;
+
+
     void Start(){
 
         ImpactSound = GameObject.Find("Hit1");
