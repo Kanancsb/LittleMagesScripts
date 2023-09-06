@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMSpells : MonoBehaviour
+public class VoidMissile : MonoBehaviour
 {
     public GameObject impacEffect;
 
@@ -14,11 +14,11 @@ public class EnemyMSpells : MonoBehaviour
     public GameObject ImpactSound;
     public AudioSource impactSound;
 
+    public GameObject MissileSpot;
+
     void Start(){
         ImpactSound = GameObject.Find("Hit");
         impactSound = ImpactSound.GetComponent<AudioSource>();
-
-        StartCoroutine(ProjectileFade());
     }
 
     void OnTriggerEnter2D(Collider2D other){
@@ -31,32 +31,26 @@ public class EnemyMSpells : MonoBehaviour
             }else{
                 other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
             }
-
             AnimationEffect();
-            Destroy(gameObject);
-        }else if(other.gameObject.layer == LayerMask.NameToLayer("Bricks")){
+            Destroy(MissileSpot);
+        }else if(MissileSpot){
             impactSound.Play();
             AnimationEffect();
-            Destroy(gameObject);
+            Destroy(MissileSpot);
         }
-    }
-
-    IEnumerator ProjectileFade(){
-        yield return new WaitForSeconds(5f);
-        Destroy(gameObject);
     }
 
     void AnimationEffect(){
         if(impacEffect != null){
-                GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
-                Animator animator = impactInstance.GetComponent<Animator>();
+            GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
+            Animator animator = impactInstance.GetComponent<Animator>();
 
-                if (animator != null){
-                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                    float animationDuration = stateInfo.length;
-                    
-                    Destroy(impactInstance, animationDuration);
-                }
+            if (animator != null){
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                float animationDuration = stateInfo.length;
+
+                Destroy(impactInstance, animationDuration);
             }
+        }
     }
 }
