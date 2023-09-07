@@ -31,6 +31,7 @@ public class FireWheelSpell : MonoBehaviour
     public WeaponPowerUp button;
     public bool FMChosen = false;
     public bool FWChosen = false;
+    public bool IChosen = false;
 
     void Start(){
         Lvls = FindObjectOfType<PlayerKnowledge>();

@@ -15,5 +15,6 @@ public class LivingBomb : MonoBehaviour
     public float LifeSteal = 0;
 
     public bool LVChosen = false;
+    public bool IChosen = false;
 
 }

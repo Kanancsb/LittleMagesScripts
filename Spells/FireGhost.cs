@@ -28,6 +28,7 @@ public class FireGhost : MonoBehaviour
     private string Button;
     public WeaponPowerUp button;
     public bool FGChosen = false;
+    public bool IChosen = false;
 
     void Start(){
         Lvls = FindObjectOfType<PlayerKnowledge>();
@@ -36,7 +37,7 @@ public class FireGhost : MonoBehaviour
         projectileSpeed *= ((Lvls.SpellSpeedLevel - 1) * 0.05f) + 1f;
         float reductionFactor = Mathf.Pow(0.95f, Lvls.CDLevel - 1);
         CastCD *= reductionFactor;
-        extraSpell = Lvls.ExtraSpellLevel + 1;
+        extraSpell = Lvls.ExtraSpellLevel;
 
         lastCast = CastCD;
 
@@ -57,7 +58,7 @@ public class FireGhost : MonoBehaviour
 
     void Update(){
         if(Input.GetButtonDown(Button) && Time.time - lastCast >= CastCD){
-            shootLogic.ExtraSpell(extraSpell, projectile);
+            shootLogic.ExtraSpell(extraSpell++, projectile);
             
             lastCast = Time.time;
             CooldownImage = true;

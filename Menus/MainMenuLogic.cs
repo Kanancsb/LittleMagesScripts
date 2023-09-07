@@ -26,6 +26,7 @@ public class MainMenuLogic : MonoBehaviour
     Resolution[] resolutions;
 
     void Start(){
+        PlayerVolume();
 
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
@@ -37,7 +38,6 @@ public class MainMenuLogic : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         ResolutionLogic();
-
     }
 
     public void StartButton(){
@@ -74,11 +74,21 @@ public class MainMenuLogic : MonoBehaviour
     }
 
     public void SetGeneralVolume(float Volume){
-        GeneralVolume.SetFloat("GeneralVolumeParameter",  Mathf.Log10(Volume) * 20);
+        GeneralVolume.SetFloat("GeneralVolumeParameter", Mathf.Log10(Volume) * 20);
+        PlayerPrefs.SetFloat("GeneralVolume", Volume);
     }
 
     public void SetMusicVolume(float Volume){
         MusicVolume.SetFloat("MusicVolumeParameter", Mathf.Log10(Volume) * 20);
+        PlayerPrefs.SetFloat("MusicVolume", Volume);
+    }
+
+    public void PlayerVolume(){
+        float savedGeneralVolume = PlayerPrefs.GetFloat("GeneralVolume", 1.0f);
+        float savedMusicVolume = PlayerPrefs.GetFloat("MusicVolume", 1.0f);
+
+        GeneralVolume.SetFloat("GeneralVolumeParameter", Mathf.Log10(savedGeneralVolume) * 20);
+        MusicVolume.SetFloat("MusicVolumeParameter", Mathf.Log10(savedMusicVolume) * 20);
     }
 
     public void SetResolution(int resolutionIndex){

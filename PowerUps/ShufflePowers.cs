@@ -8,7 +8,6 @@ public class ShufflePowers : MonoBehaviour
 
     public GameObject RerollHUD;
 
-    // Array of power-up game objects
     public GameObject[] PowerUps;
 
     public FireWheelSpell FireWheelChosen;
@@ -33,12 +32,10 @@ public class ShufflePowers : MonoBehaviour
     // List to keep track of active power-ups
     private List<GameObject> activePowerUps = new List<GameObject>();
 
-    // Activate random power-ups on Awake
     void Awake(){
         ActivateRandomPowerUps(3);
     }
 
-    // Deactivate and activate random power-ups on re-enabling the script
     void OnEnable(){
         SpellsPowers();
         DeactivatePowerUps();
@@ -53,36 +50,38 @@ public class ShufflePowers : MonoBehaviour
         }
     }
 
-    // Deactivate all active power-ups
-    public void DeactivatePowerUps(){
+    void DeactivatePowerUps(){
         foreach (GameObject powerUp in activePowerUps){
-            powerUp.SetActive(false);
+            if (powerUp != null){
+                powerUp.SetActive(false);
+            }
         }
         activePowerUps.Clear();
     }
 
-    // Activate a specified number of random power-ups
-    public void ActivateRandomPowerUps(int count){
+    void ActivateRandomPowerUps(int count){
         int powerUpCount = Mathf.Min(count, PowerUps.Length);
 
         // Create a copy of the power-ups array
         List<GameObject> powerUpsCopy = new List<GameObject>(PowerUps);
 
         for (int i = 0; i < powerUpCount; i++){
-            // Get a random index within the remaining power-ups
             int randomIndex = Random.Range(0, powerUpsCopy.Count);
-
-            // Get the power-up at the random index
+            
             GameObject powerUp = powerUpsCopy[randomIndex];
 
-            // Activate the power-up
-            powerUp.SetActive(true);
+            if (powerUp == null){
+                if(powerUpCount < 20){
+                    powerUpCount++;
+                }
+                continue;
+            }else{
+                powerUp.SetActive(true);
+                activePowerUps.Add(powerUp);
 
-            // Add the power-up to the active power-ups list
-            activePowerUps.Add(powerUp);
-
-            // Remove the power-up from the copy to avoid duplicates
-            powerUpsCopy.RemoveAt(randomIndex);
+                // Remove the power-up from the copy to avoid duplicates
+                powerUpsCopy.RemoveAt(randomIndex);
+            }
         }
     }
 
@@ -103,19 +102,24 @@ public class ShufflePowers : MonoBehaviour
         if(FireWheelChosen.FWChosen){
             PowerUps = ExtendArray(PowerUps, FireWheelPowerUps);
             FireWheelChosen.FWChosen = false;
-        }else if(FireMissileChosen.FMChosen){
+        }
+        if(FireMissileChosen.FMChosen){
             PowerUps = ExtendArray(PowerUps, FireMissilePowerUps);
             FireMissileChosen.FMChosen = false;
-        }else if(MegaFireballChosen.MFChosen){
+        }
+        if(MegaFireballChosen.MFChosen){
             PowerUps = ExtendArray(PowerUps, MegaFireballPowerUps);
             MegaFireballChosen.MFChosen = false;
-        }else if(LivingBombChosen.LVChosen){
+        }
+        if(LivingBombChosen.LVChosen){
             PowerUps = ExtendArray(PowerUps, LivingBombPowerUps);
             LivingBombChosen.LVChosen = false;
-        }else if(FireOrbChosen.FOChosen){
+        }
+        if(FireOrbChosen.FOChosen){
             PowerUps = ExtendArray(PowerUps, FireOrbPowerUps);
             FireOrbChosen.FOChosen = false;
-        }else if (FireGhostChosen.FGChosen){
+        }
+        if(FireGhostChosen.FGChosen){
             PowerUps = ExtendArray(PowerUps, FireGhostPowerUps);
             FireGhostChosen.FGChosen = false;
         }

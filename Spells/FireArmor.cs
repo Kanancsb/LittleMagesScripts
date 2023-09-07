@@ -10,4 +10,5 @@ public class FireArmor : MonoBehaviour
         enemy.TakeDamage(damage*0.5f);
         sfx.Play();
     }
+
 }

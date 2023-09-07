@@ -30,6 +30,7 @@ public class FireMissile : MonoBehaviour
     string Button;
     public WeaponPowerUp button;
     public bool FMChosen = false;
+    public bool IChosen = false;
 
     public bool Imbuement = false;
 

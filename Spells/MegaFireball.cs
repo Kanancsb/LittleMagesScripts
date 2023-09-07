@@ -30,6 +30,7 @@ public class MegaFireball : MonoBehaviour
     string Button;
     public WeaponPowerUp button;
     public bool MFChosen = false;
+    public bool IChosen = false;
 
     public bool imbuement = false;
 

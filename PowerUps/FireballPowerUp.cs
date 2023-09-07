@@ -59,7 +59,7 @@ public class FireballPowerUp : MonoBehaviour
 
     public void FireWheelPowerUpDamage(){
         StatsCont[4].text += "+";
-        fireWheelSpell.damage = fireWheelSpell.damage * 1.2f;
+        fireWheelSpell.damage = fireWheelSpell.damage * 1.1f;
         PowerUpHUD.SetActive(false);
         RerollHUD.SetActive(false);
     }
@@ -73,7 +73,7 @@ public class FireballPowerUp : MonoBehaviour
 
     public void FireMissilePowerUpDamage(){
         StatsCont[6].text += "+";
-        fireMissile.damage = fireMissile.damage * 1.2f;
+        fireMissile.damage = fireMissile.damage * 1.1f;
         PowerUpHUD.SetActive(false);
         RerollHUD.SetActive(false);
     }

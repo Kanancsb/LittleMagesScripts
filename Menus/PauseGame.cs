@@ -27,6 +27,7 @@ public class PauseGame : MonoBehaviour
         PauseGameHUD.SetActive(false);
         OptionsHUD.SetActive(false);
 
+        PlayerVolume();
         ResolutionLogic();
     }
 
@@ -71,11 +72,21 @@ public class PauseGame : MonoBehaviour
     }
 
     public void SetGeneralVolume(float Volume){
-        GeneralVolume.SetFloat("GeneralVolumeParameter",  Mathf.Log10(Volume) * 20);
+        GeneralVolume.SetFloat("GeneralVolumeParameter", Mathf.Log10(Volume) * 20);
+        PlayerPrefs.SetFloat("GeneralVolume", Volume);
     }
 
     public void SetMusicVolume(float Volume){
         MusicVolume.SetFloat("MusicVolumeParameter", Mathf.Log10(Volume) * 20);
+        PlayerPrefs.SetFloat("MusicVolume", Volume);
+    }
+
+    public void PlayerVolume(){
+        float savedGeneralVolume = PlayerPrefs.GetFloat("GeneralVolume", 1.0f);
+        float savedMusicVolume = PlayerPrefs.GetFloat("MusicVolume", 1.0f);
+
+        GeneralVolume.SetFloat("GeneralVolumeParameter", Mathf.Log10(savedGeneralVolume) * 20);
+        MusicVolume.SetFloat("MusicVolumeParameter", Mathf.Log10(savedMusicVolume) * 20);
     }
 
     public void SetResolution(int resolutionIndex){

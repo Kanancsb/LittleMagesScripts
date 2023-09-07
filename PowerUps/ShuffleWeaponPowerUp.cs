@@ -8,23 +8,38 @@ public class ShuffleWeaponPowerUp : MonoBehaviour
 
     public GameObject RerollHUD;
 
-    // Array of power-up game objects
     public GameObject[] PowerUps;
+
+    public FireWheelSpell FireWheelChosen;
+    public GameObject[] FireWheelPowerUps;
+
+    public FireMissile FireMissileChosen;
+    public GameObject[] FireMissilePowerUps;
+
+    public MegaFireball MegaFireballChosen;
+    public GameObject[] MegaFireballPowerUps;
+
+    public LivingBomb LivingBombChosen;
+    public GameObject[] LivingBombPowerUps;
+
+    public FireOrb FireOrbChosen;
+    public GameObject[] FireOrbPowerUps;
+
+    public FireGhost FireGhostChosen;
+    public GameObject[] FireGhostPowerUps;
 
     // List to keep track of active power-ups
     private List<GameObject> activePowerUps = new List<GameObject>();
 
-    // Activate random power-ups on Awake
     void Awake(){
-        int count = Mathf.Min(PowerUps.Length, 3);
-        ActivateRandomPowerUps(count);
+        ActivateRandomPowerUps(3);
     }
 
     // Deactivate and activate random power-ups on re-enabling the script
     void OnEnable(){
+        SpellsPowers();
         DeactivatePowerUps();
-        int count = Mathf.Min(PowerUps.Length, 3);
-        ActivateRandomPowerUps(count);
+        ActivateRandomPowerUps(3);  
     }
 
     void Update(){
@@ -45,7 +60,6 @@ public class ShuffleWeaponPowerUp : MonoBehaviour
         activePowerUps.Clear();
     }
 
-    // Activate a specified number of random power-ups
     void ActivateRandomPowerUps(int count){
         int powerUpCount = Mathf.Min(count, PowerUps.Length);
 
@@ -53,23 +67,17 @@ public class ShuffleWeaponPowerUp : MonoBehaviour
         List<GameObject> powerUpsCopy = new List<GameObject>(PowerUps);
 
         for (int i = 0; i < powerUpCount; i++){
-            // Get a random index within the remaining power-ups
             int randomIndex = Random.Range(0, powerUpsCopy.Count);
-
-            // Get the power-up at the random index
+            
             GameObject powerUp = powerUpsCopy[randomIndex];
 
-            // If the power-up is null, skip to the next iteration
             if (powerUp == null){
                 if(powerUpCount < 20){
                     powerUpCount++;
                 }
                 continue;
             }else{
-                // Activate the power-up
                 powerUp.SetActive(true);
-
-                // Add the power-up to the active power-ups list
                 activePowerUps.Add(powerUp);
 
                 // Remove the power-up from the copy to avoid duplicates
@@ -78,9 +86,43 @@ public class ShuffleWeaponPowerUp : MonoBehaviour
         }
     }
 
+    T[] ExtendArray<T>(T[] array, T[] newElements){
+        T[] newArray = new T[array.Length + newElements.Length];
+        array.CopyTo(newArray, 0);
+        newElements.CopyTo(newArray, array.Length);
+        return newArray;
+    }
+
     public void Reroll(){
             DeactivatePowerUps();
             ActivateRandomPowerUps(3);
             gameController.Reroll--;
+    }
+
+    public void SpellsPowers(){
+        if(FireWheelChosen.IChosen){
+            PowerUps = ExtendArray(PowerUps, FireWheelPowerUps);
+            FireWheelChosen.IChosen = false;
+        }
+        if(FireMissileChosen.IChosen){
+            PowerUps = ExtendArray(PowerUps, FireMissilePowerUps);
+            FireMissileChosen.IChosen = false;
+        }
+        if(MegaFireballChosen.IChosen){
+            PowerUps = ExtendArray(PowerUps, MegaFireballPowerUps);
+            MegaFireballChosen.IChosen = false;
+        }
+        if(LivingBombChosen.IChosen){
+            PowerUps = ExtendArray(PowerUps, LivingBombPowerUps);
+            LivingBombChosen.IChosen = false;
+        }
+        if(FireOrbChosen.IChosen){
+            PowerUps = ExtendArray(PowerUps, FireOrbPowerUps);
+            FireOrbChosen.IChosen = false;
+        }
+        if(FireGhostChosen.IChosen){
+            PowerUps = ExtendArray(PowerUps, FireGhostPowerUps);
+            FireGhostChosen.IChosen = false;
+        }
     }
 }

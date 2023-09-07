@@ -22,6 +22,7 @@ public class FireOrb : MonoBehaviour
     public int SpellResist = 0;
 
     public bool FOChosen = false;
+    public bool IChosen = false;
 
     void Start(){
         speed *= ((Lvls.SpellSpeedLevel - 1) * 0.05f) + 1f;

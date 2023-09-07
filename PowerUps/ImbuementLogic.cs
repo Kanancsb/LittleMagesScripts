@@ -16,12 +16,16 @@ public class ImbuementLogic : MonoBehaviour
     public GameObject ImbuementHUD;
     public GameObject RerollHUD;
     public GameObject[] StatsHUD;
+    public GameObject[] Button;
+
+    public GameObject FireArmorImg;
 
     public void FireDashButton(){
         StatsHUD[0].SetActive(true);
         firedash.firedash = true;
         ImbuementHUD.SetActive(false);
         RerollHUD.SetActive(false);
+        Destroy(Button[0]);
     }
 
     public void FireballButton(){
@@ -29,6 +33,7 @@ public class ImbuementLogic : MonoBehaviour
         basicSpell.SpellResist++;
         ImbuementHUD.SetActive(false);
         RerollHUD.SetActive(false);
+        Destroy(Button[1]);
     }
 
     public void FireOrbButton(){
@@ -36,13 +41,16 @@ public class ImbuementLogic : MonoBehaviour
         fireOrb.SpellResist++;
         ImbuementHUD.SetActive(false);
         RerollHUD.SetActive(false);
+        Destroy(Button[2]);
     }
 
     public void FireArmorButton(){
         StatsHUD[3].SetActive(true);
         fireArmor.FireArmorSpell = true;
         ImbuementHUD.SetActive(false);
+        FireArmorImg.SetActive(true);
         RerollHUD.SetActive(false);
+        Destroy(Button[3]);
     }
 
     public void MegaFireballButton(){
@@ -50,6 +58,7 @@ public class ImbuementLogic : MonoBehaviour
         megaFireball.imbuement = true;
         ImbuementHUD.SetActive(false);
         RerollHUD.SetActive(false);
+        Destroy(Button[4]);
     }
 
     public void FireMissileButton(){
@@ -57,5 +66,6 @@ public class ImbuementLogic : MonoBehaviour
         fireMissile.Imbuement = true;
         ImbuementHUD.SetActive(false);
         RerollHUD.SetActive(false);
+        Destroy(Button[5]);
     }
 }
