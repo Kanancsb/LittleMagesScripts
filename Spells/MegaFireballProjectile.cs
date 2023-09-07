@@ -41,23 +41,22 @@ public class MegaFireballProjectile : MonoBehaviour
         }
 
         Enemy enemy = collision.GetComponent<Enemy>();
-        if (enemy != null){
-            megaFireball.DamageCont += megaFireball.damage;
-            impactSound.Play();
-            if (megaFireball.LifeSteal != 0){
-                float lifeStealAmount = megaFireball.damage * megaFireball.LifeSteal;
-                CurrentHealth.currentHealth += lifeStealAmount;
-                enemy.TakeDamage(megaFireball.damage);
-                Imbuement(enemy, megaFireball.imbuement);
-            }else{
-                enemy.TakeDamage(megaFireball.damage);
-                Imbuement(enemy, megaFireball.imbuement);
-            }
-        }
+        
 
         if(!collision.CompareTag("Player") && !collision.CompareTag("PlayerSpell")){
-            impactSound.Play();
-            Destroy(gameObject);
+            if (enemy != null){
+                megaFireball.DamageCont += megaFireball.damage;
+                impactSound.Play();
+                if (megaFireball.LifeSteal != 0){
+                    float lifeStealAmount = megaFireball.damage * megaFireball.LifeSteal;
+                    CurrentHealth.currentHealth += lifeStealAmount;
+                    enemy.TakeDamage(megaFireball.damage);
+                    Imbuement(enemy, megaFireball.imbuement);
+                }else{
+                    enemy.TakeDamage(megaFireball.damage);
+                    Imbuement(enemy, megaFireball.imbuement);
+                }
+            }
         }
 
         if(collision.gameObject.layer == LayerMask.NameToLayer("Bricks")){

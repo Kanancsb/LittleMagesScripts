@@ -22,25 +22,16 @@ public class WeaponPowerUp : MonoBehaviour
     public GameObject[] StatsHUD;
     public GameObject[] StatsCont;
 
-    bool HUD = false;
-
-    void FixedUpdate(){
-        if(HUD){
-            WeaponPowerUpHUD.SetActive(false);
-            HUD = false;
-        }
-    }
-
     public void FireWheelSpell(){
+        RerollHUD.SetActive(false);
         StatsHUD[0].SetActive(true);
         StatsCont[0].SetActive(true);
         SpellButton++;
         Spell[0].SetActive(true);
         fireWheelSpell.FWChosen = true; 
         fireWheelSpell.IChosen = true; 
-        HUD = true;
         Destroy(PowerUpButton[0]);
-        RerollHUD.SetActive(false);
+        WeaponPowerUpHUD.SetActive(false);
     }
 
     public void FireMissile(){
@@ -50,9 +41,9 @@ public class WeaponPowerUp : MonoBehaviour
         Spell[1].SetActive(true); 
         fireMissile.FMChosen = true;
         fireMissile.IChosen = true;
-        HUD = true;
-        Destroy(PowerUpButton[1]);
         RerollHUD.SetActive(false);
+        Destroy(PowerUpButton[1]);
+        WeaponPowerUpHUD.SetActive(false);
     }
 
     public void MegaFireball(){
@@ -62,16 +53,15 @@ public class WeaponPowerUp : MonoBehaviour
         Spell[2].SetActive(true); 
         megaFireball.MFChosen = true;
         megaFireball.IChosen = true;
-        HUD = true;
-        Destroy(PowerUpButton[2]);
         RerollHUD.SetActive(false);
+        Destroy(PowerUpButton[2]);
+        WeaponPowerUpHUD.SetActive(false);
     }
 
     /*public void LivingBomb(){
         livingBomb.ActiveLB = true;
         livingBomb.LVChosen = true;
         Spell[3].SetActive(true); 
-        HUD = true;
         Destroy(PowerUpButton[3]);
         RerollHUD.SetActive(false);
     }*/
@@ -82,9 +72,9 @@ public class WeaponPowerUp : MonoBehaviour
         Spell[3].SetActive(true);
         fireOrb.FOChosen = true;
         fireOrb.IChosen = true;
-        HUD = true;
-        Destroy(PowerUpButton[4]);
         RerollHUD.SetActive(false);
+        Destroy(PowerUpButton[4]);
+        WeaponPowerUpHUD.SetActive(false);
     }
 
     public void FireGhost(){
@@ -94,8 +84,8 @@ public class WeaponPowerUp : MonoBehaviour
         Spell[4].SetActive(true); 
         fireGhost.FGChosen = true;
         fireGhost.IChosen = true;
-        HUD = true;
-        Destroy(PowerUpButton[5]);
         RerollHUD.SetActive(false);
+        Destroy(PowerUpButton[5]);
+        WeaponPowerUpHUD.SetActive(false);
     }
 }

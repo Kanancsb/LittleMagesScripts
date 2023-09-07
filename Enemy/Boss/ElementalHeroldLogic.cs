@@ -9,6 +9,7 @@ public class ElementalHeroldLogic : MonoBehaviour
     // Waves Logic
     public GameObject SecondWave;
     public GameObject ThirdWave;
+    public GameObject[] Background;
 
     // Boss Hud Logic
     public AudioSource BossMusic;
@@ -119,6 +120,8 @@ public class ElementalHeroldLogic : MonoBehaviour
     void OnDestroy(){
         SecondWave.SetActive(false);
         ThirdWave.SetActive(true);
+        Background[0].SetActive(false);
+        Background[1].SetActive(true);
         PowerUpHUD.SetActive(true);
     }
 

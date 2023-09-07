@@ -68,4 +68,12 @@ public class ImbuementLogic : MonoBehaviour
         RerollHUD.SetActive(false);
         Destroy(Button[5]);
     }
+
+    public void FireGhost(){
+        StatsHUD[6].SetActive(true);
+        fireGhost.critDamage++;
+        ImbuementHUD.SetActive(false);
+        RerollHUD.SetActive(false);
+        Destroy(Button[6]);
+    }
 }

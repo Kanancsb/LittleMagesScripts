@@ -9,6 +9,7 @@ public class OverTimeDamage : MonoBehaviour
 
     public PlayerHealth playerHealth;
     public UnityEngine.Rendering.Universal.Light2D worldLight;
+    public GameController gameController;
 
     public float flickTime;
     public float Cd;
@@ -16,17 +17,18 @@ public class OverTimeDamage : MonoBehaviour
     public float intensityChange = 0.2f;
     public Color targetColor;
 
-    private float originalIntensity;
-    private Color originalColor;
+    public float originalIntensity;
+    public Color originalColor;
 
     void Start(){
+        gameController = FindObjectOfType<GameController>();
         GameObject lightObject = GameObject.FindGameObjectWithTag("WorldLight");
         if (lightObject != null){
             worldLight = lightObject.GetComponent<UnityEngine.Rendering.Universal.Light2D>();
         } 
         playerHealth = FindObjectOfType<PlayerHealth>();
-        originalIntensity = worldLight.intensity;
-        originalColor = worldLight.color;
+        originalIntensity = gameController.worldLight;
+        originalColor = gameController.worldColor;
 
         StartCoroutine(TimeDamage(Cd, damage, flickTime));
     }

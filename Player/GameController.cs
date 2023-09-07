@@ -32,7 +32,12 @@ public class GameController : MonoBehaviour
 
     public int Reroll;
 
+    public UnityEngine.Rendering.Universal.Light2D WorldLight;
+    public float worldLight;
+    public Color worldColor;
+
     void Start(){
+        worldLight = WorldLight.intensity;
         Reroll = Lvls.RerollLevel - 1;
     }
 
@@ -72,19 +77,19 @@ public class GameController : MonoBehaviour
                 Movement.enabled = true;
                 Spell.enabled = true;
             }else if(Wavepbs03.currWave > 9){
-                Wavepbs02.currWave = 1;
+                Wavepbs03.currWave = 1;
                 WavePBS[2].SetActive(false);
                 Boss[2].SetActive(true);
                 Movement.enabled = true;
                 Spell.enabled = true;
             }else if(Wavepbs04.currWave > 9){
-                Wavepbs03.currWave = 1;
+                Wavepbs04.currWave = 1;
                 WavePBS[3].SetActive(false);
                 Boss[3].SetActive(true);
                 Movement.enabled = true;
                 Spell.enabled = true;
-            }else if(Wavepbs04.currWave > 9){
-                Wavepbs04.currWave = 1;
+            }else if(Wavepbs05.currWave > 9){
+                Wavepbs05.currWave = 1;
                 WavePBS[4].SetActive(false);
                 Boss[4].SetActive(true);
                 Movement.enabled = true;

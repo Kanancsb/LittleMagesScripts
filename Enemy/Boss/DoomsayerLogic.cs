@@ -8,6 +8,7 @@ public class DoomsayerLogic : MonoBehaviour
     // Begin and End Fight
     public GameObject ThirdWave;
     public GameObject FourWave;
+    public GameObject[] Background;
 
     public GameObject PowerUpHUD;
     public GameObject GameOver;
@@ -73,6 +74,8 @@ public class DoomsayerLogic : MonoBehaviour
     void OnDestroy(){
         ThirdWave.SetActive(false);
         FourWave.SetActive(true);
+        Background[0].SetActive(false);
+        Background[1].SetActive(true);
         PowerUpHUD.SetActive(true);
     }
 }

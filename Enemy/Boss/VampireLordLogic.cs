@@ -9,6 +9,7 @@ public class VampireLordLogic : MonoBehaviour
     // Begin and End Fight
     public GameObject FirstWave;
     public GameObject SecondWave;
+    public GameObject[] Background;
 
     public GameObject Light;
 
@@ -115,6 +116,8 @@ public class VampireLordLogic : MonoBehaviour
     void OnDestroy(){
         FirstWave.SetActive(false);
         SecondWave.SetActive(true);
+        Background[0].SetActive(false);
+        Background[1].SetActive(true);
         Light.SetActive(true);
         PowerUpHUD.SetActive(true);
     }
