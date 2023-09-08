@@ -22,7 +22,7 @@ public class PlayerStats : MonoBehaviour
         float lifesteal = basicSpell.LifeSteal * 100;
         MaxHealtText.text = "Max Health: " + HealthStats.maxHealth;
         MovSpeedText.text = "Moviment Speed: " + MovementStats.runSpeed;
-        CritChanceText.text = "Critical Chance: " + critchance + "%";
+        CritChanceText.text = "Critical Chance: " + Mathf.RoundToInt(critchance) + "%";
         CritDamageText.text = "Critical Multiplier: " + ControllerStats.CritDamage;
         LifeStealText.text = "LifeSteal: " + lifesteal + "%";
 

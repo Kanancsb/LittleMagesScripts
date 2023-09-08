@@ -28,45 +28,45 @@ public class SpellStats : MonoBehaviour
 
     public void FireballStats(TMP_Text Damage, TMP_Text CD, TMP_Text Speed, BasicSpell spell){
         float calculatedDamage = spell.damage * ((SaveStats.DamageLevel - 1) * 0.05f) + spell.damage;
-        Damage.text = "Damage: " + calculatedDamage;
-        CD.text = "Cooldown: " + spell.CastCD;
-        Speed.text = "Projectile Speed: " + spell.projectileSpeed;
+        Damage.text = "Damage: " + Mathf.RoundToInt(calculatedDamage);
+        CD.text = "Cooldown: " + spell.CastCD.ToString("F1");;
+        Speed.text = "Projectile Speed: " + spell.projectileSpeed.ToString("F1");
 
     }
 
     public void FireGhostStats(TMP_Text Damage, TMP_Text CD, TMP_Text Speed, FireGhost spell){
         float calculatedDamage = spell.damage * ((SaveStats.DamageLevel - 1) * 0.05f) + spell.damage;
-        Damage.text = "Damage: " + calculatedDamage;
-        CD.text = "Cooldown: " + spell.CastCD;
-        Speed.text = "Projectile Speed: " + spell.projectileSpeed;
+        Damage.text = "Damage: " + Mathf.RoundToInt(calculatedDamage);
+        CD.text = "Cooldown: " + spell.CastCD.ToString("F1");;
+        Speed.text = "Projectile Speed: " + spell.projectileSpeed.ToString("F1");
     }
 
     public void FireMissileStats(TMP_Text Damage, TMP_Text CD, TMP_Text Speed, FireMissile spell){
         float calculatedDamage = spell.damage * ((SaveStats.DamageLevel - 1) * 0.05f) + spell.damage;
-        Damage.text = "Damage: " + calculatedDamage;
-        CD.text = "Cooldown: " + spell.CastCD;
-        Speed.text = "Projectile Speed: " + spell.projectileSpeed;
+        Damage.text = "Damage: " + Mathf.RoundToInt(calculatedDamage);
+        CD.text = "Cooldown: " + spell.CastCD.ToString("F1");;
+        Speed.text = "Projectile Speed: " + spell.projectileSpeed.ToString("F1");
     }
 
     public void FireOrbStats(TMP_Text Damage, TMP_Text CD, TMP_Text Speed, FireOrb spell){
         float calculatedDamage = spell.damage * ((SaveStats.DamageLevel - 1) * 0.05f) + spell.damage;
-        Damage.text = "Damage: " + calculatedDamage;
-        CD.text = "Cooldown: " + spell.Cooldown;
-        Speed.text = "Projectile Speed: " + spell.speed;
+        Damage.text = "Damage: " + Mathf.RoundToInt(calculatedDamage);
+        CD.text = "Cooldown: " + spell.Cooldown.ToString("F1");;
+        Speed.text = "Projectile Speed: " + spell.speed.ToString("F1");;
     }
 
     public void FireWheelStats(TMP_Text Damage, TMP_Text CD, TMP_Text Speed, FireWheelSpell spell){
         float calculatedDamage = spell.damage * ((SaveStats.DamageLevel - 1) * 0.05f) + spell.damage;
-        Damage.text = "Damage: " + calculatedDamage;
-        CD.text = "Cooldown: " + spell.CastCD;
-        Speed.text = "Projectile Speed: " + spell.projectileSpeed;
+        Damage.text = "Damage: " + Mathf.RoundToInt(calculatedDamage);
+        CD.text = "Cooldown: " + spell.CastCD.ToString("F1");;
+        Speed.text = "Projectile Speed: " + spell.projectileSpeed.ToString("F1");
     }
 
     public void MegaFireballStats(TMP_Text Damage, TMP_Text CD, TMP_Text Speed, MegaFireball spell){
         float calculatedDamage = spell.damage * ((SaveStats.DamageLevel - 1) * 0.05f) + spell.damage;
-        Damage.text = "Damage: " + calculatedDamage;
-        CD.text = "Cooldown: " + spell.CastCD;
-        Speed.text = "Projectile Speed: " + spell.projectileSpeed;
+        Damage.text = "Damage: " + Mathf.RoundToInt(calculatedDamage);
+        CD.text = "Cooldown: " + spell.CastCD.ToString("F1");;
+        Speed.text = "Projectile Speed: " + spell.projectileSpeed.ToString("F1");
     }
 
     void OnEnable(){
