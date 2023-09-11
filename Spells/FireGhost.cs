@@ -57,12 +57,24 @@ public class FireGhost : MonoBehaviour
     }
 
     void Update(){
-        if(Input.GetButtonDown(Button) && Time.time - lastCast >= CastCD){
-            shootLogic.ExtraSpell(extraSpell, projectile);
-            
+        if(!Lvls.AutoShoot){
+            if (Input.GetButtonDown(Button) && Time.time - lastCast >= CastCD){
+            shootLogic.ShootSpell(projectile);
+
+            // Set the time of the last cast to the current time
             lastCast = Time.time;
             CooldownImage = true;
             SpellImage.fillAmount = 1f;
+            }
+        }else{
+            if(Time.time - lastCast >= CastCD){
+            shootLogic.ShootSpell(projectile);
+
+            // Set the time of the last cast to the current time
+            lastCast = Time.time;
+            CooldownImage = true;
+            SpellImage.fillAmount = 1f;
+            }
         }
 
         if (CooldownImage){
