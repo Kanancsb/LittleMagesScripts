@@ -48,9 +48,14 @@ public class VampireLordLogic : MonoBehaviour
         enemyHealth = FindObjectOfType<Enemy>();
         Health = enemyHealth.health;
         healthBar.SetMaxHealth(Health);
-        Light.SetActive(false);
+        StartCoroutine(LightAnim());
         BossMusic.Play();
         StartCoroutine(ShootProjectile());
+    }
+
+    IEnumerator LightAnim(){
+        yield return new WaitForSeconds(4);
+        Light.SetActive(false);
     }
 
 // Dialogue Function

@@ -16,6 +16,7 @@ public class PlayerKnowledge : MonoBehaviour
     public int RerollLevel = 1;
     public int ExtraSpellLevel = 1;
     public int CriticalChanceLevel = 1;
+    public bool AutoShoot = false;
 
     void Awake(){
         LoadPlayer();
@@ -31,6 +32,7 @@ public class PlayerKnowledge : MonoBehaviour
         PlayerData data = SaveSystem.LoadPlayer();
 
         if (data != null){
+            AutoShoot = data.AutoShoot;
             Knowledge = data.Knowledge;
             RefundKnowledge = data.RefundKnowledge;
             DamageLevel = data.DamageLevel;

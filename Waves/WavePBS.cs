@@ -28,6 +28,8 @@ public class WavePBS : MonoBehaviour
     public GameObject UpgradeSkill;
     public GameObject UpgradeWeapon;
 
+    public bool lastWave = false;
+
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     void Start(){
@@ -64,7 +66,7 @@ public class WavePBS : MonoBehaviour
         }
 
         if (waveTimer <= 0 && spawnedEnemies.Count <= 0){
-            if(currWave == 4){
+            if(currWave == 4 && !lastWave){
                 UpgradeWeapon.SetActive(true);
                 playerHealth.maxHealth += 5;
                 playerHealth.currentHealth += 5;

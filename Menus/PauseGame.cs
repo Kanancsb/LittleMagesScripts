@@ -12,6 +12,7 @@ public class PauseGame : MonoBehaviour
 
     public GameObject PauseGameHUD;
     public GameObject OptionsHUD;
+    public GameObject ControlsHUD;
 
     public AudioMixer GeneralVolume;
     public AudioMixer MusicVolume;
@@ -22,6 +23,8 @@ public class PauseGame : MonoBehaviour
 
     private bool IsPaused = false;
 
+    public Toggle autoShootToggle;
+
     void Start(){
 
         PauseGameHUD.SetActive(false);
@@ -29,6 +32,8 @@ public class PauseGame : MonoBehaviour
 
         PlayerVolume();
         ResolutionLogic();
+
+        autoShootToggle.isOn = SaveGame.AutoShoot;
     }
 
     void Update(){
@@ -59,6 +64,7 @@ public class PauseGame : MonoBehaviour
     public void Back(){
         PauseGameHUD.SetActive(true);
         OptionsHUD.SetActive(false);
+        ControlsHUD.SetActive(false);
     }
 
     public void MainMenu(){
@@ -67,8 +73,18 @@ public class PauseGame : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void ControlsMenu(){
+        ControlsHUD.SetActive(true);
+        OptionsHUD.SetActive(false);
+    }
+
     public void SetFullScreen(bool isFullscreen){
         Screen.fullScreen = isFullscreen;
+    }
+
+    public void AutoShoot(bool autoShoot){
+        SaveGame.AutoShoot = autoShoot;
+        SaveGame.SavePlayer();
     }
 
     public void SetGeneralVolume(float Volume){

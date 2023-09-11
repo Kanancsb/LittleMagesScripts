@@ -51,14 +51,26 @@ public class BasicSpell : MonoBehaviour
     }
 
     void Update(){
-        if (Input.GetMouseButtonDown(0) && Time.time - lastCast >= CastCD){
+        if(!Lvls.AutoShoot){
+            if (Input.GetMouseButtonDown(0) && Time.time - lastCast >= CastCD){
             shootLogic.ShootSpell(projectile);
 
             // Set the time of the last cast to the current time
             lastCast = Time.time;
             CooldownImage = true;
             SpellImage.fillAmount = 1f;
+            }
+        }else{
+            if(Time.time - lastCast >= CastCD){
+            shootLogic.ShootSpell(projectile);
+
+            // Set the time of the last cast to the current time
+            lastCast = Time.time;
+            CooldownImage = true;
+            SpellImage.fillAmount = 1f;
+            }
         }
+        
 
         if(Time.time - extraLastCast >= extraCD){
             shootLogic.ExtraSpell(extraSpell, projectile);

@@ -8,11 +8,11 @@ using TMPro;
 
 public class MainMenuLogic : MonoBehaviour
 {
+    public PlayerKnowledge SaveGame;
     
     public GameObject mainMenu;
     public GameObject optionsMenu;
     public GameObject loading;
-    public GameObject buttonsMenu;
     public GameObject AKMenu;
     public GameObject controlsMenu;
 
@@ -25,19 +25,24 @@ public class MainMenuLogic : MonoBehaviour
 
     Resolution[] resolutions;
 
+    public Toggle autoShootToggle;
+
     void Start(){
         PlayerVolume();
 
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
         loading.SetActive(false);
-        buttonsMenu.SetActive(false);
+        controlsMenu.SetActive(false);
         AKMenu.SetActive(false);
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
+        PlayerVolume();
         ResolutionLogic();
+
+        autoShootToggle.isOn = SaveGame.AutoShoot;
     }
 
     public void StartButton(){
@@ -71,6 +76,11 @@ public class MainMenuLogic : MonoBehaviour
 
     public void SetFullScreen(bool isFullscreen){
         Screen.fullScreen = isFullscreen;
+    }
+
+    public void AutoShoot(bool autoShoot){
+        SaveGame.AutoShoot = autoShoot;
+        SaveGame.SavePlayer();
     }
 
     public void SetGeneralVolume(float Volume){
