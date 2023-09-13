@@ -26,6 +26,9 @@ public class PauseGame : MonoBehaviour
     public Toggle autoShootToggle;
     public Toggle aquiredAutoShootToggle;
 
+    public Slider generalVolumeSlider;
+    public Slider musicVolumeSlider;
+
     void Start(){
 
         PauseGameHUD.SetActive(false);
@@ -44,9 +47,9 @@ public class PauseGame : MonoBehaviour
             PauseGameHUD.SetActive(true);
             Time.timeScale = 0;
             IsPaused = true;
-        }else if(Input.GetKeyDown(KeyCode.Escape) && OptionsHUD.activeInHierarchy){
+        }else if(Input.GetKeyDown(KeyCode.Escape) && (OptionsHUD.activeInHierarchy || ControlsHUD.activeInHierarchy)){
             Back();
-        }else if(Input.GetKeyDown(KeyCode.Escape) && IsPaused && !OptionsHUD.activeInHierarchy){
+        }else if(Input.GetKeyDown(KeyCode.Escape) && IsPaused && !OptionsHUD.activeInHierarchy && !ControlsHUD.activeInHierarchy){
             Resume();
         }
     }
@@ -64,9 +67,14 @@ public class PauseGame : MonoBehaviour
     }
 
     public void Back(){
-        PauseGameHUD.SetActive(true);
-        OptionsHUD.SetActive(false);
-        ControlsHUD.SetActive(false);
+        if(OptionsHUD.activeInHierarchy){
+            PauseGameHUD.SetActive(true);
+            OptionsHUD.SetActive(false);
+        }else if(ControlsHUD.activeInHierarchy){
+            ControlsHUD.SetActive(false);
+            OptionsHUD.SetActive(true);
+        }
+        
     }
 
     public void MainMenu(){
@@ -110,6 +118,9 @@ public class PauseGame : MonoBehaviour
 
         GeneralVolume.SetFloat("GeneralVolumeParameter", Mathf.Log10(savedGeneralVolume) * 20);
         MusicVolume.SetFloat("MusicVolumeParameter", Mathf.Log10(savedMusicVolume) * 20);
+
+        generalVolumeSlider.value = savedGeneralVolume;
+        musicVolumeSlider.value = savedMusicVolume;
     }
 
     public void SetResolution(int resolutionIndex){

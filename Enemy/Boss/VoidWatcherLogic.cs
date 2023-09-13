@@ -40,16 +40,7 @@ public class VoidWatcherLogic : MonoBehaviour
         gameController = FindObjectOfType<GameController>();
 
         BossMusic.Play();
-        StartCoroutine(EntranceAnim());
         StartCoroutine(ShowRandomDialogue());
-    }
-
-    IEnumerator EntranceAnim(){
-        AnimationClip currentClip = animation.GetCurrentAnimatorClipInfo(0)[0].clip;
-        float animationDuration = currentClip.length;
-        yield return new WaitForSeconds(animationDuration);
-
-        Destroy(animation);
     }
 
     IEnumerator DisplayDialogue(string dialogue){

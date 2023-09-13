@@ -28,6 +28,9 @@ public class MainMenuLogic : MonoBehaviour
     public Toggle autoShootToggle;
     public Toggle aquiredAutoShootToggle;
 
+    public Slider generalVolumeSlider;
+    public Slider musicVolumeSlider;
+
     void Start(){
         PlayerVolume();
 
@@ -93,11 +96,15 @@ public class MainMenuLogic : MonoBehaviour
     public void SetGeneralVolume(float Volume){
         GeneralVolume.SetFloat("GeneralVolumeParameter", Mathf.Log10(Volume) * 20);
         PlayerPrefs.SetFloat("GeneralVolume", Volume);
+
+        generalVolumeSlider.value = Volume;
     }
 
     public void SetMusicVolume(float Volume){
         MusicVolume.SetFloat("MusicVolumeParameter", Mathf.Log10(Volume) * 20);
         PlayerPrefs.SetFloat("MusicVolume", Volume);
+
+        musicVolumeSlider.value = Volume;
     }
 
     public void PlayerVolume(){
@@ -106,6 +113,9 @@ public class MainMenuLogic : MonoBehaviour
 
         GeneralVolume.SetFloat("GeneralVolumeParameter", Mathf.Log10(savedGeneralVolume) * 20);
         MusicVolume.SetFloat("MusicVolumeParameter", Mathf.Log10(savedMusicVolume) * 20);
+
+        generalVolumeSlider.value = savedGeneralVolume;
+        musicVolumeSlider.value = savedMusicVolume;
     }
 
     public void SetResolution(int resolutionIndex){
