@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     public bool firedash = false;
     public LayerMask brickLayer;
 
+    public GameObject impacEffect;
+
     void Start(){
         originalrunSpeed = runSpeed;
     }
@@ -36,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         // Check if the jump button is pressed
         if (Input.GetButtonDown("Jump"))
         {
-            if(firedash){
+            if(firedash && transform.position.y > Isjumping){
                 Dash();
             }else{
                 jump = true; // Set the jump flag to true
@@ -60,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Dash(){
+        AnimationEffect();
         Vector2 dashDirection = new Vector2(horizontalMove, 0f);
         dashDirection.Normalize();
 
@@ -70,5 +73,19 @@ public class PlayerMovement : MonoBehaviour
         if (hit.collider == null){
             controller.transform.position += (Vector3)dashForceVector;
         }
+    }
+
+    void AnimationEffect(){
+        if(impacEffect != null){
+                GameObject impactInstance = Instantiate(impacEffect, transform.position, transform.rotation);
+                Animator animator = impactInstance.GetComponent<Animator>();
+
+                if (animator != null){
+                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                    float animationDuration = stateInfo.length;
+                    
+                    Destroy(impactInstance, animationDuration);
+                }
+            }
     }
 }

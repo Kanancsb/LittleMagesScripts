@@ -40,11 +40,16 @@ public class OverTimeDamage : MonoBehaviour
         worldLight.intensity -= intensityChange;
         worldLight.color = targetColor;
 
-        yield return new WaitForSeconds(flickTime); // Aguarde 1 segundo
+        yield return new WaitForSeconds(flickTime);
 
         worldLight.intensity = originalIntensity;
         worldLight.color = originalColor;
 
         StartCoroutine(TimeDamage(Cd, damage, flickTime));
+    }
+
+    void OnDestroy(){
+        worldLight.intensity = originalIntensity;
+        worldLight.color = originalColor;
     }
 }

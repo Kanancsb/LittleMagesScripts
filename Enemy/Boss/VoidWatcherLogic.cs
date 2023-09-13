@@ -3,23 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DoomsayerLogic : MonoBehaviour
+public class VoidWatcherLogic : MonoBehaviour
 {
     // Begin and End Fight
-    public GameObject ThirdWave;
     public GameObject FourWave;
+    public GameObject FiveWave;
     public GameObject[] Background;
 
     public GameObject PowerUpHUD;
     public GameObject GameOver;
     public AudioSource BossMusic;
-    public Animator animator;
-    
-    // Spells
-
-    public Transform[] SpellPosition;
-    public GameObject[] SpellsAttack;
-    private bool SafeMode;
+    public Animator animation;
 
     //HealthBar Logic
     public HealthBar healthBar;
@@ -39,14 +33,23 @@ public class DoomsayerLogic : MonoBehaviour
     private GameController gameController;
 
     void Start(){
-        WaveHUD.text = "Doomsayer!!";
+        WaveHUD.text = "Void Watcher!!";
         enemyHealth = FindObjectOfType<Enemy>();
         Health = enemyHealth.health;
         healthBar.SetMaxHealth(Health);
         gameController = FindObjectOfType<GameController>();
 
         BossMusic.Play();
+        StartCoroutine(EntranceAnim());
         StartCoroutine(ShowRandomDialogue());
+    }
+
+    IEnumerator EntranceAnim(){
+        AnimationClip currentClip = animation.GetCurrentAnimatorClipInfo(0)[0].clip;
+        float animationDuration = currentClip.length;
+        yield return new WaitForSeconds(animationDuration);
+
+        Destroy(animation);
     }
 
     IEnumerator DisplayDialogue(string dialogue){
@@ -72,32 +75,7 @@ public class DoomsayerLogic : MonoBehaviour
         StartCoroutine(ShowRandomDialogue());
     }
 
-    void SecondAttack(){
-        EnemyProjectile enemyProjectiles = GetComponent<EnemyProjectile>();
-        if (enemyProjectiles != null){
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("SecondAttack")){
-                enemyProjectiles.enabled = true;
-            }else{
-                enemyProjectiles.enabled = false;
-            }
-        }
-    }
-
-    void ThirdAttack(){
-        TwoSideSpell enemyProjectiles = GetComponent<TwoSideSpell>();
-        if (enemyProjectiles != null){
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("ThirdAttack")){
-                enemyProjectiles.enabled = true;
-            }else{
-                enemyProjectiles.enabled = false;
-            }
-        }
-    }
-
     void Update(){
-        SecondAttack();
-        ThirdAttack();
-
         if(Health > enemyHealth.health){
             Health = enemyHealth.health;
             healthBar.SetHealth(Health);
@@ -109,8 +87,8 @@ public class DoomsayerLogic : MonoBehaviour
     }
 
     void OnDestroy(){
-        ThirdWave.SetActive(false);
-        FourWave.SetActive(true);
+        FourWave.SetActive(false);
+        FiveWave.SetActive(true);
         Background[0].SetActive(false);
         Background[1].SetActive(true);
         PowerUpHUD.SetActive(true);

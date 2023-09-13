@@ -155,6 +155,15 @@ public class TheMageLogic : MonoBehaviour
         SpellVolley();
         DownVolley();
         EnemyDance();
+
+        if(Health > enemyHealth.health){
+            Health = enemyHealth.health;
+            healthBar.SetHealth(Health);
+        }
+
+        if(GameOver.activeInHierarchy){
+            Destroy(BossMusic);
+        }
     }
 
     void OnDestroy(){
