@@ -22,7 +22,7 @@ public class VoidMissile : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other){
-        if (other.gameObject.CompareTag("Player")){
+        if(other.gameObject.CompareTag("Player")){
             impactSound.Play();
 
             if(Burn){
@@ -33,7 +33,8 @@ public class VoidMissile : MonoBehaviour
             }
             AnimationEffect();
             Destroy(MissileSpot);
-        }else if(MissileSpot){
+        }
+        if(other.gameObject.CompareTag("Spot")){
             impactSound.Play();
             AnimationEffect();
             Destroy(MissileSpot);

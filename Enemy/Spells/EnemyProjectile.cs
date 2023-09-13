@@ -10,7 +10,7 @@ public class EnemyProjectile : MonoBehaviour
     
     public float ProjectileCD = 5f;
 
-    void Start(){
+    void OnEnable(){
         StartCoroutine(ShootProjectile());
     }
 
@@ -22,6 +22,10 @@ public class EnemyProjectile : MonoBehaviour
 
     void Spell(){
         Instantiate(ProjectilePrefab, ProjectilePosition.position, Quaternion.identity);
+    }
+
+    private void OnDisable(){
+        StopAllCoroutines();
     }
 
 }

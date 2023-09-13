@@ -26,6 +26,7 @@ public class MainMenuLogic : MonoBehaviour
     Resolution[] resolutions;
 
     public Toggle autoShootToggle;
+    public Toggle aquiredAutoShootToggle;
 
     void Start(){
         PlayerVolume();
@@ -43,6 +44,7 @@ public class MainMenuLogic : MonoBehaviour
         ResolutionLogic();
 
         autoShootToggle.isOn = SaveGame.AutoShoot;
+        aquiredAutoShootToggle.isOn = SaveGame.AquiredAutoShoot;
     }
 
     public void StartButton(){
@@ -80,6 +82,11 @@ public class MainMenuLogic : MonoBehaviour
 
     public void AutoShoot(bool autoShoot){
         SaveGame.AutoShoot = autoShoot;
+        SaveGame.SavePlayer();
+    }
+
+    public void AquiredAutoShoot(bool aquiredAutoShoot){
+        SaveGame.AquiredAutoShoot = aquiredAutoShoot;
         SaveGame.SavePlayer();
     }
 

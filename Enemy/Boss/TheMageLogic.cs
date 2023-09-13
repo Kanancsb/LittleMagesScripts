@@ -3,24 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ElementalHeroldLogic : MonoBehaviour
+public class TheMageLogic : MonoBehaviour
 {
-
-    // Waves Logic
-    public GameObject SecondWave;
-    public GameObject ThirdWave;
-    public GameObject[] Background;
 
     // Boss Hud Logic
     public AudioSource BossMusic;
     public GameObject GameOver;
-    public GameObject PowerUpHUD;
-    public Animator animation;
+    //public Animator animation;
     
     // Spells Logic
     public List<GameObject> SpellPrefabs = new List<GameObject>();
     public List<Transform> ProjectilePositions = new List<Transform>();
     public float ProjectileCD = 5f;
+
+    public Animator animator;
+    private bool SafeMode = true;
 
     // Dialogue Logic
     public List <string> Dialogues = new List<string>();
@@ -37,27 +34,23 @@ public class ElementalHeroldLogic : MonoBehaviour
     //
     public TMP_Text WaveHUD;
 
-    private GameController gameController;
-
     void Start(){
-        WaveHUD.text = "Elemental Herold!!";
+        WaveHUD.text = "???????????";
         Health = enemyHealth.health;
         healthBar.SetMaxHealth(Health);
-        gameController = FindObjectOfType<GameController>();
 
         BossMusic.Play();
-        StartCoroutine(EntranceAnim());
-        StartCoroutine(ShootSpells());
+        //StartCoroutine(EntranceAnim());
         StartCoroutine(ShowRandomDialogue());
     }
 
-    IEnumerator EntranceAnim(){
+    /*IEnumerator EntranceAnim(){
         AnimationClip currentClip = animation.GetCurrentAnimatorClipInfo(0)[0].clip;
         float animationDuration = currentClip.length;
         yield return new WaitForSeconds(animationDuration);
 
         Destroy(animation);
-    }
+    }*/
 
     // Dialogue System
     IEnumerator DisplayDialogue(string dialogue){
@@ -86,7 +79,9 @@ public class ElementalHeroldLogic : MonoBehaviour
 
     // Function that randomly triggers the spells
     IEnumerator ShootSpells(){
+        Debug.Log("ss");
         yield return new WaitForSeconds(ProjectileCD);
+        Debug.Log("shoot");
 
         List<int> randomIndexes = GenerateRandomIndexes(SpellPrefabs.Count);
 
@@ -100,6 +95,7 @@ public class ElementalHeroldLogic : MonoBehaviour
 
             yield return new WaitForSeconds(ProjectileCD);
         }
+        
         StartCoroutine(ShootSpells());
     }
 
@@ -120,23 +116,48 @@ public class ElementalHeroldLogic : MonoBehaviour
         return indexes;
     }
 
+    void SpellVolley(){
+        EnemyMProjectiles enemyProjectiles = GetComponent<EnemyMProjectiles>();
+        if (enemyProjectiles != null){
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("SpellVolley")){
+                enemyProjectiles.enabled = true;
+            }else{
+                enemyProjectiles.enabled = false;
+            }
+        }
+    }
+
+    void DownVolley(){
+        EnemyProjectile enemyProjectile = GetComponent<EnemyProjectile>();
+        if (enemyProjectile != null){
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("DownVolley")){
+                enemyProjectile.enabled = true;
+                SafeMode = true;
+            }else{
+                enemyProjectile.enabled = false;
+            }
+        }
+    }
+
+    void EnemyDance(){
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("EnemyDance") && SafeMode){
+            StartCoroutine(ShootSpells());
+            SafeMode = false;
+        }
+        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("EnemyDance")){
+            StopCoroutine(ShootSpells());
+        }
+    }
+
+
+
     void Update(){
-        if(GameOver.activeInHierarchy){
-            Destroy(BossMusic);
-        }
-        if(Health > enemyHealth.health){
-            Health = enemyHealth.health;
-            healthBar.SetHealth(Health);
-        }
+        SpellVolley();
+        DownVolley();
+        EnemyDance();
     }
 
     void OnDestroy(){
-        SecondWave.SetActive(false);
-        ThirdWave.SetActive(true);
-        Background[0].SetActive(false);
-        Background[1].SetActive(true);
-        PowerUpHUD.SetActive(true);
-        gameController.cont++;
+        GameOver.SetActive(true);
     }
-
 }

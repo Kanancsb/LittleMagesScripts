@@ -54,10 +54,10 @@ public class FireWheel : MonoBehaviour
             if (fireWheelSpell.LifeSteal != 0){
 
                 float lifeStealAmount = fireWheelSpell.damage * fireWheelSpell.LifeSteal;
-                enemy.TakeDamage(fireWheelSpell.damage);
+                enemy.TakeDamage(fireWheelSpell.damage, fireWheelSpell.critDamage);
                 currentHealth.currentHealth += lifeStealAmount;
             }else{
-                enemy.TakeDamage(fireWheelSpell.damage);
+                enemy.TakeDamage(fireWheelSpell.damage, fireWheelSpell.critDamage);
             }
 
             if (target == null || hitEnemies.Contains(target)){

@@ -13,7 +13,7 @@ public class EnemyMProjectiles : MonoBehaviour
 
     private bool firstProjectile = true;
 
-    void Start()
+    void OnEnable()
     {
         StartCoroutine(ShootProjectiles());
     }
@@ -52,5 +52,9 @@ public class EnemyMProjectiles : MonoBehaviour
 
         // Set the velocity of the projectile using the calculated direction and speed
         projectileRigidbody.velocity = direction * speed;
+    }
+
+    private void OnDisable(){
+        StopAllCoroutines();
     }
 }

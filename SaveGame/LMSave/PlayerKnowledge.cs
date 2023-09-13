@@ -17,6 +17,7 @@ public class PlayerKnowledge : MonoBehaviour
     public int ExtraSpellLevel = 1;
     public int CriticalChanceLevel = 1;
     public bool AutoShoot = false;
+    public bool AquiredAutoShoot = false;
 
     void Awake(){
         LoadPlayer();
@@ -33,6 +34,7 @@ public class PlayerKnowledge : MonoBehaviour
 
         if (data != null){
             AutoShoot = data.AutoShoot;
+            AquiredAutoShoot = data.AquiredAutoShoot;
             Knowledge = data.Knowledge;
             RefundKnowledge = data.RefundKnowledge;
             DamageLevel = data.DamageLevel;

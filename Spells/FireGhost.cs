@@ -42,11 +42,13 @@ public class FireGhost : MonoBehaviour
         lastCast = CastCD;
 
         if(button.SpellButton == 1){
-            Button = "Fire2";
-        }else if(button.SpellButton == 2){
             Button = "Q";
+        }else if(button.SpellButton == 2){
+            Button = "W";
         }else if(button.SpellButton == 3){
             Button = "E";
+        }else if(button.SpellButton == 4){
+            Button = "R";
         }
 
         if(button.SpellButton > 0){
@@ -57,9 +59,9 @@ public class FireGhost : MonoBehaviour
     }
 
     void Update(){
-        if(!Lvls.AutoShoot){
+        if(!Lvls.AquiredAutoShoot){
             if (Input.GetButtonDown(Button) && Time.time - lastCast >= CastCD){
-            shootLogic.ShootSpell(projectile);
+            shootLogic.ExtraSpell(extraSpell, projectile);
 
             // Set the time of the last cast to the current time
             lastCast = Time.time;

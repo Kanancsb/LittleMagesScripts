@@ -8,6 +8,7 @@ public class FireOrb : MonoBehaviour
 
     public float Cooldown = 5;
     public float damage = 20f;
+    public float critDamage = 1f;
     public float LifeSteal = 0;
     public float speed = 2f;
     public float radius = 2f;

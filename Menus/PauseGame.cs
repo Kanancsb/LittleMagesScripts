@@ -24,6 +24,7 @@ public class PauseGame : MonoBehaviour
     private bool IsPaused = false;
 
     public Toggle autoShootToggle;
+    public Toggle aquiredAutoShootToggle;
 
     void Start(){
 
@@ -34,6 +35,7 @@ public class PauseGame : MonoBehaviour
         ResolutionLogic();
 
         autoShootToggle.isOn = SaveGame.AutoShoot;
+        aquiredAutoShootToggle.isOn = SaveGame.AquiredAutoShoot;
     }
 
     void Update(){
@@ -84,6 +86,11 @@ public class PauseGame : MonoBehaviour
 
     public void AutoShoot(bool autoShoot){
         SaveGame.AutoShoot = autoShoot;
+        SaveGame.SavePlayer();
+    }
+    
+    public void AquiredAutoShoot(bool aquiredAutoShoot){
+        SaveGame.AquiredAutoShoot = aquiredAutoShoot;
         SaveGame.SavePlayer();
     }
 

@@ -27,10 +27,10 @@ public class LivingBombExplosion : MonoBehaviour
         if (enemy != null && enemy != gameObject){
             if (bomb.LifeSteal != 0){
                 float lifeStealAmount = bomb.damage * bomb.LifeSteal;
-                enemy.TakeDamage(bomb.damage);
+                enemy.TakeDamage(bomb.damage, bomb.critDamage);
                 CurrentHealth.currentHealth += lifeStealAmount;
             }else{
-                enemy.TakeDamage(bomb.damage);
+                enemy.TakeDamage(bomb.damage, bomb.critDamage);
             }
             impactSound.Play();
         }

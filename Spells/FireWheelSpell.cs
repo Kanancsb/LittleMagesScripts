@@ -23,6 +23,7 @@ public class FireWheelSpell : MonoBehaviour
     bool CooldownImage = false;
 
     public float damage = 10f;
+    public float critDamage = 1f;
     public float projectileSpeed = 6f;
     public float LifeSteal;
     public int extraSpell;
@@ -44,11 +45,13 @@ public class FireWheelSpell : MonoBehaviour
         extraSpell = Lvls.ExtraSpellLevel;
 
         if(button.SpellButton == 1){
-            Button = "Fire2";
-        }else if(button.SpellButton == 2){
             Button = "Q";
+        }else if(button.SpellButton == 2){
+            Button = "W";
         }else if(button.SpellButton == 3){
             Button = "E";
+        }else if(button.SpellButton == 4){
+            Button = "R";
         }
 
         if(button.SpellButton > 0){
@@ -61,7 +64,7 @@ public class FireWheelSpell : MonoBehaviour
 
     void Update(){
         // Check if the left mouse button is pressed and enough time has passed since the last cast
-        if(!Lvls.AutoShoot){
+        if(!Lvls.AquiredAutoShoot){
             if (Input.GetButtonDown(Button) && Time.time - lastCast >= CastCD){
             shootLogic.ShootSpell(projectile);
 

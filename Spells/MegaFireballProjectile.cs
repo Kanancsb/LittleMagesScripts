@@ -50,10 +50,10 @@ public class MegaFireballProjectile : MonoBehaviour
                 if (megaFireball.LifeSteal != 0){
                     float lifeStealAmount = megaFireball.damage * megaFireball.LifeSteal;
                     CurrentHealth.currentHealth += lifeStealAmount;
-                    enemy.TakeDamage(megaFireball.damage);
+                    enemy.TakeDamage(megaFireball.damage, megaFireball.critDamage);
                     Imbuement(enemy, megaFireball.imbuement);
                 }else{
-                    enemy.TakeDamage(megaFireball.damage);
+                    enemy.TakeDamage(megaFireball.damage, megaFireball.critDamage);
                     Imbuement(enemy, megaFireball.imbuement);
                 }
             }

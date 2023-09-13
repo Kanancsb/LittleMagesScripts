@@ -11,6 +11,7 @@ public class LivingBomb : MonoBehaviour
 
     public float Timer = 5;
     public float damage = 10f;
+    public float critDamage = 1f;
     public float BombChance = 0.1f;
     public float LifeSteal = 0;
 

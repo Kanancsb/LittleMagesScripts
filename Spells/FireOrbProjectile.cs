@@ -50,13 +50,13 @@ public class FireOrbProjectile : MonoBehaviour
             if(fireOrb.LifeSteal != 0){
                 if(fireOrb.SpellResist >0){
                     float lifeStealAmout = fireOrb.damage * fireOrb.LifeSteal;
-                    enemy.TakeDamage(fireOrb.damage);
+                    enemy.TakeDamage(fireOrb.damage, fireOrb.critDamage);
                     CurrentHealth.currentHealth += lifeStealAmout;
                     fireOrb.SpellResist--;
                     return;
                 }else{
                     float lifeStealAmout = fireOrb.damage * fireOrb.LifeSteal;
-                    enemy.TakeDamage(fireOrb.damage);
+                    enemy.TakeDamage(fireOrb.damage, fireOrb.critDamage);
                     CurrentHealth.currentHealth += lifeStealAmout;
                     fireOrb.currentFireOrbs --;
                     Destroy(gameObject);
@@ -64,11 +64,11 @@ public class FireOrbProjectile : MonoBehaviour
                 
             }else{
                 if(fireOrb.SpellResist >0){
-                    enemy.TakeDamage(fireOrb.damage);
+                    enemy.TakeDamage(fireOrb.damage, fireOrb.critDamage);
                     fireOrb.SpellResist--;
                     return;
                 }else{
-                    enemy.TakeDamage(fireOrb.damage);
+                    enemy.TakeDamage(fireOrb.damage, fireOrb.critDamage);
                     fireOrb.currentFireOrbs --;
                     Destroy(gameObject);
                 }

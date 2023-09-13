@@ -23,6 +23,7 @@ public class BasicSpell : MonoBehaviour
     float extraLastCast;
 
     public float damage = 10f;
+    public float critDamage = 1f;
     public float projectileSpeed = 6f;
     public float LifeSteal;
     public int SpellResist = 0;

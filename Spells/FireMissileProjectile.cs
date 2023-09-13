@@ -48,10 +48,10 @@ public class FireMissileProjectile : MonoBehaviour
             fireMissile.DamageCont += fireMissile.damage;
             if (fireMissile.LifeSteal != 0){
                 float lifeStealAmount = fireMissile.damage * fireMissile.LifeSteal;
-                enemy.TakeDamage(fireMissile.damage);
+                enemy.TakeDamage(fireMissile.damage, fireMissile.critDamage);
                 CurrentHealth.currentHealth += lifeStealAmount;
             }else{
-                enemy.TakeDamage(fireMissile.damage);
+                enemy.TakeDamage(fireMissile.damage, fireMissile.critDamage);
             }
             impactSound.Play();
         }

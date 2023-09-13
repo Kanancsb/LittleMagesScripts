@@ -13,6 +13,7 @@ public class DoomsayerLogic : MonoBehaviour
     public GameObject PowerUpHUD;
     public GameObject GameOver;
     public AudioSource BossMusic;
+    public Animator animation;
 
     //HealthBar Logic
     public HealthBar healthBar;
@@ -29,12 +30,26 @@ public class DoomsayerLogic : MonoBehaviour
     //
     public TMP_Text WaveHUD;
 
+    private GameController gameController;
+
     void Start(){
         WaveHUD.text = "Doomsayer!!";
         enemyHealth = FindObjectOfType<Enemy>();
         Health = enemyHealth.health;
         healthBar.SetMaxHealth(Health);
+        gameController = FindObjectOfType<GameController>();
+
         BossMusic.Play();
+        StartCoroutine(EntranceAnim());
+        StartCoroutine(ShowRandomDialogue());
+    }
+
+    IEnumerator EntranceAnim(){
+        AnimationClip currentClip = animation.GetCurrentAnimatorClipInfo(0)[0].clip;
+        float animationDuration = currentClip.length;
+        yield return new WaitForSeconds(animationDuration);
+
+        Destroy(animation);
     }
 
     IEnumerator DisplayDialogue(string dialogue){
@@ -77,5 +92,6 @@ public class DoomsayerLogic : MonoBehaviour
         Background[0].SetActive(false);
         Background[1].SetActive(true);
         PowerUpHUD.SetActive(true);
+        gameController.cont++;
     }
 }

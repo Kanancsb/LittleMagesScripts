@@ -16,7 +16,6 @@ public class Enemy : MonoBehaviour
     private WavePBS wavePBS;
 
     public bool Boss = false;
-    private GameController gameController;
 
     public float health = 100;
 
@@ -30,14 +29,13 @@ public class Enemy : MonoBehaviour
         knowledge = FindObjectOfType<PlayerKnowledge>();
         wavePBS = FindObjectOfType<WavePBS>();
         Livingbomb = FindObjectOfType<LivingBomb>();
-        gameController = FindObjectOfType<GameController>();
     }
 
-    public void TakeDamage(float damage){
+    public void TakeDamage(float damage, float critdamage){
         damage *= ((knowledge.DamageLevel - 1) * 0.05f) + 1f;
         float Critical = Random.Range(0, 1f);
         if(Critical < Lvls.CritChance){
-            damage *= Lvls.CritDamage;
+            damage *= critdamage;
             ShowFloatingTextCrit(damage);
         }else{
             float damageVariance = damage * Random.Range(-0.15f, 0.05f);
@@ -85,7 +83,6 @@ public class Enemy : MonoBehaviour
         }else if(Boss){
             knowledge.Knowledge += KnowledgeGain;
             knowledge.SavePlayer();
-            gameController.cont++;
             Destroy(gameObject);
         }
     }

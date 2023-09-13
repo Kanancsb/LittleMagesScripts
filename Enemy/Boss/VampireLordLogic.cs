@@ -16,6 +16,7 @@ public class VampireLordLogic : MonoBehaviour
     public GameObject PowerUpHUD;
     public GameObject GameOver;
     public AudioSource BossMusic;
+    public Animator animation;
 
     // Spell Logic
     int cont = 0;
@@ -43,19 +44,27 @@ public class VampireLordLogic : MonoBehaviour
     //
     public TMP_Text WaveHUD;
 
+    private GameController gameController;
+
     void Start(){
         WaveHUD.text = "Vampire Lord!!";
         enemyHealth = FindObjectOfType<Enemy>();
         Health = enemyHealth.health;
         healthBar.SetMaxHealth(Health);
+        gameController = FindObjectOfType<GameController>();
+
         StartCoroutine(LightAnim());
         BossMusic.Play();
         StartCoroutine(ShootProjectile());
     }
 
     IEnumerator LightAnim(){
-        yield return new WaitForSeconds(4);
+        AnimationClip currentClip = animation.GetCurrentAnimatorClipInfo(0)[0].clip;
+        float animationDuration = currentClip.length;
+        yield return new WaitForSeconds(animationDuration);
         Light.SetActive(false);
+
+        Destroy(animation);
     }
 
 // Dialogue Function
@@ -125,6 +134,7 @@ public class VampireLordLogic : MonoBehaviour
         Background[1].SetActive(true);
         Light.SetActive(true);
         PowerUpHUD.SetActive(true);
+        gameController.cont++;
     }
 
 }

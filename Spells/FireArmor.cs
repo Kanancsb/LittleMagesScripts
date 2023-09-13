@@ -7,7 +7,7 @@ public class FireArmor : MonoBehaviour
     public bool FireArmorSpell = false;
 
     public void Backslash(float damage, Enemy enemy, AudioSource sfx){
-        enemy.TakeDamage(damage*0.5f);
+        enemy.TakeDamage(damage*0.5f, 2);
         sfx.Play();
     }
 

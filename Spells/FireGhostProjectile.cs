@@ -38,14 +38,12 @@ public class FireGhostProjectile : MonoBehaviour
                 fireGhost.DamageCont += fireGhost.damage;
                 if (fireGhost.LifeSteal != 0){
                     float lifeStealAmount = fireGhost.damage * fireGhost.LifeSteal;
-                    Crit.CritDamage += fireGhost.critDamage;
-                    enemy.TakeDamage(fireGhost.damage);
-                    Crit.CritDamage -= fireGhost.critDamage;
+                    enemy.TakeDamage(fireGhost.damage, fireGhost.critDamage);
                     CurrentHealth.currentHealth += lifeStealAmount;
                     DestroyAnimation();
                 }else{
                     Crit.CritDamage += fireGhost.critDamage;
-                    enemy.TakeDamage(fireGhost.damage);
+                    enemy.TakeDamage(fireGhost.damage, fireGhost.critDamage);
                     Crit.CritDamage -= fireGhost.critDamage;
                     DestroyAnimation();
                 }
