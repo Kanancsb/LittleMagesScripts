@@ -24,13 +24,7 @@ public class EnemyDamage : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision){
         if(collision.gameObject.tag == "Player"){
-            if(fireArmor.FireArmorSpell){
-                fireArmor.Backslash(damage, GetComponent<Enemy>(), impactSound);
-                playerHealth.TakeDamage(damage);
-            }else{
-                playerHealth.TakeDamage(damage);
-            }
-            
+            playerHealth.TakeDamage(damage);
         }
     }
 }

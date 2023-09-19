@@ -76,6 +76,7 @@ public class FireOrbProjectile : MonoBehaviour
         }
 
         if(collision.CompareTag("EnemySpell")){
+            fireOrb.DestroyCont++;
             impactSound.Play();
             if(fireOrb.SpellResist >0){
                 Destroy(collision.gameObject);

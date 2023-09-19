@@ -14,6 +14,7 @@ public class FireOrb : MonoBehaviour
     public float radius = 2f;
 
     public float DamageCont;
+    public float DestroyCont;
 
     public GameObject Projectile;
 

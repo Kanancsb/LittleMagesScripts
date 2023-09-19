@@ -61,7 +61,6 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         {
             { 1, 5000 },
             { 2, 20000 },
-            { 3, 50000 },
         };
 
     Dictionary<int, int> levelCostReroll = new Dictionary<int, int>()
@@ -87,7 +86,11 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         foreach (GameObject Hud in HUD){
             Hud.SetActive(false);
         }
-        HUD[0].SetActive(true);
+        if(knowledge.DamageLevel > 5){
+            HUD[8].SetActive(true);
+        }else{
+            HUD[0].SetActive(true);
+        }
     }
 
     public void LearnDamage(){ 
@@ -97,7 +100,12 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             knowledge.DamageLevel++;
             BuySound.Play();
             knowledge.SavePlayer();
-        }else{
+            if(knowledge.DamageLevel > 5){
+                HUD[0].SetActive(false);
+                HUD[8].SetActive(true);
+            }
+        }
+        else{
             DeniedSound.Play();
         }
     }
@@ -108,7 +116,12 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         foreach (GameObject Hud in HUD){
             Hud.SetActive(false);
         }
-        HUD[1].SetActive(true);
+        if(knowledge.CDLevel > 5){
+            HUD[1].SetActive(false);
+            HUD[8].SetActive(true);
+        }else{
+            HUD[1].SetActive(true);    
+        }
     }
 
     public void LearnCD(){ 
@@ -118,6 +131,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             knowledge.CDLevel++;
             BuySound.Play();
             knowledge.SavePlayer();
+            if(knowledge.CDLevel > 5){
+                HUD[1].SetActive(false);
+                HUD[8].SetActive(true);
+            }
         }else{
             DeniedSound.Play();
         }
@@ -129,7 +146,12 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         foreach (GameObject Hud in HUD){
             Hud.SetActive(false);
         }
-        HUD[2].SetActive(true);
+        if(knowledge.SpellSpeedLevel > 5){
+            HUD[2].SetActive(false);
+            HUD[8].SetActive(true);
+        }else{
+            HUD[2].SetActive(true);    
+        }
     }
 
     public void LearnSpellSpeed(){ 
@@ -139,6 +161,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             knowledge.SpellSpeedLevel++;
             BuySound.Play();
             knowledge.SavePlayer();
+            if(knowledge.SpellSpeedLevel > 5){
+                HUD[2].SetActive(false);
+                HUD[8].SetActive(true);
+            }
         }else{
             DeniedSound.Play();
         }
@@ -151,7 +177,12 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         foreach (GameObject Hud in HUD){
             Hud.SetActive(false);
         }
-        HUD[3].SetActive(true);
+        if(knowledge.PlayerHealthLevel > 5){
+            HUD[3].SetActive(false);
+            HUD[8].SetActive(true);
+        }else{
+            HUD[3].SetActive(true);    
+        }
     }
 
     public void LearnPlayerHealth(){ 
@@ -161,6 +192,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             knowledge.PlayerHealthLevel++;
             BuySound.Play();
             knowledge.SavePlayer();
+            if(knowledge.PlayerHealthLevel > 5){
+                HUD[3].SetActive(false);
+                HUD[8].SetActive(true);
+            }
         }else{
             DeniedSound.Play();
         }
@@ -173,7 +208,13 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         foreach(GameObject Hud in HUD){
             Hud.SetActive(false);
         }
-        HUD[4].SetActive(true);
+        if(knowledge.ExtraLifeLevel > 2){
+            HUD[4].SetActive(false);
+            HUD[8].SetActive(true);
+        }else{
+            HUD[4].SetActive(true);    
+        }
+        
     }
 
     public void LearnExtraLife(){
@@ -183,6 +224,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             knowledge.ExtraLifeLevel++;
             BuySound.Play();
             knowledge.SavePlayer();
+            if(knowledge.ExtraLifeLevel > 2){
+                HUD[4].SetActive(false);
+                HUD[8].SetActive(true);
+            }
         }else{
             DeniedSound.Play();
         }
@@ -195,7 +240,12 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         foreach(GameObject Hud in HUD){
             Hud.SetActive(false);
         }
-        HUD[5].SetActive(true);
+        if(knowledge.RerollLevel > 3){
+            HUD[5].SetActive(false);
+            HUD[8].SetActive(true);
+        }else{
+            HUD[5].SetActive(true);    
+        }
     }
 
     public void LearnReroll(){
@@ -217,7 +267,12 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         foreach(GameObject Hud in HUD){
             Hud.SetActive(false);
         }
-        HUD[6].SetActive(true);
+        if(knowledge.ExtraSpellLevel > 2){
+            HUD[6].SetActive(false);
+            HUD[8].SetActive(true);
+        }else{
+            HUD[6].SetActive(true);    
+        }
     }
 
     public void LearnExtraSpell(){
@@ -227,6 +282,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             knowledge.ExtraSpellLevel++;
             BuySound.Play();
             knowledge.SavePlayer();
+            if(knowledge.ExtraSpellLevel > 2){
+            HUD[6].SetActive(false);
+            HUD[8].SetActive(true);
+            }
         }else{
             DeniedSound.Play();
         }
@@ -239,7 +298,12 @@ public class AncestralKnowledgeLogic : MonoBehaviour
         foreach(GameObject Hud in HUD){
             Hud.SetActive(false);
         }
-        HUD[7].SetActive(true);
+        if(knowledge.CriticalChanceLevel > 5){
+            HUD[7].SetActive(false);
+            HUD[8].SetActive(true);
+        }else{
+            HUD[7].SetActive(true);    
+        }
     }
 
     public void LearnCriticalChance(){
@@ -249,6 +313,10 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             knowledge.CriticalChanceLevel++;
             BuySound.Play();
             knowledge.SavePlayer();
+            if(knowledge.CriticalChanceLevel > 5){
+            HUD[7].SetActive(false);
+            HUD[8].SetActive(true);
+            }
         }else{
             DeniedSound.Play();
         }

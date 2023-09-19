@@ -16,6 +16,9 @@ public class FireGhostProjectile : MonoBehaviour
     public GameObject ImpactSound;
     public AudioSource impactSound;
 
+    private Transform target;
+    private List<Enemy> availableEnemies = new List<Enemy>();
+
     void Start(){
         ImpactSound = GameObject.Find("Hit");
         impactSound = ImpactSound.GetComponent<AudioSource>();
@@ -26,7 +29,41 @@ public class FireGhostProjectile : MonoBehaviour
         
         rigidbody.velocity = transform.right * fireGhost.projectileSpeed;
 
-        StartCoroutine(ProjectileFade());
+        SeekEnemy();
+    }
+
+    void Update(){
+        if (target != null){
+            Vector2 moveDirection = (target.position - transform.position).normalized;
+            rigidbody.velocity = moveDirection * fireGhost.projectileSpeed;
+        }else{
+            ChooseNewTarget();
+        }
+    }
+
+    void SeekEnemy(){
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        availableEnemies.AddRange(enemies);
+        if (availableEnemies.Count > 0){
+            ChooseNewTarget();
+            StartCoroutine(ProjectileFade());
+        }
+        else {
+            Destroy(gameObject);
+        }
+    }
+    void ChooseNewTarget(){
+        if (availableEnemies.Count > 0){
+            int randomIndex = Random.Range(0, availableEnemies.Count);
+            target = availableEnemies[randomIndex].transform;
+        }else{
+            Destroy(gameObject);
+        }
+    }
+
+    void OnTargetDestroyed(Enemy destroyedEnemy){
+        availableEnemies.Remove(destroyedEnemy);
+        ChooseNewTarget();
     }
 
     void OnTriggerEnter2D(Collider2D collision){
@@ -53,7 +90,7 @@ public class FireGhostProjectile : MonoBehaviour
     }
 
     IEnumerator ProjectileFade(){
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         Destroy(gameObject);
     }
 

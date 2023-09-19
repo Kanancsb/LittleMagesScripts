@@ -5,10 +5,16 @@ using UnityEngine;
 public class FireArmor : MonoBehaviour
 {
     public bool FireArmorSpell = false;
+    public float cont = 0;
 
-    public void Backslash(float damage, Enemy enemy, AudioSource sfx){
-        enemy.TakeDamage(damage*0.5f, 2);
-        sfx.Play();
+    public void Backslash(float damage){
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemyObject in enemies){
+            Enemy enemy = enemyObject.GetComponent<Enemy>();
+            if (enemy != null){
+                enemy.TakeDamage(damage * 0.2f, 2f);
+                cont += damage;
+            }
+        }
     }
-
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Knowledge : MonoBehaviour
 {
     public PlayerKnowledge playerKnowledge;
+    public AncestralKnowledgeLogic akLogic;
 
     public void RefundButton(){
         playerKnowledge.Knowledge += playerKnowledge.RefundKnowledge;
@@ -17,6 +18,9 @@ public class Knowledge : MonoBehaviour
         playerKnowledge.RerollLevel = 1;
         playerKnowledge.ExtraSpellLevel = 1;
         playerKnowledge.CriticalChanceLevel = 1;
+        foreach (GameObject Hud in akLogic.HUD){
+            Hud.SetActive(false);
+        }
         playerKnowledge.SavePlayer();
     }
 }

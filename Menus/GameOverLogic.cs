@@ -12,6 +12,7 @@ public class GameOverLogic : MonoBehaviour
     public FireOrb fireOrb;
     public FireWheelSpell fireWheel;
     public MegaFireball megaFireball;
+    public FireArmor fireArmor;
 
     public TMP_Text[] SpellText;
 
@@ -20,7 +21,9 @@ public class GameOverLogic : MonoBehaviour
         SpellText[1].text = "Damage dealt: " + fireGhost.DamageCont;
         SpellText[2].text = "Damage dealt: " + fireMissile.DamageCont;
         SpellText[3].text = "Damage dealt: " + fireOrb.DamageCont;
+        SpellText[6].text = "Enemy spells destroied: " + fireOrb.DestroyCont;
         SpellText[4].text = "Damage dealt: " + fireWheel.DamageCont;
         SpellText[5].text = "Damage dealt: " + megaFireball.DamageCont;
+        SpellText[6].text = "Damage dealt: " + fireArmor.cont;
     }
 }

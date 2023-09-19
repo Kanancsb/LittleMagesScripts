@@ -39,7 +39,7 @@ public class FireballPowerUp : MonoBehaviour
 
     public void PlayerMovimentSpeed01(){
         StatsCont[2].text += "+";
-        playerMovement.runSpeed = playerMovement.runSpeed * 1.1f;
+        playerMovement.originalrunSpeed = playerMovement.originalrunSpeed * 1.1f;
         PowerUpHUD.SetActive(false);
         RerollHUD.SetActive(false);
     }
