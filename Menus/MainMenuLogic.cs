@@ -15,6 +15,8 @@ public class MainMenuLogic : MonoBehaviour
     public GameObject loading;
     public GameObject AKMenu;
     public GameObject controlsMenu;
+    public GameObject BonusOption;
+    public GameObject bonusModeMenu;
 
     public AudioMixer GeneralVolume;
     public AudioMixer MusicVolume;
@@ -48,6 +50,10 @@ public class MainMenuLogic : MonoBehaviour
 
         autoShootToggle.isOn = SaveGame.AutoShoot;
         aquiredAutoShootToggle.isOn = SaveGame.AquiredAutoShoot;
+
+        if(SaveGame.BonusMode){
+            BonusOption.SetActive(true);
+        }
     }
 
     public void StartButton(){
@@ -55,6 +61,24 @@ public class MainMenuLogic : MonoBehaviour
         mainMenu.SetActive(false);
         StartSound.Play();
         SceneManager.LoadScene("FightScene-EN-US");
+    }
+
+    public void StartBasicBonus(){
+        loading.SetActive(true);
+        mainMenu.SetActive(false);
+        StartSound.Play();
+    }
+
+    public void StartInfiniteBonus(){
+        loading.SetActive(true);
+        mainMenu.SetActive(false);
+        StartSound.Play();
+        SceneManager.LoadScene("InfiniteMode-EN-US");
+    }
+
+    public void BonusModeMenu(){
+        mainMenu.SetActive(false);
+        bonusModeMenu.SetActive(true);
     }
 
     public void AncestralKnowledgeButton(){
@@ -77,6 +101,7 @@ public class MainMenuLogic : MonoBehaviour
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
         AKMenu.SetActive(false);
+        bonusModeMenu.SetActive(false);
     }
 
     public void SetFullScreen(bool isFullscreen){

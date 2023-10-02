@@ -5,6 +5,8 @@ using TMPro;
 
 public class TheMageLogic : MonoBehaviour
 {
+    public SteamIntegration integration;
+    public PlayerKnowledge BonusMode;
 
     // Boss Hud Logic
     public AudioSource BossMusic;
@@ -18,6 +20,8 @@ public class TheMageLogic : MonoBehaviour
 
     public Animator animator;
     private bool SafeMode = true;
+
+    public GameObject WorldLight;
 
     // Dialogue Logic
     public List <string> Dialogues = new List<string>();
@@ -35,6 +39,7 @@ public class TheMageLogic : MonoBehaviour
     public TMP_Text WaveHUD;
 
     void Start(){
+        integration = FindObjectOfType<SteamIntegration>();
         WaveHUD.text = "???????????";
         Health = enemyHealth.health;
         healthBar.SetMaxHealth(Health);
@@ -142,10 +147,12 @@ public class TheMageLogic : MonoBehaviour
     void EnemyDance(){
         if(animator.GetCurrentAnimatorStateInfo(0).IsName("EnemyDance") && SafeMode){
             StartCoroutine(ShootSpells());
+            WorldLight.SetActive(false);
             SafeMode = false;
         }
         if(!animator.GetCurrentAnimatorStateInfo(0).IsName("EnemyDance")){
             StopCoroutine(ShootSpells());
+            WorldLight.SetActive(true);
         }
     }
 
@@ -167,6 +174,12 @@ public class TheMageLogic : MonoBehaviour
     }
 
     void OnDestroy(){
+        integration.UnlockAchievement("ACH_Boss5");
+        if(BonusMode.ExtraSpellLevel < 3){
+            integration.UnlockAchievement("ACH_Boss5.1");
+        }
+        BonusMode.BonusMode = true;
         GameOver.SetActive(true);
+        BonusMode.SavePlayer();
     }
 }

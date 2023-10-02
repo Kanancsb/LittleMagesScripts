@@ -24,6 +24,6 @@ public class GameOverLogic : MonoBehaviour
         SpellText[6].text = "Enemy spells destroied: " + fireOrb.DestroyCont;
         SpellText[4].text = "Damage dealt: " + fireWheel.DamageCont;
         SpellText[5].text = "Damage dealt: " + megaFireball.DamageCont;
-        SpellText[6].text = "Damage dealt: " + fireArmor.cont;
+        SpellText[7].text = "Damage dealt: " + fireArmor.cont;
     }
 }

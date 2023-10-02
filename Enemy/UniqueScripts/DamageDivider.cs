@@ -16,7 +16,7 @@ public class DamageDivider : MonoBehaviour
     }
 
     void Update(){
-        if(Health > enemyHealth.health && Health > 100){
+        if(Health - enemyHealth.health > 10 && Health > 100){
             enemyHealth.health /= 2;
             Health = enemyHealth.health;
 

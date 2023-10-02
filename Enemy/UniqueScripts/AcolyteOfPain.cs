@@ -18,7 +18,7 @@ public class AcolyteOfPain : MonoBehaviour
     }
 
     void Update(){
-        if(Health > enemy.health){
+        if(Health - enemy.health > 10){
             Health = Health = enemy.health;
             GameObject newEnemySummon = Instantiate(enemySummon, GetRandomNearbyPosition(), Quaternion.identity);
         }

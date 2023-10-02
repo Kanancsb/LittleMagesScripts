@@ -15,6 +15,16 @@ public class SteamIntegration : MonoBehaviour
         }
     }
 
+    public void UnlockAchievement(string id){
+        var ach = new Steamworks.Data.Achievement(id);
+        ach.Trigger();
+    }
+
+    public void ClearAchievement(string id){
+        var ach = new Steamworks.Data.Achievement(id);
+        ach.Clear();
+    }
+
     
     private void PrintYourName(){
         Debug.Log(Steamworks.SteamClient.Name);

@@ -5,6 +5,7 @@ using TMPro;
 
 public class VoidWatcherLogic : MonoBehaviour
 {
+    public SteamIntegration integration;
     // Begin and End Fight
     public GameObject FourWave;
     public GameObject FiveWave;
@@ -33,6 +34,7 @@ public class VoidWatcherLogic : MonoBehaviour
     private GameController gameController;
 
     void Start(){
+        integration = FindObjectOfType<SteamIntegration>();
         WaveHUD.text = "Void Watcher!!";
         enemyHealth = FindObjectOfType<Enemy>();
         Health = enemyHealth.health;
@@ -78,6 +80,7 @@ public class VoidWatcherLogic : MonoBehaviour
     }
 
     void OnDestroy(){
+        integration.UnlockAchievement("ACH_Boss4");
         FourWave.SetActive(false);
         FiveWave.SetActive(true);
         Background[0].SetActive(false);

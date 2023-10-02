@@ -5,7 +5,7 @@ using TMPro;
 
 public class AncestralKnowledgeLogic : MonoBehaviour
 {
-
+    public SteamIntegration integration;
     public PlayerKnowledge knowledge;
 
     public GameObject[] HUD;
@@ -59,8 +59,8 @@ public class AncestralKnowledgeLogic : MonoBehaviour
     
     Dictionary<int, int> levelCostsExtraLife = new Dictionary<int, int>()
         {
-            { 1, 5000 },
-            { 2, 20000 },
+            { 1, 20000 },
+            { 2, 100000 },
         };
 
     Dictionary<int, int> levelCostReroll = new Dictionary<int, int>()
@@ -101,6 +101,7 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             BuySound.Play();
             knowledge.SavePlayer();
             if(knowledge.DamageLevel > 5){
+                integration.UnlockAchievement("ACH_HitHard");
                 HUD[0].SetActive(false);
                 HUD[8].SetActive(true);
             }
@@ -132,6 +133,7 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             BuySound.Play();
             knowledge.SavePlayer();
             if(knowledge.CDLevel > 5){
+                integration.UnlockAchievement("ACH_FastThinker");
                 HUD[1].SetActive(false);
                 HUD[8].SetActive(true);
             }
@@ -162,6 +164,7 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             BuySound.Play();
             knowledge.SavePlayer();
             if(knowledge.SpellSpeedLevel > 5){
+                integration.UnlockAchievement("ACH_DodgeT");
                 HUD[2].SetActive(false);
                 HUD[8].SetActive(true);
             }
@@ -193,6 +196,7 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             BuySound.Play();
             knowledge.SavePlayer();
             if(knowledge.PlayerHealthLevel > 5){
+                integration.UnlockAchievement("ACH_Icantake");
                 HUD[3].SetActive(false);
                 HUD[8].SetActive(true);
             }
@@ -225,6 +229,7 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             BuySound.Play();
             knowledge.SavePlayer();
             if(knowledge.ExtraLifeLevel > 2){
+                integration.UnlockAchievement("ACH_PhHeart");
                 HUD[4].SetActive(false);
                 HUD[8].SetActive(true);
             }
@@ -255,6 +260,11 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             knowledge.RerollLevel++;
             BuySound.Play();
             knowledge.SavePlayer();
+            if(knowledge.RerollLevel > 3){
+                integration.UnlockAchievement("ACH_LTAgain");
+                HUD[5].SetActive(false);
+                HUD[8].SetActive(true);
+            }
         }else{
             DeniedSound.Play();
         }
@@ -283,6 +293,7 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             BuySound.Play();
             knowledge.SavePlayer();
             if(knowledge.ExtraSpellLevel > 2){
+            integration.UnlockAchievement("ACH_MultiC");
             HUD[6].SetActive(false);
             HUD[8].SetActive(true);
             }
@@ -314,6 +325,7 @@ public class AncestralKnowledgeLogic : MonoBehaviour
             BuySound.Play();
             knowledge.SavePlayer();
             if(knowledge.CriticalChanceLevel > 5){
+            integration.UnlockAchievement("ACH_SharpS");
             HUD[7].SetActive(false);
             HUD[8].SetActive(true);
             }
@@ -325,6 +337,9 @@ public class AncestralKnowledgeLogic : MonoBehaviour
     // ---- !
 
     public void Update(){
+        if(knowledge.CDLevel > 5 && knowledge.DamageLevel > 5 && knowledge.SpellSpeedLevel > 5 && knowledge.PlayerHealthLevel > 5 && knowledge.ExtraLifeLevel > 2 && knowledge.RerollLevel > 3 && knowledge.ExtraSpellLevel > 2 && knowledge.CriticalChanceLevel > 5){
+            integration.UnlockAchievement("ACH_BuyAllAK");
+        }
         DamageLevelText.text = "Level: " + knowledge.DamageLevel;
         CDLevelText.text = "Level: " + knowledge.CDLevel;
         SSLevelText.text = "Level: " + knowledge.SpellSpeedLevel;

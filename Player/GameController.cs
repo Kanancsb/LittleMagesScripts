@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour
 {
     public PlayerKnowledge Lvls;
 
+    public bool InfiniteMode = false;
+
     // Reference to the PowerUpHUD game object
     public GameObject PowerUpHUD;
     public GameObject WeaponPowerUpHUD;
@@ -43,62 +45,90 @@ public class GameController : MonoBehaviour
 
     void Update(){
 
-        if((PowerUpHUD.activeInHierarchy || WeaponPowerUpHUD.activeInHierarchy || ImbuementHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
-            // Set the cursor visibility and lock state
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            
-            // Disable the Movement and Spell behaviors
-            Movement.enabled = false;
-            Spell.enabled = false;
+        if(!InfiniteMode){
+            if((PowerUpHUD.activeInHierarchy || WeaponPowerUpHUD.activeInHierarchy || ImbuementHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
+                // Set the cursor visibility and lock state
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                
+                // Disable the Movement and Spell behaviors
+                Movement.enabled = false;
+                Spell.enabled = false;
 
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach (GameObject enemy in enemies){
-                Destroy(enemy);
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                foreach (GameObject enemy in enemies){
+                    Destroy(enemy);
+                }
+
+                GameObject[] enemySpells = GameObject.FindGameObjectsWithTag("EnemySpell");
+                foreach (GameObject enemySpell in enemySpells)
+                {
+                    Destroy(enemySpell);
+                }
+
+            }else if((!PowerUpHUD.activeInHierarchy || !WeaponPowerUpHUD.activeInHierarchy || !ImbuementHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
+                if(Wavepbs01.currWave > 9){
+                    Wavepbs01.currWave = 1;
+                    WavePBS[0].SetActive(false);
+                    Boss[0].SetActive(true);
+                    Movement.enabled = true;
+                    Spell.enabled = true;
+                }else if(Wavepbs02.currWave > 9){
+                    Wavepbs02.currWave = 1;
+                    WavePBS[1].SetActive(false);
+                    Boss[1].SetActive(true);
+                    Movement.enabled = true;
+                    Spell.enabled = true;
+                }else if(Wavepbs03.currWave > 9){
+                    Wavepbs03.currWave = 1;
+                    WavePBS[2].SetActive(false);
+                    Boss[2].SetActive(true);
+                    Movement.enabled = true;
+                    Spell.enabled = true;
+                }else if(Wavepbs04.currWave > 9){
+                    Wavepbs04.currWave = 1;
+                    WavePBS[3].SetActive(false);
+                    Boss[3].SetActive(true);
+                    Movement.enabled = true;
+                    Spell.enabled = true;
+                }else if(Wavepbs05.currWave > 9){
+                    Wavepbs05.currWave = 1;
+                    WavePBS[4].SetActive(false);
+                    Boss[4].SetActive(true);
+                    Movement.enabled = true;
+                    Spell.enabled = true;
+                }else{
+                    WavePBS[cont].SetActive(true);
+                    Movement.enabled = true;
+                    Spell.enabled = true;
+                }
             }
+        }else{
+            if((PowerUpHUD.activeInHierarchy || WeaponPowerUpHUD.activeInHierarchy || ImbuementHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
+                // Set the cursor visibility and lock state
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                
+                // Disable the Movement and Spell behaviors
+                Movement.enabled = false;
+                Spell.enabled = false;
 
-            GameObject[] enemySpells = GameObject.FindGameObjectsWithTag("EnemySpell");
-            foreach (GameObject enemySpell in enemySpells)
-            {
-                Destroy(enemySpell);
-            }
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                foreach (GameObject enemy in enemies){
+                    Destroy(enemy);
+                }
 
-        }else if((!PowerUpHUD.activeInHierarchy || !WeaponPowerUpHUD.activeInHierarchy || !ImbuementHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
-            if(Wavepbs01.currWave > 9){
-                Wavepbs01.currWave = 1;
-                WavePBS[0].SetActive(false);
-                Boss[0].SetActive(true);
-                Movement.enabled = true;
-                Spell.enabled = true;
-            }else if(Wavepbs02.currWave > 9){
-                Wavepbs02.currWave = 1;
-                WavePBS[1].SetActive(false);
-                Boss[1].SetActive(true);
-                Movement.enabled = true;
-                Spell.enabled = true;
-            }else if(Wavepbs03.currWave > 9){
-                Wavepbs03.currWave = 1;
-                WavePBS[2].SetActive(false);
-                Boss[2].SetActive(true);
-                Movement.enabled = true;
-                Spell.enabled = true;
-            }else if(Wavepbs04.currWave > 9){
-                Wavepbs04.currWave = 1;
-                WavePBS[3].SetActive(false);
-                Boss[3].SetActive(true);
-                Movement.enabled = true;
-                Spell.enabled = true;
-            }else if(Wavepbs05.currWave > 9){
-                Wavepbs05.currWave = 1;
-                WavePBS[4].SetActive(false);
-                Boss[4].SetActive(true);
-                Movement.enabled = true;
-                Spell.enabled = true;
-            }else{
-                WavePBS[cont].SetActive(true);
+                GameObject[] enemySpells = GameObject.FindGameObjectsWithTag("EnemySpell");
+                foreach (GameObject enemySpell in enemySpells)
+                {
+                    Destroy(enemySpell);
+                }
+
+            }else if((!PowerUpHUD.activeInHierarchy || !WeaponPowerUpHUD.activeInHierarchy || !ImbuementHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
                 Movement.enabled = true;
                 Spell.enabled = true;
             }
         }
+        
     }
 }

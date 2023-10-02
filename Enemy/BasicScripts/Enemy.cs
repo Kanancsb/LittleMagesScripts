@@ -43,6 +43,9 @@ public class Enemy : MonoBehaviour
             ShowFloatingText(damage);
         }
         
+        if(damage < 1){
+            damage = 1;
+        }
         health -= damage;
 
         float bombchanceValue = Random.Range(0f, 1f);

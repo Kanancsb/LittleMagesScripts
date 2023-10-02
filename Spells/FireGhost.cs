@@ -70,7 +70,7 @@ public class FireGhost : MonoBehaviour
             }
         }else{
             if(Time.time - lastCast >= CastCD){
-            shootLogic.ShootSpell(projectile);
+            shootLogic.ExtraSpell(extraSpell, projectile);
 
             // Set the time of the last cast to the current time
             lastCast = Time.time;

@@ -17,10 +17,12 @@ public class PlayerData
     public int CriticalChanceLevel;
     public bool AutoShoot = false;
     public bool AquiredAutoShoot = false;
+    public bool BonusMode = false;
 
     // Constructor that takes a PlayerKnowledge object as a parameter
     public PlayerData(PlayerKnowledge player){
         // Assign the knowledge value from the PlayerKnowledge object to the Knowledge field
+        BonusMode = player.BonusMode;
         AutoShoot = player.AutoShoot;
         AquiredAutoShoot = player.AquiredAutoShoot;
         RefundKnowledge = player.RefundKnowledge;

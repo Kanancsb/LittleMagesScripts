@@ -18,6 +18,7 @@ public class PlayerKnowledge : MonoBehaviour
     public int CriticalChanceLevel = 1;
     public bool AutoShoot = false;
     public bool AquiredAutoShoot = false;
+    public bool BonusMode = false;
 
     void Awake(){
         LoadPlayer();
@@ -33,6 +34,7 @@ public class PlayerKnowledge : MonoBehaviour
         PlayerData data = SaveSystem.LoadPlayer();
 
         if (data != null){
+            BonusMode = data.BonusMode;
             AutoShoot = data.AutoShoot;
             AquiredAutoShoot = data.AquiredAutoShoot;
             Knowledge = data.Knowledge;

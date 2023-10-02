@@ -5,7 +5,7 @@ using TMPro;
 
 public class VampireLordLogic : MonoBehaviour
 {
-
+    public SteamIntegration integration;
     // Begin and End Fight
     public GameObject FirstWave;
     public GameObject SecondWave;
@@ -47,6 +47,7 @@ public class VampireLordLogic : MonoBehaviour
     private GameController gameController;
 
     void Start(){
+        integration = FindObjectOfType<SteamIntegration>();
         WaveHUD.text = "Vampire Lord!!";
         enemyHealth = FindObjectOfType<Enemy>();
         Health = enemyHealth.health;
@@ -128,6 +129,7 @@ public class VampireLordLogic : MonoBehaviour
     }
 
     void OnDestroy(){
+        integration.UnlockAchievement("ACH_Boss1");
         FirstWave.SetActive(false);
         SecondWave.SetActive(true);
         Background[0].SetActive(false);

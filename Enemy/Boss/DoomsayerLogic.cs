@@ -5,6 +5,7 @@ using TMPro;
 
 public class DoomsayerLogic : MonoBehaviour
 {
+    public SteamIntegration integration;
     // Begin and End Fight
     public GameObject ThirdWave;
     public GameObject FourWave;
@@ -14,12 +15,6 @@ public class DoomsayerLogic : MonoBehaviour
     public GameObject GameOver;
     public AudioSource BossMusic;
     public Animator animator;
-    
-    // Spells
-
-    public Transform[] SpellPosition;
-    public GameObject[] SpellsAttack;
-    private bool SafeMode;
 
     //HealthBar Logic
     public HealthBar healthBar;
@@ -39,6 +34,7 @@ public class DoomsayerLogic : MonoBehaviour
     private GameController gameController;
 
     void Start(){
+        integration = FindObjectOfType<SteamIntegration>();
         WaveHUD.text = "Doomsayer!!";
         enemyHealth = FindObjectOfType<Enemy>();
         Health = enemyHealth.health;
@@ -72,31 +68,7 @@ public class DoomsayerLogic : MonoBehaviour
         StartCoroutine(ShowRandomDialogue());
     }
 
-    void SecondAttack(){
-        EnemyProjectile enemyProjectiles = GetComponent<EnemyProjectile>();
-        if (enemyProjectiles != null){
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("SecondAttack")){
-                enemyProjectiles.enabled = true;
-            }else{
-                enemyProjectiles.enabled = false;
-            }
-        }
-    }
-
-    void ThirdAttack(){
-        TwoSideSpell enemyProjectiles = GetComponent<TwoSideSpell>();
-        if (enemyProjectiles != null){
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("ThirdAttack")){
-                enemyProjectiles.enabled = true;
-            }else{
-                enemyProjectiles.enabled = false;
-            }
-        }
-    }
-
     void Update(){
-        SecondAttack();
-        ThirdAttack();
 
         if(Health > enemyHealth.health){
             Health = enemyHealth.health;
@@ -109,6 +81,7 @@ public class DoomsayerLogic : MonoBehaviour
     }
 
     void OnDestroy(){
+        integration.UnlockAchievement("ACH_Boss3");
         ThirdWave.SetActive(false);
         FourWave.SetActive(true);
         Background[0].SetActive(false);

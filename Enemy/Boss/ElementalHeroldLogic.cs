@@ -5,7 +5,7 @@ using TMPro;
 
 public class ElementalHeroldLogic : MonoBehaviour
 {
-
+    public SteamIntegration integration;
     // Waves Logic
     public GameObject SecondWave;
     public GameObject ThirdWave;
@@ -40,6 +40,7 @@ public class ElementalHeroldLogic : MonoBehaviour
     private GameController gameController;
 
     void Start(){
+        integration = FindObjectOfType<SteamIntegration>();
         WaveHUD.text = "Elemental Herold!!";
         Health = enemyHealth.health;
         healthBar.SetMaxHealth(Health);
@@ -131,6 +132,7 @@ public class ElementalHeroldLogic : MonoBehaviour
     }
 
     void OnDestroy(){
+        integration.UnlockAchievement("ACH_Boss2");
         SecondWave.SetActive(false);
         ThirdWave.SetActive(true);
         Background[0].SetActive(false);

@@ -7,6 +7,9 @@ public class WavePBS : MonoBehaviour
 {
     private PlayerHealth playerHealth;
 
+    public bool InfiniteMode = false;
+    private int UpgradeInt = 0;
+
     public TMP_Text WaveHUD;
 
     public List<EnemyPBS> enemies = new List<EnemyPBS>();
@@ -27,6 +30,7 @@ public class WavePBS : MonoBehaviour
 
     public GameObject UpgradeSkill;
     public GameObject UpgradeWeapon;
+    public GameObject Imbuement;
 
     public bool lastWave = false;
 
@@ -65,22 +69,51 @@ public class WavePBS : MonoBehaviour
             waveTimer -= Time.fixedDeltaTime;
         }
 
-        if (waveTimer <= 0 && spawnedEnemies.Count <= 0){
-            if(currWave == 4 && !lastWave){
-                UpgradeWeapon.SetActive(true);
-                playerHealth.maxHealth += 5;
-                playerHealth.currentHealth += 5;
-                currWave++;
-                GenerateWave();
-            }else{
-                currWave++;
-                playerHealth.maxHealth += 5;
-                playerHealth.currentHealth += 5;
-                GenerateWave();
-                UpgradeSkill.SetActive(true);
-                WaveHUD.text = "Wave: " + currWave;
+        if(!InfiniteMode){
+            if (waveTimer <= 0 && spawnedEnemies.Count <= 0){
+                if(currWave == 4 && !lastWave){
+                    UpgradeWeapon.SetActive(true);
+                    playerHealth.maxHealth += 5;
+                    playerHealth.currentHealth += 5;
+                    currWave++;
+                    GenerateWave();
+                }else{
+                    currWave++;
+                    playerHealth.maxHealth += 5;
+                    playerHealth.currentHealth += 5;
+                    GenerateWave();
+                    UpgradeSkill.SetActive(true);
+                    WaveHUD.text = "Wave: " + currWave;
+                }
+            }
+        }else{
+            if (waveTimer <= 0 && spawnedEnemies.Count <= 0){
+                if(UpgradeInt == 4){
+                    UpgradeInt++;
+                    UpgradeInt = 0;
+                    UpgradeWeapon.SetActive(true);
+                    playerHealth.maxHealth += 5;
+                    playerHealth.currentHealth += 5;
+                    currWave++;
+                    GenerateWave();
+                }else if(UpgradeInt == 10){
+                    UpgradeInt = 0;
+                    Imbuement.SetActive(true);
+                    playerHealth.maxHealth += 5;
+                    playerHealth.currentHealth += 5;
+                    currWave++;
+                    GenerateWave();
+                }else{
+                    currWave++;
+                    playerHealth.maxHealth += 5;
+                    playerHealth.currentHealth += 5;
+                    GenerateWave();
+                    UpgradeSkill.SetActive(true);
+                    WaveHUD.text = "Wave: " + currWave;
+                }
             }
         }
+        
     }
 
     public void GenerateWave(){
