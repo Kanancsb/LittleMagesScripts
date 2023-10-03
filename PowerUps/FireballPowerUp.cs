@@ -31,16 +31,20 @@ public class FireballPowerUp : MonoBehaviour
     }
 
     void AchDamageLogic(int n){
-        AchDMG[n]++;
-        if(AchDMG[n] == 10){
-            integration.UnlockAchievement("ACH_BuyDMG");
+        if(integration!=null){
+            AchDMG[n]++;
+            if(AchDMG[n] == 10){
+                integration.UnlockAchievement("ACH_BuyDMG");
+            }
         }
     }
 
     void AchCDLogic(int n){
-        AchCD[n]++;
-        if(AchCD[n] == 10){
-            integration.UnlockAchievement("ACH_BuyCD");
+        if(integration!=null){
+            AchCD[n]++;
+            if(AchCD[n] == 10){
+                integration.UnlockAchievement("ACH_BuyCD");
+            }
         }
     }
 

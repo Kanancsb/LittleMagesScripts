@@ -46,7 +46,7 @@ public class MegaFireball : MonoBehaviour
         extraCD = CastCD * 2.5f;
         extraSpell = Lvls.ExtraSpellLevel;
 
-        if(button.SpellButton == 1){
+        /*if(button.SpellButton == 1){
             Button = "Q";
         }else if(button.SpellButton == 2){
             Button = "W";
@@ -54,7 +54,7 @@ public class MegaFireball : MonoBehaviour
             Button = "E";
         }else if(button.SpellButton == 4){
             Button = "R";
-        }
+        }*/
 
         if(button.SpellButton > 0){
             MFChosen = true;
@@ -66,7 +66,7 @@ public class MegaFireball : MonoBehaviour
     void Update(){
         // Check if the left mouse button is pressed and enough time has passed since the last cast
         if(!Lvls.AquiredAutoShoot){
-            if (Input.GetButtonDown(Button) && Time.time - lastCast >= CastCD){
+            if (Input.GetMouseButtonDown(1) && Time.time - lastCast >= CastCD){
             shootLogic.ShootSpell(projectile);
 
             // Set the time of the last cast to the current time

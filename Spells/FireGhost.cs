@@ -25,7 +25,7 @@ public class FireGhost : MonoBehaviour
     public float LifeSteal;
     public int extraSpell;
 
-    private string Button;
+    private string Button = "Q";
     public WeaponPowerUp button;
     public bool FGChosen = false;
     public bool IChosen = false;
@@ -41,7 +41,7 @@ public class FireGhost : MonoBehaviour
 
         lastCast = CastCD;
 
-        if(button.SpellButton == 1){
+        /*if(button.SpellButton == 1){
             Button = "Q";
         }else if(button.SpellButton == 2){
             Button = "W";
@@ -49,7 +49,7 @@ public class FireGhost : MonoBehaviour
             Button = "E";
         }else if(button.SpellButton == 4){
             Button = "R";
-        }
+        }*/
 
         if(button.SpellButton > 0){
             FGChosen = true;

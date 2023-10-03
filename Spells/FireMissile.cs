@@ -28,7 +28,7 @@ public class FireMissile : MonoBehaviour
     public float LifeSteal;
     public int extraSpell;
 
-    string Button;
+    string Button = "W";
     public WeaponPowerUp button;
     public bool FMChosen = false;
     public bool IChosen = false;
@@ -46,7 +46,7 @@ public class FireMissile : MonoBehaviour
         extraCD = CastCD * 2.5f;
         extraSpell = Lvls.ExtraSpellLevel;
         
-        if(button.SpellButton == 1){
+        /*if(button.SpellButton == 1){
             Button = "Q";
         }else if(button.SpellButton == 2){
             Button = "W";
@@ -54,7 +54,7 @@ public class FireMissile : MonoBehaviour
             Button = "E";
         }else if(button.SpellButton == 4){
             Button = "R";
-        }
+        }*/
 
         if(button.SpellButton > 0){
             FMChosen = true;

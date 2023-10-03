@@ -17,6 +17,7 @@ public class MainMenuLogic : MonoBehaviour
     public GameObject controlsMenu;
     public GameObject BonusOption;
     public GameObject bonusModeMenu;
+    public GameObject monsterBookMenu;
 
     public AudioMixer GeneralVolume;
     public AudioMixer MusicVolume;
@@ -85,6 +86,11 @@ public class MainMenuLogic : MonoBehaviour
         mainMenu.SetActive(false);
         optionsMenu.SetActive(false);
         AKMenu.SetActive(true);
+    }
+
+    public void MonsterBookButton(){
+        mainMenu.SetActive(false);
+        monsterBookMenu.SetActive(true);
     }
 
     public void OptionsButton(){
