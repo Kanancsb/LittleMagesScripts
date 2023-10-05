@@ -6,9 +6,10 @@ using TMPro;
 public class WavePBS : MonoBehaviour
 {
     private PlayerHealth playerHealth;
+    public SteamIntegration integration; 
 
     public bool InfiniteMode = false;
-    private int UpgradeInt = 0;
+    public int[] InfCont;
 
     public TMP_Text WaveHUD;
 
@@ -37,6 +38,7 @@ public class WavePBS : MonoBehaviour
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     void Start(){
+        integration = FindObjectOfType<SteamIntegration>();
         WaveHUD.text = "Wave: " + currWave;
         playerHealth = FindObjectOfType<PlayerHealth>();
         UpgradeSkill.SetActive(false);
@@ -88,22 +90,25 @@ public class WavePBS : MonoBehaviour
             }
         }else{
             if (waveTimer <= 0 && spawnedEnemies.Count <= 0){
-                if(UpgradeInt == 4){
-                    UpgradeInt++;
-                    UpgradeInt = 0;
+                if(InfCont[0] == 4 && InfCont[1] < 5){
+                    InfCont[0]++;
+                    InfCont[1]++;
+                    WaveCost*= 2;
                     UpgradeWeapon.SetActive(true);
                     playerHealth.maxHealth += 5;
                     playerHealth.currentHealth += 5;
                     currWave++;
                     GenerateWave();
-                }else if(UpgradeInt == 10){
-                    UpgradeInt = 0;
+                }else if(InfCont[0] == 10 && InfCont[2] < 7){
+                    InfCont[0] = 0;
+                    InfCont[2]++;
                     Imbuement.SetActive(true);
                     playerHealth.maxHealth += 5;
                     playerHealth.currentHealth += 5;
                     currWave++;
                     GenerateWave();
                 }else{
+                    InfCont[0]++;
                     currWave++;
                     playerHealth.maxHealth += 5;
                     playerHealth.currentHealth += 5;
@@ -111,6 +116,12 @@ public class WavePBS : MonoBehaviour
                     UpgradeSkill.SetActive(true);
                     WaveHUD.text = "Wave: " + currWave;
                 }
+            }
+        }
+
+        if(integration != null){
+            if(currWave == 100){
+                integration.UnlockAchievement("ACH_End");
             }
         }
         

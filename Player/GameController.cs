@@ -66,6 +66,12 @@ public class GameController : MonoBehaviour
                     Destroy(enemySpell);
                 }
 
+                GameObject[] enemySpecialSpells = GameObject.FindGameObjectsWithTag("EnemySpecialSpell");
+                foreach (GameObject enemySpell in enemySpecialSpells)
+                {
+                    Destroy(enemySpell);
+                }
+
             }else if((!PowerUpHUD.activeInHierarchy || !WeaponPowerUpHUD.activeInHierarchy || !ImbuementHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
                 if(Wavepbs01.currWave > 9){
                     Wavepbs01.currWave = 1;
@@ -104,7 +110,7 @@ public class GameController : MonoBehaviour
                 }
             }
         }else{
-            if((PowerUpHUD.activeInHierarchy || WeaponPowerUpHUD.activeInHierarchy || ImbuementHUD.activeInHierarchy) && !Boss[cont].activeInHierarchy){
+            if(PowerUpHUD.activeInHierarchy || WeaponPowerUpHUD.activeInHierarchy || ImbuementHUD.activeInHierarchy){
                 // Set the cursor visibility and lock state
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;

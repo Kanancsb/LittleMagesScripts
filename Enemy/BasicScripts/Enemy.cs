@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private PlayerKnowledgeController Lvls;
+    public WavePBS InfMode;
 
     public GameObject FloatingTextPrefab;
     public GameObject FloatingTextPrefabCrit;
@@ -25,6 +26,13 @@ public class Enemy : MonoBehaviour
     public bool SpawnType = true;
 
     void Start(){
+        InfMode = FindObjectOfType<WavePBS>();
+        if(InfMode != null){
+            if(InfMode.InfiniteMode){
+                health += InfMode.currWave;
+            }
+        }
+        
         Lvls = FindObjectOfType<PlayerKnowledgeController>();
         knowledge = FindObjectOfType<PlayerKnowledge>();
         wavePBS = FindObjectOfType<WavePBS>();

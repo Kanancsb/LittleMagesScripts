@@ -6,6 +6,7 @@ public class ShufflePowers : MonoBehaviour
 {
     public GameController gameController;
 
+    public GameObject PowerUpHUD;
     public GameObject RerollHUD;
 
     public GameObject[] PowerUps;
@@ -65,24 +66,30 @@ public class ShufflePowers : MonoBehaviour
         // Create a copy of the power-ups array
         List<GameObject> powerUpsCopy = new List<GameObject>(PowerUps);
 
-        for (int i = 0; i < powerUpCount; i++){
-            int randomIndex = Random.Range(0, powerUpsCopy.Count);
-            
-            GameObject powerUp = powerUpsCopy[randomIndex];
+        if(powerUpsCopy.Count > 0){
+            for (int i = 0; i < powerUpCount; i++){
+                int randomIndex = Random.Range(0, powerUpsCopy.Count);
+                
+                GameObject powerUp = powerUpsCopy[randomIndex];
 
-            if (powerUp == null){
-                if(powerUpCount < 20){
-                    powerUpCount++;
+                if (powerUp == null){
+                    if(powerUpCount < 20){
+                        powerUpCount++;
+                    }
+                    continue;
+                }else{
+                    powerUp.SetActive(true);
+                    activePowerUps.Add(powerUp);
+
+                    // Remove the power-up from the copy to avoid duplicates
+                    powerUpsCopy.RemoveAt(randomIndex);
                 }
-                continue;
-            }else{
-                powerUp.SetActive(true);
-                activePowerUps.Add(powerUp);
-
-                // Remove the power-up from the copy to avoid duplicates
-                powerUpsCopy.RemoveAt(randomIndex);
             }
+        }else{
+            PowerUpHUD.SetActive(false);
         }
+
+        
     }
 
     T[] ExtendArray<T>(T[] array, T[] newElements){

@@ -77,6 +77,13 @@ public class MainMenuLogic : MonoBehaviour
         SceneManager.LoadScene("InfiniteMode-EN-US");
     }
 
+    public void StartFireballMode(){
+        loading.SetActive(true);
+        mainMenu.SetActive(false);
+        StartSound.Play();
+        SceneManager.LoadScene("FireballMode-EN-US");
+    }
+
     public void BonusModeMenu(){
         mainMenu.SetActive(false);
         bonusModeMenu.SetActive(true);
