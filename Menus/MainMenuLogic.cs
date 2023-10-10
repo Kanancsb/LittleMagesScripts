@@ -18,6 +18,7 @@ public class MainMenuLogic : MonoBehaviour
     public GameObject BonusOption;
     public GameObject bonusModeMenu;
     public GameObject monsterBookMenu;
+    public GameObject Credits;
 
     public AudioMixer GeneralVolume;
     public AudioMixer MusicVolume;
@@ -55,6 +56,11 @@ public class MainMenuLogic : MonoBehaviour
         if(SaveGame.BonusMode){
             BonusOption.SetActive(true);
         }
+    }
+
+    public void CreditsButton(){
+        Credits.SetActive(true);
+        mainMenu.SetActive(false);
     }
 
     public void StartButton(){
@@ -115,6 +121,7 @@ public class MainMenuLogic : MonoBehaviour
         optionsMenu.SetActive(false);
         AKMenu.SetActive(false);
         bonusModeMenu.SetActive(false);
+        Credits.SetActive(false);
     }
 
     public void SetFullScreen(bool isFullscreen){
